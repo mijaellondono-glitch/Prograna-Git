@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QuotiXX - Nueva Cotización</title>
+
+    <link rel="stylesheet" href="CSS/Configuración general.css">
+    <link rel="stylesheet" href="CSS/Encabezado.css">
+    <link rel="stylesheet" href="CSS/Contenido principal.css">
+    <link rel="stylesheet" href="CSS/Títulos.css">
+    <link rel="stylesheet" href="CSS/Formularios.css">
+    <link rel="stylesheet" href="CSS/Botones.css">
+    <link rel="stylesheet" href="CSS/Enlaces.css">
+    <link rel="stylesheet" href="CSS/Secciones.css">
+    <link rel="stylesheet" href="CSS/Pie de página.css">
+    <link rel="stylesheet" href="CSS/Adaptación celular.css">
+
+</head>
+
+
+<body>
+
+    <!-- ENCABEZADO -->
+
+    <header>
+
+        <h1>🛠️ QuotiXX 📐</h1>
+
+        <p>
+            Cotización para Carpintería
+        </p>
+
+    </header>
+
+
+    <!-- CONTENIDO PRINCIPAL -->
+
+    <main>
+
+        <section>
+
+            <h2>
+                📋 Nueva Cotización
+            </h2>
+
+            <p>
+                Ingresa los datos del producto para realizar la cotización.
+            </p>
+
+        </section>
+
+
+        <!-- DATOS DEL CLIENTE -->
+
+        <section>
+
+            <h3>
+                👤 Datos del cliente
+            </h3>
+
+            <form>
+
+                <div>
+
+                    <label for="cliente">
+                        Cliente
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cliente"
+                        name="cliente"
+                        placeholder="Nombre del cliente"
+                    >
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- PRODUCTO -->
+
+        <section>
+
+            <h3>
+                📦 Producto
+            </h3>
+
+            <form>
+
+                <div>
+
+                    <label for="producto">
+                        Producto
+                    </label>
+
+                    <select id="producto" name="producto">
+
+                        <option value="">
+                            Seleccionar producto
+                        </option>
+
+                        <option value="mesa">
+                            Mesa
+                        </option>
+
+                        <option value="puerta">
+                            Puerta
+                        </option>
+
+                        <option value="ventana">
+                            Ventana
+                        </option>
+
+                        <option value="closet">
+                            Clóset
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- DIMENSIONES -->
+
+        <section>
+
+            <h3>
+                📐 Dimensiones
+            </h3>
+
+            <form>
+
+                <div>
+
+                    <label for="largo">
+                        Largo
+                    </label>
+
+                    <input
+                        type="number"
+                        id="largo"
+                        name="largo"
+                        placeholder="Ej: 200"
+                        min="0"
+                    >
+
+                    <small>
+                        Centímetros
+                    </small>
+
+                </div>
+
+
+                <div>
+
+                    <label for="ancho">
+                        Ancho
+                    </label>
+
+                    <input
+                        type="number"
+                        id="ancho"
+                        name="ancho"
+                        placeholder="Ej: 80"
+                        min="0"
+                    >
+
+                    <small>
+                        Centímetros
+                    </small>
+
+                </div>
+
+
+                <div>
+
+                    <label for="alto">
+                        Alto
+                    </label>
+
+                    <input
+                        type="number"
+                        id="alto"
+                        name="alto"
+                        placeholder="Ej: 100"
+                        min="0"
+                    >
+
+                    <small>
+                        Centímetros
+                    </small>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- MATERIAL -->
+
+        <section>
+
+            <h3>
+                🪵 Material
+            </h3>
+
+            <form>
+
+                <div>
+
+                    <label for="material">
+                        Seleccionar material
+                    </label>
+
+                    <select id="material" name="material">
+
+                        <option value="">
+                            Seleccionar material
+                        </option>
+
+                        <option value="roble">
+                            Roble
+                        </option>
+
+                        <option value="mdf">
+                            MDF
+                        </option>
+
+                        <option value="melamina">
+                            Melamina
+                        </option>
+
+                        <option value="pino">
+                            Pino
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- BOTÓN -->
+
+        <section>
+
+            <button type="button">
+                💰 Calcular Cotización
+            </button>
+
+            <a href="inicio.html">
+                ◀️ Volver
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- PIE DE PÁGINA -->
+
+    <footer>
+
+        <p>
+            Versión 1.0 &nbsp; © 2026 QuotiXX
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

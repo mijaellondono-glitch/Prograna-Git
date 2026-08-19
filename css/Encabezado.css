@@ -1,0 +1,20 @@
+header {
+    width: 100%;
+    max-width: 430px;
+    background-color: #1976d2;
+    color: white;
+    text-align: center;
+    padding: 25px 20px 30px;
+    border-radius: 0 0 35px 35px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+header p {
+    font-size: 15px;
+    margin: 0;
+}
