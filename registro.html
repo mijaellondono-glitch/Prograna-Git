@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de cuenta</title>
+
+    <!-- Configuración Base -->
+    <link rel="stylesheet" href="css/Configuración general.css">
+
+    <!-- Estructura y Capas -->
+    <link rel="stylesheet" href="css/Encabezado.css">
+    <link rel="stylesheet" href="css/Contenido principal.css">
+    <link rel="stylesheet" href="css/Secciones.css">
+    <link rel="stylesheet" href="css/Pie de página.css">
+
+    <!-- Componentes e Interfaz -->
+    <link rel="stylesheet" href="css/Títulos.css">
+    <link rel="stylesheet" href="css/Formularios.css">
+    <link rel="stylesheet" href="css/Buscadores.css">
+    <link rel="stylesheet" href="css/Botones.css">
+    <link rel="stylesheet" href="css/Enlaces.css">
+    <link rel="stylesheet" href="css/Menú principal.css">
+    <link rel="stylesheet" href="css/Tarjetas.css">
+    <link rel="stylesheet" href="css/Login.css">
+
+    <!-- Adaptación Móvil -->
+    <link rel="stylesheet" href="css/Adaptación celular.css">
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <header>
+        <h1>🛠️ QuotiXX 📐</h1>
+        <p>Cotización para Carpintería</p>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL (Etiqueta cambiada) -->
+    <main>
+        <h2>Registro de Cuenta</h2>
+        <form action="registro.html" method="POST">
+            <div>
+                <label for="username">Nombre de Usuario:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div>
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit">Registrarse</button>
+        </form>
+    </main>
+</body>
+</html>

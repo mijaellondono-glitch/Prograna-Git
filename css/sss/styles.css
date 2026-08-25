@@ -1,0 +1,231 @@
+/* ==========================================
+   CONFIGURACIÓN GENERAL
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #111111; /* Fondo oscuro exterior */
+    color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ==========================================
+   ENCABEZADO TIPO OLA (HEADER)
+   ========================================== */
+header {
+    width: 100%;
+    max-width: 430px;
+    background-color: #1d6ed8;
+    color: #ffffff;
+    text-align: center;
+    padding: 25px 15px 45px 15px;
+    /* Recorte curvado tipo ola como en tus bocetos */
+    clip-path: ellipse(110% 80% at 20% 20%);
+}
+
+header h1 {
+    font-size: 26px;
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 14px;
+    color: #000000;
+    font-weight: bold;
+}
+
+/* ==========================================
+   CONTENIDO PRINCIPAL
+   ========================================== */
+main {
+    width: 100%;
+    max-width: 430px;
+    background-color: white;
+    padding: 15px 20px 40px;
+    min-height: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ==========================================
+   TÍTULOS Y CÁPSULAS/PÍLDORAS
+   ========================================== */
+main h2 {
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0 15px;
+    color: #000000;
+    background-color: #d9d9d9; /* Píldora gris */
+    padding: 10px 20px;
+    border-radius: 20px;
+    width: 85%;
+    font-weight: bold;
+}
+
+main section > p {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* ==========================================
+   FORMULARIOS Y CASILLAS VERDE MENTA
+   ========================================== */
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;
+    margin-left: 5px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #000000; /* Bordes negros delgados */
+    border-radius: 20px; /* Bordes redondeados */
+    background-color: #9bf396; /* Verde menta del boceto */
+    color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-width: 2px;
+}
+
+/* ==========================================
+   BOTONES
+   ========================================== */
+button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #1d6ed8;
+    color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* ==========================================
+   MENÚ PRINCIPAL (BOTONES GRISES)
+   ========================================== */
+nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+nav a {
+    display: block;
+    width: 85%;
+    padding: 12px;
+    background-color: #d9d9d9;
+    color: #000000;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #000000;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    background-color: #cccccc;
+    transform: scale(1.02);
+}
+
+/* ==========================================
+   TARJETAS (HISTORIAL/CLIENTES)
+   ========================================== */
+article {
+    background-color: #9bf396; /* Fondo verde para ítems */
+    border: 1px solid #000000;
+    border-radius: 30px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* ==========================================
+   ENLACES Y PIE DE PÁGINA
+   ========================================== */
+a {
+    color: #1d6ed8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    width: 100%;
+    max-width: 430px;
+    background-color: #1d6ed8;
+    text-align: center;
+    padding: 8px;
+    color: #000000;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ==========================================
+   ADAPTACIÓN A CELULAR
+   ========================================== */
+@media (max-width: 500px) {
+    body {
+        background-color: #ffffff;
+    }
+
+    main {
+        max-width: 100%;
+        min-height: auto;
+    }
+
+    header, footer {
+        max-width: 100%;
+    }
+}

@@ -7,16 +7,27 @@
 
     <title>QuotiXX - Inicio de Sesión</title>
 
-    <link rel="stylesheet" href="CSS/Configuración general.css">
-<link rel="stylesheet" href="CSS/Encabezado.css">
-<link rel="stylesheet" href="CSS/Contenido principal.css">
-<link rel="stylesheet" href="CSS/Títulos.css">
-<link rel="stylesheet" href="CSS/Formularios.css">
-<link rel="stylesheet" href="CSS/Botones.css">
-<link rel="stylesheet" href="CSS/Enlaces.css">
-<link rel="stylesheet" href="CSS/Pie de página.css">
-<link rel="stylesheet" href="CSS/Login.css">
-<link rel="stylesheet" href="CSS/Adaptación celular.css">
+<!-- Configuración Base -->
+<link rel="stylesheet" href="css/Configuración general.css">
+
+<!-- Estructura y Capas -->
+<link rel="stylesheet" href="css/Encabezado.css">
+<link rel="stylesheet" href="css/Contenido principal.css">
+<link rel="stylesheet" href="css/Secciones.css">
+<link rel="stylesheet" href="css/Pie de página.css">
+
+<!-- Componentes e Interfaz -->
+<link rel="stylesheet" href="css/Títulos.css">
+<link rel="stylesheet" href="css/Formularios.css">
+<link rel="stylesheet" href="css/Buscadores.css">
+<link rel="stylesheet" href="css/Botones.css">
+<link rel="stylesheet" href="css/Enlaces.css">
+<link rel="stylesheet" href="css/Menú principal.css">
+<link rel="stylesheet" href="css/Tarjetas.css">
+<link rel="stylesheet" href="css/Login.css">
+
+<!-- Adaptación Móvil (Debe ir al final para sobrescribir los estilos anteriores) -->
+<link rel="stylesheet" href="css/Adaptación celular.css">
 
 </head>
 
@@ -44,7 +55,7 @@
         <section>
 
             <h2>
-                Bienvenido 🪵
+                Bienvenido 😊
             </h2>
 
             <p>
@@ -56,7 +67,7 @@
 
         <!-- FORMULARIO DE LOGIN -->
 
-        <form>
+        <form action="inicio.html" method="POST">
 
             <!-- USUARIO -->
 
@@ -100,52 +111,55 @@
 
             <div>
 
-                <a href="#">
+                <a href="Olvidaste_tu_contraseña.html">
                     ¿Olvidaste tu contraseña?
                 </a>
 
             </div>
 
 
-            <!-- BOTÓN INICIAR SESIÓN -->
+<br>
+
+
+            <!-- BOTÓN DE INICIO DE SESIÓN -->
 
             <div>
+                <button type="submit">Iniciar Sesión</button>
+            </div>
+           
+            
+            <!-- registrar cuenta -->
 
-                <button type="submit">
-                    ➜ Iniciar Sesión
-                </button>
+        <from>
+            <div>
+
+                <p>
+                    ¿No tienes una cuenta? <a href="registro.html">Regístrate</a>
+                </p>
 
             </div>
 
         </form>
 
 
-        <!-- OPCIÓN INVITADO -->
-
-        <section>
-
-            <p>
-                ───────── o continúa con ─────────
-            </p>
-
-            <button type="button">
-                👤 Invitado
-            </button>
+        
 
         </section>
 
-
+<br>
+<br>
+<br>
         <!-- MENSAJE -->
 
         <section>
 
             <div>
-                🧰
+                <p style="text-align: center;">
+                    Construimos tus ideas en madera 🧰
+                </p>
             </div>
 
-            <p>
-                Construimos tus ideas en madera
-            </p>
+    
 
         </section>
 
