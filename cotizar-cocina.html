@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización de Cocina - Quotixx</title>
+
+    <!-- Configuración Base -->
+    <link rel="stylesheet" href="css/Configuración general.css">
+
+    <!-- Estructura y Capas -->
+    <link rel="stylesheet" href="css/Encabezado.css">
+    <link rel="stylesheet" href="css/Contenido principal.css">
+    <link rel="stylesheet" href="css/Secciones.css">
+    <link rel="stylesheet" href="css/Pie de página.css">
+
+    <!-- Componentes e Interfaz -->
+    <link rel="stylesheet" href="css/Títulos.css">
+    <link rel="stylesheet" href="css/Formularios.css">
+    <link rel="stylesheet" href="css/Buscadores.css">
+    <link rel="stylesheet" href="css/Botones.css">
+    <link rel="stylesheet" href="css/Enlaces.css">
+    <link rel="stylesheet" href="css/Menú principal.css">
+    <link rel="stylesheet" href="css/Tarjetas.css">
+    <link rel="stylesheet" href="css/Login.css">
+
+    <!-- Adaptación Móvil -->
+    <link rel="stylesheet" href="css/Adaptación celular.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>🛠️ Quotixx 📐</h1>
+        <p>Cotización para Carpintería</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Cotización de Cocina Integral</h2>
+            <p>
+                Dinos qué partes de la cocina deseas cotizar. Puedes llenar solo la parte inferior, solo los gabinetes superiores, o ambos según lo requieras.
+            </p>
+        </section>
+
+        <br><br>
+
+        <form action="/cotizar-cocina" method="POST">
+
+            <!-- CONFIGURACIÓN GENERAL DE LA COCINA -->
+            <div>
+                <label for="diseno">🍳 Distribución de la cocina</label>
+                <select id="diseno" name="diseno" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="lineal">Lineal (Una sola pared)</option>
+                    <option value="en_l">En L (Dos paredes)</option>
+                    <option value="en_u">En U (Tres paredes)</option>
+                </select>
+            </div>
+               
+            <br>
+
+            <div>
+                <label for="material">🪵 Tipo de madera / Material</label>
+                <select id="material" name="material" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="melamina_rh">Melamina RH (Resistente a la Humedad)</option>
+                    <option value="mdf_lacado">MDF Lacado / Poliuretano</option>
+                    <option value="triplay">Triplay de Pino</option>
+                    <option value="madera_cedro">Madera Cedro / Sólida</option>
+                </select>
+            </div>
+
+            <br>
+
+            <div>
+                <label for="color">🎨 Color</label>
+                <select id="color" name="color" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="blanco">Blanco</option>
+                    <option value="miel">Miel</option>
+                    <option value="caramelo">Caramelo</option>
+                    <option value="wengue">Negro Wengué</option>
+                </select>
+            </div>
+
+            <br><hr><br>
+
+            <!-- SECCIÓN 1: MUEBLE INFERIOR (PARTE DE ABAJO) -->
+            <fieldset>
+                <legend>👇 <strong>1. Mueble Inferior (Parte de Abajo)</strong></legend>
+                <p><i>Llenar solo si deseas cotizar el mueble base.</i></p>
+                <br>
+
+                <div>   
+                    <label for="largoBajoPared1">📏 Largo Pared 1 / Tramo Principal (en cm)</label>
+                    <input 
+                        type="number" 
+                        id="largoBajoPared1" 
+                        name="largoBajoPared1" 
+                        placeholder="Ej: 250"
+                        min="0"
+                        max="1000">
+                </div>
+
+                <br>
+
+                <div>   
+                    <label for="largoBajoPared2">📏 Largo Pared 2 (Solo si es en L o U) (en cm)</label>
+                    <input 
+                        type="number" 
+                        id="largoBajoPared2" 
+                        name="largoBajoPared2" 
+                        placeholder="Ej: 150 (Dejar en blanco si es lineal)"
+                        min="0"
+                        max="1000">
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="meson">🍳 Tipo de mesón / Cubierta</label>
+                    <select id="meson" name="meson">
+                        <option value="sin_meson">Sin mesón (Solo el mueble)</option>
+                        <option value="granito">Granito Natural</option>
+                        <option value="cuarzo">Cuarzo Silestone</option>
+                        <option value="acero">Acero Inoxidable</option>
+                        <option value="formica">Laminado / Fórmica</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <br><hr><br>
+
+            <!-- SECCIÓN 2: GABINETES SUPERIORES (PARTE DE ARRIBA) -->
+            <fieldset>
+                <legend>☝️ <strong>2. Gabinetes Superiores (Parte de Arriba)</strong></legend>
+                <p><i>Llenar solo si deseas cotizar los muebles aéreos.</i></p>
+                <br>
+
+                <div>   
+                    <label for="largoAltoPared1">📏 Largo Pared 1 / Tramo Principal (en cm)</label>
+                    <input 
+                        type="number" 
+                        id="largoAltoPared1" 
+                        name="largoAltoPared1" 
+                        placeholder="Ej: 250"
+                        min="0"
+                        max="1000">
+                </div>
+
+                <br>
+
+                <div>   
+                    <label for="largoAltoPared2">📏 Largo Pared 2 (Solo si es en L o U) (en cm)</label>
+                    <input 
+                        type="number" 
+                        id="largoAltoPared2" 
+                        name="largoAltoPared2" 
+                        placeholder="Ej: 150 (Dejar en blanco si es lineal)"
+                        min="0"
+                        max="1000">
+                </div>
+
+                <br>
+
+                <div>   
+                    <label for="alturaGabinete">📐 Altura del gabinete aéreo (en cm)</label>
+                    <input 
+                        type="number" 
+                        id="alturaGabinete" 
+                        name="alturaGabinete" 
+                        placeholder="Ej: 60 o 70 cm estándar"
+                        min="0"
+                        max="150">
+                </div>
+            </fieldset>
+
+            <br><br>
+
+            <section>
+                <button type="submit">💰 Cotizar Cocina</button>
+            </section>
+
+        </form> 
+
+        <br>
+
+        <section>
+            <a href="nueva-cotizacion.html">◀️ Volver</a>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
+    </footer>
+    
+</body>
+</html>

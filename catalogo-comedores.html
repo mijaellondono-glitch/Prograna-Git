@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotixx - Catálogo de Comedores</title>
+
+    <!-- Configuración Base -->
+    <link rel="stylesheet" href="css/Configuración general.css">
+
+    <!-- Estructura y Capas -->
+    <link rel="stylesheet" href="css/Encabezado.css">
+    <link rel="stylesheet" href="css/Contenido principal.css">
+    <link rel="stylesheet" href="css/Secciones.css">
+    <link rel="stylesheet" href="css/Pie de página.css">
+
+    <!-- Componentes e Interfaz -->
+    <link rel="stylesheet" href="css/Títulos.css">
+    <link rel="stylesheet" href="css/Formularios.css">
+    <link rel="stylesheet" href="css/Buscadores.css">
+    <link rel="stylesheet" href="css/Botones.css">
+    <link rel="stylesheet" href="css/Enlaces.css">
+    <link rel="stylesheet" href="css/Menú principal.css">
+    <link rel="stylesheet" href="css/Tarjetas.css">
+    <link rel="stylesheet" href="css/Login.css">
+
+    <!-- Adaptación Móvil -->
+    <link rel="stylesheet" href="css/Adaptación celular.css">
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+    <header>
+        <h1>🛠️ Quotixx 📐</h1>
+        <p>Cotización para Carpintería</p>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+
+        <!-- TÍTULO DE LA SECCIÓN -->
+        <section>
+            <h2>🍽️ Catálogo de Comedores</h2>
+            <p>Lista de mesas, comedores y juegos de comedor registrados en el sistema.</p>
+        </section>
+
+        <br>
+
+        <!-- BOTÓN PARA AGREGAR NUEVO COMEDOR -->
+        <section>
+            <a href="agregar-al-catalogo.html">
+                <button type="button">➕ Agregar Nuevo Comedor</button>
+            </a>
+        </section>
+
+        <br><br>
+
+        <!-- BUSCADOR -->
+        <section>
+            <label for="buscarComedor">🔍 Buscar comedor</label>
+            <input
+                type="search"
+                id="buscarComedor"
+                name="buscarComedor"
+                placeholder="Buscar en comedores..."
+            >
+        </section>
+
+        <br><br>
+
+        <!-- CONTENEDOR DE COMEDORES REGISTRADOS (VACÍO) -->
+        <section id="listaComedores">
+            <!-- Aquí se cargarán dinámicamente los comedores que agregues -->
+        </section>
+
+        <br><br>
+
+        <!-- NAVEGACIÓN DE REGRESO -->
+        <section>
+            <a href="catalogo.html">◀️ Volver a Categorías</a>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
+    </footer>
+
+</body>
+
+</html>

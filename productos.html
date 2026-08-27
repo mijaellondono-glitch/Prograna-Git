@@ -1,196 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Quotixx - Productos</title>
-
-<!-- Configuración Base -->
-<link rel="stylesheet" href="css/Configuración general.css">
-
-<!-- Estructura y Capas -->
-<link rel="stylesheet" href="css/Encabezado.css">
-<link rel="stylesheet" href="css/Contenido principal.css">
-<link rel="stylesheet" href="css/Secciones.css">
-<link rel="stylesheet" href="css/Pie de página.css">
-
-<!-- Componentes e Interfaz -->
-<link rel="stylesheet" href="css/Títulos.css">
-<link rel="stylesheet" href="css/Formularios.css">
-<link rel="stylesheet" href="css/Buscadores.css">
-<link rel="stylesheet" href="css/Botones.css">
-<link rel="stylesheet" href="css/Enlaces.css">
-<link rel="stylesheet" href="css/Menú principal.css">
-<link rel="stylesheet" href="css/Tarjetas.css">
-<link rel="stylesheet" href="css/Login.css">
-
-<!-- Adaptación Móvil (Debe ir al final para sobrescribir los estilos anteriores) -->
-<link rel="stylesheet" href="css/Adaptación celular.css">
-
+    <title>Quotixx - Catálogo</title>
+    <link rel="stylesheet" href="css/Configuración general.css">
+    <link rel="stylesheet" href="css/Encabezado.css">
+    <link rel="stylesheet" href="css/Contenido principal.css">
+    <link rel="stylesheet" href="css/Secciones.css">
+    <link rel="stylesheet" href="css/Botones.css">
+    <link rel="stylesheet" href="css/Pie de página.css">
+    <link rel="stylesheet" href="css/Adaptación celular.css">
 </head>
-
 <body>
 
-    <!-- ENCABEZADO -->
-
     <header>
-
         <h1>🛠️ Quotixx 📐</h1>
-
-        <p>
-            Cotización para Carpintería
-        </p>
-
+        <p>Cotización para Carpintería</p>
     </header>
 
-
-    <!-- CONTENIDO PRINCIPAL -->
-
     <main>
-
-        <!-- TÍTULO DE LA PANTALLA -->
-
-        <section>
-
-            <h2>
-                📦 Productos
-            </h2>
-
+        <section style="text-align: center;">
+            <h2>📦 Catálogo de Productos</h2>
+            <p>Selecciona una categoría para ver los trabajos realizados:</p>
         </section>
 
+        <br><br>
 
-        <!-- BUSCADOR -->
-
-        <section>
-
-            <label for="buscarProducto">
-                🔍 Buscar producto
-            </label>
-
-            <input
-                type="search"
-                id="buscarProducto"
-                name="buscarProducto"
-                placeholder="Buscar producto..."
-            >
-
+        <!-- Botones de navegación a cada pantalla específica -->
+        <section style="text-align: center;">
+            <div>
+                <a href="catalogo-puertas.html">
+                    <button type="button">🚪 Ver Puertas</button>
+                </a>
+            </div>
+            <br>
+            <div>
+                <a href="catalogo-closets.html">
+                    <button type="button">🗄️ Ver Closets</button>
+                </a>
+            </div>
+            <br>
+            <div>
+                <a href="catalogo-cocinas.html">
+                    <button type="button">🍳 Ver Cocinas</button>
+                </a>
+            </div>
+            <br>
+            <div>
+                <a href="catalogo-camas.html">
+                    <button type="button">🛏️ Ver Camas</button>
+                </a>
+            </div>
+            <br>
+            <div>
+                <a href="catalogo-comedores.html">
+                    <button type="button">🍽️ Ver Comedores</button>
+                </a>
+            </div>
         </section>
 
-
-        <!-- LISTA DE PRODUCTOS -->
-
-        <section>
-
-            <!-- PRODUCTO 1 -->
-
-            <article>
-
-                <h3>
-                    🪑 Mesa
-                </h3>
-
-                <p>
-                    Mesa de madera personalizada.
-                </p>
-
-                <p>
-                    💰 Precio base: $600.000
-                </p>
-
-            </article>
-
-
-            <!-- PRODUCTO 2 -->
-
-            <article>
-
-                <h3>
-                    🚪 Puerta
-                </h3>
-
-                <p>
-                    Puerta de madera para interiores.
-                </p>
-
-                <p>
-                    💰 Precio base: $850.000
-                </p>
-
-            </article>
-
-
-            <!-- PRODUCTO 3 -->
-
-            <article>
-
-                <h3>
-                    🪟 Ventana
-                </h3>
-
-                <p>
-                    Ventana fabricada en madera.
-                </p>
-
-                <p>
-                    💰 Precio base: $500.000
-                </p>
-
-            </article>
-
-
-            <!-- PRODUCTO 4 -->
-
-            <article>
-
-                <h3>
-                    🛏️ Clóset
-                </h3>
-
-                <p>
-                    Clóset personalizado según medidas.
-                </p>
-
-                <p>
-                    💰 Precio base: $1.200.000
-                </p>
-
-            </article>
-
-        </section>
-
-
-        <!-- BOTONES -->
+        <br><br>
 
         <section>
-
-            <button type="button">
-                ➕ Agregar Producto
-            </button>
-
-            <a href="inicio.html">
-                ◀️ Volver
-            </a>
-
+            <a href="inicio.html">◀️ Volver al Inicio</a>
         </section>
-
     </main>
 
-
-    <!-- PIE DE PÁGINA -->
-
     <footer>
-
-        <p>
-            Versión 1.0 &nbsp; © 2026 Quotixx
-        </p>
-
+        <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
     </footer>
 
-
 </body>
-
 </html>
