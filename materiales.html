@@ -2,194 +2,1010 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotixx - Catálogo Completo de Materiales</title>
 
-    <title>Quotixx - Materiales</title>
+    <!-- Configuración Base -->
+    <link rel="stylesheet" href="css/Configuración general.css">
 
-<!-- Configuración Base -->
-<link rel="stylesheet" href="css/Configuración general.css">
+    <!-- Estructura y Capas -->
+    <link rel="stylesheet" href="css/Encabezado.css">
+    <link rel="stylesheet" href="css/Contenido principal.css">
+    <link rel="stylesheet" href="css/Secciones.css">
+    <link rel="stylesheet" href="css/Pie de página.css">
 
-<!-- Estructura y Capas -->
-<link rel="stylesheet" href="css/Encabezado.css">
-<link rel="stylesheet" href="css/Contenido principal.css">
-<link rel="stylesheet" href="css/Secciones.css">
-<link rel="stylesheet" href="css/Pie de página.css">
+    <!-- Componentes e Interfaz -->
+    <link rel="stylesheet" href="css/Títulos.css">
+    <link rel="stylesheet" href="css/Formularios.css">
+    <link rel="stylesheet" href="css/Buscadores.css">
+    <link rel="stylesheet" href="css/Botones.css">
+    <link rel="stylesheet" href="css/Enlaces.css">
+    <link rel="stylesheet" href="css/Menú principal.css">
+    <link rel="stylesheet" href="css/Tarjetas.css">
+    <link rel="stylesheet" href="css/Login.css">
 
-<!-- Componentes e Interfaz -->
-<link rel="stylesheet" href="css/Títulos.css">
-<link rel="stylesheet" href="css/Formularios.css">
-<link rel="stylesheet" href="css/Buscadores.css">
-<link rel="stylesheet" href="css/Botones.css">
-<link rel="stylesheet" href="css/Enlaces.css">
-<link rel="stylesheet" href="css/Menú principal.css">
-<link rel="stylesheet" href="css/Tarjetas.css">
-<link rel="stylesheet" href="css/Login.css">
+    <!-- Adaptación Móvil -->
+    <link rel="stylesheet" href="css/Adaptación celular.css">
 
-<!-- Adaptación Móvil (Debe ir al final para sobrescribir los estilos anteriores) -->
-<link rel="stylesheet" href="css/Adaptación celular.css">
-
+    <style>
+        /* Estilos complementarios para la experiencia del buscador y resaltado */
+        .highlight {
+            background-color: #ffe066;
+            font-weight: bold;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        .item-hidden {
+            display: none !important;
+        }
+        .details-hidden {
+            display: none !important;
+        }
+        .counter-badge {
+            font-size: 0.85em;
+            background: #e0e0e0;
+            color: #333;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+        }
+        #noResults {
+            display: none;
+            padding: 15px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
 
     <!-- ENCABEZADO -->
-
     <header>
-
         <h1>🛠️ Quotixx 📐</h1>
-
-        <p>
-            Cotización para Carpintería
-        </p>
-
+        <p>Cotización para Carpintería y Mesones</p>
     </header>
 
-
     <!-- CONTENIDO PRINCIPAL -->
-
     <main>
 
-        <!-- TÍTULO DE LA PANTALLA -->
-
+        <!-- TÍTULO DE LA SECCIÓN -->
         <section>
-
-            <h2>
-                🪵 Materiales
-            </h2>
-
+            <h2>🪵 Catálogo Completo de Materiales, Insumos y Mesones</h2>
+            <p>Precios base de materias primas y superficies utilizados para el cálculo automático de presupuestos.</p>
         </section>
 
+        <br>
 
-        <!-- BUSCADOR -->
-
+        <!-- BOTÓN PARA AGREGAR NUEVO MATERIAL -->
         <section>
-
-            <label for="buscarMaterial">
-                🔍 Buscar material
-            </label>
-
-            <input
-                type="search"
-                id="buscarMaterial"
-                name="buscarMaterial"
-                placeholder="Buscar material..."
-            >
-
-        </section>
-
-
-        <!-- LISTA DE MATERIALES -->
-
-        <section>
-
-            <!-- MATERIAL 1 -->
-
-            <article>
-
-                <h3>
-                    🪵 Roble
-                </h3>
-
-                <p>
-                    Madera natural de roble.
-                </p>
-
-                <p>
-                    💰 Precio por m²: $85.000
-                </p>
-
-            </article>
-
-
-            <!-- MATERIAL 2 -->
-
-            <article>
-
-                <h3>
-                    🪵 MDF
-                </h3>
-
-                <p>
-                    Tablero de fibra de densidad media.
-                </p>
-
-                <p>
-                    💰 Precio por m²: $55.000
-                </p>
-
-            </article>
-
-
-            <!-- MATERIAL 3 -->
-
-            <article>
-
-                <h3>
-                    🪵 Melamina
-                </h3>
-
-                <p>
-                    Tablero recubierto con melamina.
-                </p>
-
-                <p>
-                    💰 Precio por m²: $65.000
-                </p>
-
-            </article>
-
-
-            <!-- MATERIAL 4 -->
-
-            <article>
-
-                <h3>
-                    🪵 Pino
-                </h3>
-
-                <p>
-                    Madera natural de pino.
-                </p>
-
-                <p>
-                    💰 Precio por m²: $60.000
-                </p>
-
-            </article>
-
-        </section>
-
-
-        <!-- BOTONES -->
-
-        <section>
-
-            <button type="button">
-                ➕ Agregar Material
-            </button>
-
-            <a href="inicio.html">
-                ◀️ Volver
+            <a href="agregar-material.html">
+                <button type="button">➕ Agregar Nuevo Material</button>
             </a>
+        </section>
 
+        <br><br>
+
+        <!-- BUSCADOR CON FUNCIONALIDAD EN TIEMPO REAL -->
+        <section>
+            <label for="buscarMaterial">🔍 Buscar material, insumo o mesón</label>
+            <input type="search" id="buscarMaterial" name="buscarMaterial" placeholder="Ej: Mármol, Cuarzo, Granito, MDF 15mm, Corredera, Colbón..." onkeyup="filtrarMateriales()">
+            <div id="noResults">⚠️ No se encontraron materiales que coincidan con la búsqueda.</div>
+        </section>
+
+        <br><br>
+
+        <!-- LISTA DE MATERIALES ORGANIZADA POR CATEGORÍAS -->
+        <section id="listaMateriales">
+
+            <!-- 1. MDF, TABLEROS Y LÁMINAS -->
+            <details class="categoria-group">
+                <summary><strong>1. MDF, Tableros y Láminas</strong> <span class="counter-badge">25</span></summary>
+                <br>
+                <article class="material-item">MDF 2.5 mm (1.83 × 2.44 m) — <strong>$38.000</strong></article>
+                <article class="material-item">MDF 4 mm (1.83 × 2.44 m) — <strong>$48.000</strong></article>
+                <article class="material-item">MDF 5.5 mm (1.83 × 2.44 m) — <strong>$58.000</strong></article>
+                <article class="material-item">MDF 9 mm (1.83 × 2.44 m) — <strong>$80.900</strong></article>
+                <article class="material-item">MDF 12 mm (1.83 × 2.44 m) — <strong>$114.900</strong></article>
+                <article class="material-item">MDF 15 mm (1.83 × 2.44 m) — <strong>$142.000</strong></article>
+                <article class="material-item">MDF 18 mm (1.83 × 2.44 m) — <strong>$169.900</strong></article>
+                <article class="material-item">MDF RH 9 mm (1.83 × 2.44 m) — <strong>$96.000</strong></article>
+                <article class="material-item">MDF RH 12 mm (1.83 × 2.44 m) — <strong>$134.900</strong></article>
+                <article class="material-item">MDF RH 15 mm (1.83 × 2.44 m) — <strong>$165.000</strong></article>
+                <article class="material-item">MDF RH 18 mm (1.83 × 2.44 m) — <strong>$205.000</strong></article>
+                <article class="material-item">MDF ranurado blanco 18 mm (1.52 × 2.44 m) — <strong>$229.900</strong></article>
+                <article class="material-item">MDF una cara cedro 2.8 mm — <strong>$54.900</strong></article>
+                <article class="material-item">MDF una cara wengué 2.8 mm — <strong>$54.900</strong></article>
+                <article class="material-item">MDF una cara blanco 2.8 mm — <strong>$54.900</strong></article>
+                <article class="material-item">MDF blanco brillante 18 mm — <strong>$299.900</strong></article>
+                <article class="material-item">MDF marmoleado 18 mm — <strong>$299.900</strong></article>
+                <article class="material-item">MDF escolar 20 × 20 cm, 2.5 mm — <strong>$2.900</strong></article>
+                <article class="material-item">MDF escolar 40 × 40 cm, 2.5 mm — <strong>$4.900</strong></article>
+                <article class="material-item">MDF escolar 40 × 40 cm, 9 mm — <strong>$6.900</strong></article>
+                <article class="material-item">MDF escolar 40 × 40 cm, 15 mm — <strong>$8.900</strong></article>
+                <article class="material-item">MDF escolar 40 × 40 cm, 18 mm — <strong>$11.900</strong></article>
+                <article class="material-item">Tablero alistonado de pino 18 mm (30 × 150 cm) — <strong>$89.900</strong></article>
+                <article class="material-item">Tablero alistonado de pino 18 mm (40 × 100 cm) — <strong>$79.900</strong></article>
+                <article class="material-item">Tablero alistonado Clear 18 mm (1.22 × 2.44 m) — <strong>$389.900</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 2. MELAMINA, MDP Y AGLOMERADOS -->
+            <details class="categoria-group">
+                <summary><strong>2. Melamina, MDP y Aglomerados</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">MDP blanco estándar 15 mm — <strong>$195.000</strong></article>
+                <article class="material-item">MDP blanco RH 15 mm — <strong>$219.900</strong></article>
+                <article class="material-item">MDP blanco estándar 18 mm — <strong>$260.000</strong></article>
+                <article class="material-item">MDP blanco RH 18 mm — <strong>$299.900</strong></article>
+                <article class="material-item">MDP roble claro 15 mm — <strong>$245.900</strong></article>
+                <article class="material-item">MDP roble oscuro 15 mm — <strong>$245.900</strong></article>
+                <article class="material-item">MDP cedro 15 mm — <strong>$245.900</strong></article>
+                <article class="material-item">MDP wengué 15 mm — <strong>$245.900</strong></article>
+                <article class="material-item">MDP teka 15 mm — <strong>$245.900</strong></article>
+                <article class="material-item">MDP nogal 15 mm — <strong>$255.000</strong></article>
+                <article class="material-item">MDP gris claro 15 mm — <strong>$225.000</strong></article>
+                <article class="material-item">MDP gris oscuro 15 mm — <strong>$225.000</strong></article>
+                <article class="material-item">MDP negro 15 mm — <strong>$230.000</strong></article>
+                <article class="material-item">MDP Okusai 15 mm — <strong>$245.900</strong></article>
+                <article class="material-item">MDP roble blanco RH 15 mm — <strong>$249.900</strong></article>
+                <article class="material-item">Tablero poliuretano blanco RH 18 mm — <strong>$519.900</strong></article>
+                <article class="material-item">Aglomerado crudo 9 mm — <strong>$70.000</strong></article>
+                <article class="material-item">Aglomerado crudo 15 mm — <strong>$110.000</strong></article>
+                <article class="material-item">Aglomerado crudo 18 mm — <strong>$135.000</strong></article>
+                <article class="material-item">Aglomerado enchapado blanco 15 mm — <strong>$190.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 3. TRIPLEX, OSB Y OTROS TABLEROS -->
+            <details class="categoria-group">
+                <summary><strong>3. Triplex, OSB y otros Tableros</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">Triplex 3 mm — <strong>$65.000</strong></article>
+                <article class="material-item">Triplex 4 mm — <strong>$78.000</strong></article>
+                <article class="material-item">Triplex 5.5 mm — <strong>$92.000</strong></article>
+                <article class="material-item">Triplex 9 mm — <strong>$125.000</strong></article>
+                <article class="material-item">Triplex 12 mm — <strong>$155.000</strong></article>
+                <article class="material-item">Triplex 15 mm — <strong>$180.000</strong></article>
+                <article class="material-item">Triplex 18 mm — <strong>$220.000</strong></article>
+                <article class="material-item">Triplex fenólico 9 mm — <strong>$150.000</strong></article>
+                <article class="material-item">Triplex fenólico 12 mm — <strong>$190.000</strong></article>
+                <article class="material-item">Triplex fenólico 15 mm — <strong>$230.000</strong></article>
+                <article class="material-item">Triplex fenólico 18 mm — <strong>$270.000</strong></article>
+                <article class="material-item">Triplex blanco 18 mm (1.22 × 2.44 m) — <strong>$183.900</strong></article>
+                <article class="material-item">Triplex roble 18 mm (1.22 × 2.44 m) — <strong>$729.900</strong></article>
+                <article class="material-item">OSB 9 mm — <strong>$85.000</strong></article>
+                <article class="material-item">OSB 11 mm — <strong>$100.000</strong></article>
+                <article class="material-item">OSB 15 mm — <strong>$135.000</strong></article>
+                <article class="material-item">OSB 18 mm — <strong>$160.000</strong></article>
+                <article class="material-item">Tablex duro 3 mm — <strong>$45.000</strong></article>
+                <article class="material-item">Tablex duro 5 mm — <strong>$60.000</strong></article>
+                <article class="material-item">Fondo de madera Tauarí 6 mm — <strong>$219.900</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 4. MADERAS NATURALES -->
+            <details class="categoria-group">
+                <summary><strong>4. Maderas Naturales</strong> <span class="counter-badge">35</span></summary>
+                <br>
+                <article class="material-item">Tablón de pino — <strong>$45.000</strong></article>
+                <article class="material-item">Tablón de pino inmunizado — <strong>$55.000</strong></article>
+                <article class="material-item">Tablón de pino cepillado — <strong>$65.000</strong></article>
+                <article class="material-item">Tabla de pino 1 × 6 pulgadas — <strong>$28.000</strong></article>
+                <article class="material-item">Tabla de pino 1 × 8 pulgadas — <strong>$38.000</strong></article>
+                <article class="material-item">Listón de pino 1 × 2 pulgadas — <strong>$12.000</strong></article>
+                <article class="material-item">Listón de pino 2 × 2 pulgadas — <strong>$20.000</strong></article>
+                <article class="material-item">Tablón de roble — <strong>$180.000</strong></article>
+                <article class="material-item">Tabla de roble — <strong>$95.000</strong></article>
+                <article class="material-item">Listón de roble — <strong>$48.000</strong></article>
+                <article class="material-item">Tablón de cedro — <strong>$160.000</strong></article>
+                <article class="material-item">Tabla de cedro — <strong>$85.000</strong></article>
+                <article class="material-item">Tablón de teca — <strong>$250.000</strong></article>
+                <article class="material-item">Tabla de teca — <strong>$135.000</strong></article>
+                <article class="material-item">Tablón de nogal — <strong>$220.000</strong></article>
+                <article class="material-item">Tabla de nogal — <strong>$120.000</strong></article>
+                <article class="material-item">Tablón de eucalipto — <strong>$70.000</strong></article>
+                <article class="material-item">Tabla de eucalipto — <strong>$38.000</strong></article>
+                <article class="material-item">Tablón de acacia — <strong>$110.000</strong></article>
+                <article class="material-item">Tablón de fresno — <strong>$150.000</strong></article>
+                <article class="material-item">Tabla de fresno — <strong>$80.000</strong></article>
+                <article class="material-item">Tablón de caoba — <strong>$280.000</strong></article>
+                <article class="material-item">Tabla de caoba — <strong>$145.000</strong></article>
+                <article class="material-item">Tablón de guayacán — <strong>$300.000</strong></article>
+                <article class="material-item">Tabla de guayacán — <strong>$165.000</strong></article>
+                <article class="material-item">Tablón de abarco — <strong>$180.000</strong></article>
+                <article class="material-item">Tabla de abarco — <strong>$95.000</strong></article>
+                <article class="material-item">Tablón de chanul — <strong>$210.000</strong></article>
+                <article class="material-item">Tabla de chanul — <strong>$110.000</strong></article>
+                <article class="material-item">Tablón de sapan — <strong>$170.000</strong></article>
+                <article class="material-item">Tabla de flor morado — <strong>$190.000</strong></article>
+                <article class="material-item">Tablón de laurel — <strong>$120.000</strong></article>
+                <article class="material-item">Tabla de comino — <strong>$130.000</strong></article>
+                <article class="material-item">Madera paulownia — <strong>$90.000</strong></article>
+                <article class="material-item">Madera machimbre de pino — <strong>$25.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 5. MÁRMOL Y SUPERFICIES TIPO MÁRMOL -->
+            <details class="categoria-group">
+                <summary><strong>5. Mármol y Superficies Tipo Mármol</strong> <span class="counter-badge">10</span></summary>
+                <br>
+                <article class="material-item">Mármol blanco para mesón — <strong>$1.200.000 por m²</strong></article>
+                <article class="material-item">Mármol beige para mesón — <strong>$1.250.000 por m²</strong></article>
+                <article class="material-item">Mármol gris para mesón — <strong>$1.300.000 por m²</strong></article>
+                <article class="material-item">Mármol negro para mesón — <strong>$1.450.000 por m²</strong></article>
+                <article class="material-item">Mármol Carrara — <strong>$1.800.000 por m²</strong></article>
+                <article class="material-item">Mármol crema — <strong>$1.150.000 por m²</strong></article>
+                <article class="material-item">Mármol travertino — <strong>$1.300.000 por m²</strong></article>
+                <article class="material-item">Mármol para baño — <strong>$1.000.000 por m²</strong></article>
+                <article class="material-item">Cubierta efecto mármol — <strong>$850.000 por m²</strong></article>
+                <article class="material-item">Mesón efecto mármol a medida — <strong>$1.200.000 por m²</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 6. GRANITO NATURAL -->
+            <details class="categoria-group">
+                <summary><strong>6. Granito Natural</strong> <span class="counter-badge">14</span></summary>
+                <br>
+                <article class="material-item">Granito natural blanco cristal — <strong>$1.300.000 por m²</strong></article>
+                <article class="material-item">Granito natural crema clásico — <strong>$1.250.000 por m²</strong></article>
+                <article class="material-item">Granito crema marfil — <strong>$1.100.000 por m²</strong></article>
+                <article class="material-item">Granito Vulcano Grey — <strong>$1.300.000 por m²</strong></article>
+                <article class="material-item">Granito negro absoluto — <strong>$1.800.000 por m²</strong></article>
+                <article class="material-item">Granito gris — <strong>$1.200.000 por m²</strong></article>
+                <article class="material-item">Granito rosa cristal — <strong>$1.250.000 por m²</strong></article>
+                <article class="material-item">Mesón de granito de 120 × 52 cm — <strong>$833.000</strong></article>
+                <article class="material-item">Mesón de granito de 180 × 62 cm — <strong>$1.118.600</strong></article>
+                <article class="material-item">Mesón de granito de 230 × 62 cm — <strong>$1.808.350</strong></article>
+                <article class="material-item">Mesón de granito de 240 × 62 cm — <strong>$1.887.000</strong></article>
+                <article class="material-item">Mesón de granito de 260 × 62 cm — <strong>$2.044.200</strong></article>
+                <article class="material-item">Mesón de granito de 300 × 62 cm — <strong>$2.358.700</strong></article>
+                <article class="material-item">Mesón de granito de 500 × 62 cm — <strong>$3.894.800</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 7. CUARZO Y QUARTZSTONE -->
+            <details class="categoria-group">
+                <summary><strong>7. Cuarzo y Quartzstone</strong> <span class="counter-badge">10</span></summary>
+                <br>
+                <article class="material-item">Cuarzo blanco — <strong>$850.000 por m²</strong></article>
+                <article class="material-item">Cuarzo negro — <strong>$850.000 por m²</strong></article>
+                <article class="material-item">Cuarzo gris — <strong>$1.110.000 por m²</strong></article>
+                <article class="material-item">Cuarzo beige — <strong>$850.000 por m²</strong></article>
+                <article class="material-item">Cuarzo efecto mármol beige — <strong>$1.200.000 por m²</strong></article>
+                <article class="material-item">Cuarzo gris claro efecto piedra — <strong>$1.150.000 por m²</strong></article>
+                <article class="material-item">Quartzstone blanco polar — <strong>$1.170.000 por m²</strong></article>
+                <article class="material-item">Quartzstone crema clásico — <strong>$1.000.000 por m²</strong></article>
+                <article class="material-item">Mesón Quartzstone de 180 cm — <strong>$1.099.900</strong></article>
+                <article class="material-item">Mesón Quartz Stone blanco polar 230 × 62 cm — <strong>$1.673.600</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 8. PORCELÁNICO, SINTERIZADO Y SUPERFICIES PREMIUM -->
+            <details class="categoria-group">
+                <summary><strong>8. Porcelánico, Sinterizado y Superficies Premium</strong> <span class="counter-badge">7</span></summary>
+                <br>
+                <article class="material-item">Mesón porcelánico blanco — <strong>$1.550.000 por m²</strong></article>
+                <article class="material-item">Mesón porcelánico negro — <strong>$1.600.000 por m²</strong></article>
+                <article class="material-item">Mesón porcelánico efecto mármol — <strong>$1.600.000 por m²</strong></article>
+                <article class="material-item">Mesón porcelánico efecto cemento — <strong>$1.550.000 por m²</strong></article>
+                <article class="material-item">Superficie sinterizada blanca — <strong>$1.500.000 por m²</strong></article>
+                <article class="material-item">Superficie sinterizada gris — <strong>$1.550.000 por m²</strong></article>
+                <article class="material-item">Superficie sinterizada negra — <strong>$1.700.000 por m²</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 9. MESONES EN ACERO INOXIDABLE -->
+            <details class="categoria-group">
+                <summary><strong>9. Mesones en Acero Inoxidable</strong> <span class="counter-badge">10</span></summary>
+                <br>
+                <article class="material-item">Mesón liso en acero inoxidable 100 × 52 cm — <strong>$159.900</strong></article>
+                <article class="material-item">Mesón con lavaplatos en acero inoxidable 100 × 50 cm — <strong>$169.900</strong></article>
+                <article class="material-item">Mesón doble con lavaplatos 120 × 50 cm — <strong>$239.900</strong></article>
+                <article class="material-item">Mesón acero inoxidable 120 cm — <strong>$450.000</strong></article>
+                <article class="material-item">Mesón acero inoxidable 150 cm con poceta — <strong>$729.900</strong></article>
+                <article class="material-item">Mesón acero inoxidable 150 cm con estufa y poceta — <strong>$854.900</strong></article>
+                <article class="material-item">Mesón acero inoxidable 150 cm premium — <strong>$979.900</strong></article>
+                <article class="material-item">Mesón acero inoxidable 180 cm con poceta — <strong>$935.900</strong></article>
+                <article class="material-item">Mesón de acero inoxidable a medida — <strong>$650.000 por metro lineal</strong></article>
+                <article class="material-item">Salpicadero en acero inoxidable — <strong>$180.000 por metro lineal</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 10. MESONES COMPLEMENTARIOS -->
+            <details class="categoria-group">
+                <summary><strong>10. Mesones Complementarios</strong> <span class="counter-badge">9</span></summary>
+                <br>
+                <article class="material-item">Mesón laminado gris 120 cm — <strong>$189.900</strong></article>
+                <article class="material-item">Mesón laminado gris 150 cm — <strong>$229.900</strong></article>
+                <article class="material-item">Mesón de MDP 40 × 60 cm — <strong>$99.900</strong></article>
+                <article class="material-item">Cubierta para cocina en melamina — <strong>$250.000 por metro lineal</strong></article>
+                <article class="material-item">Cubierta MDF RH para cocina — <strong>$280.000 por metro lineal</strong></article>
+                <article class="material-item">Cubierta de madera maciza — <strong>$650.000 por m²</strong></article>
+                <article class="material-item">Cubierta de pino alistonado — <strong>$450.000 por m²</strong></article>
+                <article class="material-item">Cubierta de roble — <strong>$1.200.000 por m²</strong></article>
+                <article class="material-item">Isla de cocina en granito — <strong>$1.400.000 por m²</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 11. BISAGRAS -->
+            <details class="categoria-group">
+                <summary><strong>11. Bisagras</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">Bisagra de parche 35 mm — <strong>$5.500</strong></article>
+                <article class="material-item">Bisagra semiparche 35 mm — <strong>$5.500</strong></article>
+                <article class="material-item">Bisagra supercurva 35 mm — <strong>$6.500</strong></article>
+                <article class="material-item">Bisagra recta 35 mm — <strong>$5.500</strong></article>
+                <article class="material-item">Bisagra de cierre suave — <strong>$12.000</strong></article>
+                <article class="material-item">Bisagra de cierre suave premium — <strong>$18.000</strong></article>
+                <article class="material-item">Bisagra 110° — <strong>$8.000</strong></article>
+                <article class="material-item">Bisagra 135° — <strong>$14.000</strong></article>
+                <article class="material-item">Bisagra 165° — <strong>$22.000</strong></article>
+                <article class="material-item">Bisagra para esquina — <strong>$18.000</strong></article>
+                <article class="material-item">Bisagra para puerta de vidrio — <strong>$25.000</strong></article>
+                <article class="material-item">Bisagra de piano de 1 metro — <strong>$18.000</strong></article>
+                <article class="material-item">Bisagra de libro 2 pulgadas — <strong>$4.000</strong></article>
+                <article class="material-item">Bisagra de libro 3 pulgadas — <strong>$5.500</strong></article>
+                <article class="material-item">Bisagra de libro 4 pulgadas — <strong>$8.000</strong></article>
+                <article class="material-item">Bisagra para puerta pesada — <strong>$18.000</strong></article>
+                <article class="material-item">Bisagra bidimensional — <strong>$22.000</strong></article>
+                <article class="material-item">Bisagra tridimensional — <strong>$35.000</strong></article>
+                <article class="material-item">Bisagra para mueble sin marco — <strong>$8.000</strong></article>
+                <article class="material-item">Bisagra push open — <strong>$14.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 12. CORREDERAS Y RIELES PARA CAJONES -->
+            <details class="categoria-group">
+                <summary><strong>12. Correderas y Rieles para Cajones</strong> <span class="counter-badge">25</span></summary>
+                <br>
+                <article class="material-item">Corredera telescópica 25 cm — <strong>$12.000</strong></article>
+                <article class="material-item">Corredera telescópica 30 cm — <strong>$14.000</strong></article>
+                <article class="material-item">Corredera telescópica 35 cm — <strong>$16.000</strong></article>
+                <article class="material-item">Corredera telescópica 40 cm — <strong>$18.000</strong></article>
+                <article class="material-item">Corredera telescópica 45 cm — <strong>$20.000</strong></article>
+                <article class="material-item">Corredera telescópica 50 cm — <strong>$23.000</strong></article>
+                <article class="material-item">Corredera telescópica 55 cm — <strong>$26.000</strong></article>
+                <article class="material-item">Corredera telescópica 60 cm — <strong>$30.000</strong></article>
+                <article class="material-item">Corredera telescópica extensión total 40 cm — <strong>$25.000</strong></article>
+                <article class="material-item">Corredera telescópica extensión total 45 cm — <strong>$28.000</strong></article>
+                <article class="material-item">Corredera telescópica cierre suave 35 cm — <strong>$35.000</strong></article>
+                <article class="material-item">Corredera telescópica cierre suave 40 cm — <strong>$40.000</strong></article>
+                <article class="material-item">Corredera telescópica cierre suave 45 cm — <strong>$45.000</strong></article>
+                <article class="material-item">Corredera telescópica cierre suave 50 cm — <strong>$50.000</strong></article>
+                <article class="material-item">Corredera oculta 45 cm — <strong>$65.000</strong></article>
+                <article class="material-item">Corredera oculta cierre suave — <strong>$85.000</strong></article>
+                <article class="material-item">Corredera push to open — <strong>$75.000</strong></article>
+                <article class="material-item">Corredera para cajón pesado — <strong>$90.000</strong></article>
+                <article class="material-item">Corredera de rodillos 35 cm — <strong>$9.000</strong></article>
+                <article class="material-item">Corredera de rodillos 45 cm — <strong>$12.000</strong></article>
+                <article class="material-item">Corredera lateral sencilla — <strong>$15.000</strong></article>
+                <article class="material-item">Sistema Full Extension 45 cm — <strong>$70.000</strong></article>
+                <article class="material-item">Sistema Full Extension cierre suave — <strong>$95.000</strong></article>
+                <article class="material-item">Riel metálico para cajón 40 cm — <strong>$10.000</strong></article>
+                <article class="material-item">Riel metálico para cajón 50 cm — <strong>$14.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 13. RIELES PARA PUERTAS Y CLÓSETS -->
+            <details class="categoria-group">
+                <summary><strong>13. Rieles para Puertas y Clósets</strong> <span class="counter-badge">15</span></summary>
+                <br>
+                <article class="material-item">Riel sencillo para puerta corrediza 1 m — <strong>$18.000</strong></article>
+                <article class="material-item">Riel sencillo para puerta corrediza 2 m — <strong>$35.000</strong></article>
+                <article class="material-item">Riel doble para clóset 1 m — <strong>$28.000</strong></article>
+                <article class="material-item">Riel doble para clóset 2 m — <strong>$55.000</strong></article>
+                <article class="material-item">Riel superior para clóset 2 m — <strong>$38.000</strong></article>
+                <article class="material-item">Riel inferior para clóset 2 m — <strong>$35.000</strong></article>
+                <article class="material-item">Kit riel para puerta corrediza — <strong>$95.000</strong></article>
+                <article class="material-item">Kit para clóset corredizo — <strong>$180.000</strong></article>
+                <article class="material-item">Sistema puerta corrediza liviana — <strong>$150.000</strong></article>
+                <article class="material-item">Sistema puerta corrediza pesada — <strong>$320.000</strong></article>
+                <article class="material-item">Riel para puerta de vidrio — <strong>$90.000</strong></article>
+                <article class="material-item">Perfil aluminio para puerta corrediza 2 m — <strong>$75.000</strong></article>
+                <article class="material-item">Riel tipo granero 2 m — <strong>$280.000</strong></article>
+                <article class="material-item">Kit puerta tipo granero — <strong>$450.000</strong></article>
+                <article class="material-item">Guía inferior para puerta corrediza — <strong>$15.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 14. RODACHINAS Y RUEDAS -->
+            <details class="categoria-group">
+                <summary><strong>14. Rodachinas y Ruedas</strong> <span class="counter-badge">15</span></summary>
+                <br>
+                <article class="material-item">Rodachina plástica pequeña — <strong>$4.000</strong></article>
+                <article class="material-item">Rodachina plástica mediana — <strong>$6.000</strong></article>
+                <article class="material-item">Rodachina plástica grande — <strong>$9.000</strong></article>
+                <article class="material-item">Rodachina metálica pequeña — <strong>$8.000</strong></article>
+                <article class="material-item">Rodachina metálica mediana — <strong>$12.000</strong></article>
+                <article class="material-item">Rodachina metálica grande — <strong>$18.000</strong></article>
+                <article class="material-item">Rodachina giratoria — <strong>$10.000</strong></article>
+                <article class="material-item">Rodachina fija — <strong>$8.000</strong></article>
+                <article class="material-item">Rodachina con freno — <strong>$15.000</strong></article>
+                <article class="material-item">Rodachina de goma — <strong>$14.000</strong></article>
+                <article class="material-item">Rodachina de poliuretano — <strong>$20.000</strong></article>
+                <article class="material-item">Rodachina para silla de oficina — <strong>$18.000</strong></article>
+                <article class="material-item">Juego de 5 rodachinas para silla — <strong>$75.000</strong></article>
+                <article class="material-item">Rodachina para carga pesada — <strong>$45.000</strong></article>
+                <article class="material-item">Rodachina para puerta corrediza — <strong>$22.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 15. MANIJAS, TIRADORES Y POMOS -->
+            <details class="categoria-group">
+                <summary><strong>15. Manijas, Tiradores y Pomos</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">Manija tipo barra 96 mm — <strong>$8.000</strong></article>
+                <article class="material-item">Manija tipo barra 128 mm — <strong>$10.000</strong></article>
+                <article class="material-item">Manija tipo barra 160 mm — <strong>$14.000</strong></article>
+                <article class="material-item">Manija tipo barra 192 mm — <strong>$18.000</strong></article>
+                <article class="material-item">Manija negra para mueble — <strong>$12.000</strong></article>
+                <article class="material-item">Manija dorada para mueble — <strong>$18.000</strong></article>
+                <article class="material-item">Manija cromada — <strong>$12.000</strong></article>
+                <article class="material-item">Manija níquel satinado — <strong>$15.000</strong></article>
+                <article class="material-item">Manija tipo U — <strong>$10.000</strong></article>
+                <article class="material-item">Manija tipo T — <strong>$9.000</strong></article>
+                <article class="material-item">Manija embutida — <strong>$20.000</strong></article>
+                <article class="material-item">Manija para clóset — <strong>$18.000</strong></article>
+                <article class="material-item">Manija larga de aluminio — <strong>$35.000</strong></article>
+                <article class="material-item">Tirador oculto — <strong>$22.000</strong></article>
+                <article class="material-item">Pomo redondo plástico — <strong>$4.000</strong></article>
+                <article class="material-item">Pomo redondo metálico — <strong>$8.000</strong></article>
+                <article class="material-item">Pomo de madera — <strong>$10.000</strong></article>
+                <article class="material-item">Pomo cuadrado metálico — <strong>$12.000</strong></article>
+                <article class="material-item">Pomo cerámico — <strong>$15.000</strong></article>
+                <article class="material-item">Tirador para puerta principal — <strong>$239.900</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 16. TORNILLOS -->
+            <details class="categoria-group">
+                <summary><strong>16. Tornillos</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">Tornillo para madera ½ pulgada (paquete) — <strong>$5.000</strong></article>
+                <article class="material-item">Tornillo para madera ¾ pulgada (paquete) — <strong>$5.500</strong></article>
+                <article class="material-item">Tornillo para madera 1 pulgada (paquete) — <strong>$6.000</strong></article>
+                <article class="material-item">Tornillo para madera 1½ pulgadas (paquete) — <strong>$7.500</strong></article>
+                <article class="material-item">Tornillo para madera 2 pulgadas (paquete) — <strong>$9.000</strong></article>
+                <article class="material-item">Tornillo para madera 2½ pulgadas (paquete) — <strong>$11.000</strong></article>
+                <article class="material-item">Tornillo para madera 3 pulgadas (paquete) — <strong>$14.000</strong></article>
+                <article class="material-item">Tornillo para MDF 1 pulgada (paquete) — <strong>$7.000</strong></article>
+                <article class="material-item">Tornillo para MDF 1½ pulgadas (paquete) — <strong>$8.000</strong></article>
+                <article class="material-item">Tornillo para aglomerado (paquete) — <strong>$9.000</strong></article>
+                <article class="material-item">Tornillo confirmat 5 × 50 mm — <strong>$1.000</strong></article>
+                <article class="material-item">Tornillo confirmat 7 × 50 mm — <strong>$1.500</strong></article>
+                <article class="material-item">Tornillo autorroscante (paquete) — <strong>$10.000</strong></article>
+                <article class="material-item">Tornillo cabeza plana (paquete) — <strong>$8.000</strong></article>
+                <article class="material-item">Tornillo cabeza avellanada (paquete) — <strong>$9.000</strong></article>
+                <article class="material-item">Tornillo Allen para mueble (paquete) — <strong>$12.000</strong></article>
+                <article class="material-item">Tornillo para bisagra (paquete) — <strong>$6.000</strong></article>
+                <article class="material-item">Tornillo para corredera (paquete) — <strong>$7.000</strong></article>
+                <article class="material-item">Tornillo drywall 1 pulgada (paquete) — <strong>$8.000</strong></article>
+                <article class="material-item">Tornillo drywall 2 pulgadas (paquete) — <strong>$12.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 17. CLAVOS, GRAPAS Y FIJACIONES -->
+            <details class="categoria-group">
+                <summary><strong>17. Clavos, Grapas y Fijaciones</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">Clavo para madera 1 pulgada (libra) — <strong>$7.000</strong></article>
+                <article class="material-item">Clavo para madera 1½ pulgadas (libra) — <strong>$8.000</strong></article>
+                <article class="material-item">Clavo para madera 2 pulgadas (libra) — <strong>$9.000</strong></article>
+                <article class="material-item">Clavo para madera 3 pulgadas (libra) — <strong>$12.000</strong></article>
+                <article class="material-item">Puntilla sin cabeza (libra) — <strong>$10.000</strong></article>
+                <article class="material-item">Grapas para tapicería (caja) — <strong>$15.000</strong></article>
+                <article class="material-item">Grapas para madera (caja) — <strong>$18.000</strong></article>
+                <article class="material-item">Tarugo de madera 6 mm (paquete) — <strong>$5.000</strong></article>
+                <article class="material-item">Tarugo de madera 8 mm (paquete) — <strong>$6.000</strong></article>
+                <article class="material-item">Tarugo de madera 10 mm (paquete) — <strong>$8.000</strong></article>
+                <article class="material-item">Tarugo plástico (paquete) — <strong>$7.000</strong></article>
+                <article class="material-item">Minifix (unidad) — <strong>$1.500</strong></article>
+                <article class="material-item">Conector excéntrico (unidad) — <strong>$1.800</strong></article>
+                <article class="material-item">Pernos para muebles (paquete) — <strong>$12.000</strong></article>
+                <article class="material-item">Tuercas para muebles (paquete) — <strong>$8.000</strong></article>
+                <article class="material-item">Arandelas (paquete) — <strong>$6.000</strong></article>
+                <article class="material-item">Escuadra metálica pequeña — <strong>$3.000</strong></article>
+                <article class="material-item">Escuadra metálica mediana — <strong>$5.000</strong></article>
+                <article class="material-item">Escuadra metálica reforzada — <strong>$12.000</strong></article>
+                <article class="material-item">Conector de unión para muebles — <strong>$4.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 18. TAPACANTOS Y PERFILES -->
+            <details class="categoria-group">
+                <summary><strong>18. Tapacantos y Perfiles</strong> <span class="counter-badge">15</span></summary>
+                <br>
+                <article class="material-item">Tapacanto PVC blanco 22 mm (metro) — <strong>$1.500</strong></article>
+                <article class="material-item">Tapacanto PVC negro 22 mm (metro) — <strong>$1.800</strong></article>
+                <article class="material-item">Tapacanto PVC roble (metro) — <strong>$2.000</strong></article>
+                <article class="material-item">Tapacanto PVC cedro (metro) — <strong>$2.000</strong></article>
+                <article class="material-item">Tapacanto PVC wengué (metro) — <strong>$2.000</strong></article>
+                <article class="material-item">Tapacanto PVC teka (metro) — <strong>$2.000</strong></article>
+                <article class="material-item">Tapacanto PVC gris (metro) — <strong>$1.800</strong></article>
+                <article class="material-item">Tapacanto melamínico blanco (metro) — <strong>$1.200</strong></article>
+                <article class="material-item">Tapacanto melamínico roble (metro) — <strong>$1.500</strong></article>
+                <article class="material-item">Tapacanto de madera natural (metro) — <strong>$3.500</strong></article>
+                <article class="material-item">Canto gris plata 22 mm × 1 m — <strong>$3.900</strong></article>
+                <article class="material-item">Perfil aluminio en U (metro) — <strong>$12.000</strong></article>
+                <article class="material-item">Perfil aluminio en T (metro) — <strong>$15.000</strong></article>
+                <article class="material-item">Perfil para borde de vidrio (metro) — <strong>$18.000</strong></article>
+                <article class="material-item">Protector plástico de borde (metro) — <strong>$8.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 19. PEGANTES Y ADHESIVOS -->
+            <details class="categoria-group">
+                <summary><strong>19. Pegantes y Adhesivos</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">Colbón blanco 250 g — <strong>$8.000</strong></article>
+                <article class="material-item">Colbón blanco 500 g — <strong>$14.000</strong></article>
+                <article class="material-item">Colbón blanco 1 kg — <strong>$25.000</strong></article>
+                <article class="material-item">Pegante PVA 1 kg — <strong>$28.000</strong></article>
+                <article class="material-item">Pegante de contacto 250 ml — <strong>$12.000</strong></article>
+                <article class="material-item">Pegante de contacto 500 ml — <strong>$20.000</strong></article>
+                <article class="material-item">Pegante de contacto 1 litro — <strong>$35.000</strong></article>
+                <article class="material-item">Adhesivo para tapacantos — <strong>$30.000</strong></article>
+                <article class="material-item">Adhesivo instantáneo — <strong>$10.000</strong></article>
+                <article class="material-item">Silicona transparente — <strong>$15.000</strong></article>
+                <article class="material-item">Silicona blanca — <strong>$15.000</strong></article>
+                <article class="material-item">Silicona negra — <strong>$17.000</strong></article>
+                <article class="material-item">Adhesivo de montaje — <strong>$22.000</strong></article>
+                <article class="material-item">Pegante para espuma — <strong>$28.000</strong></article>
+                <article class="material-item">Pegante para tapicería — <strong>$25.000</strong></article>
+                <article class="material-item">Resina para madera — <strong>$35.000</strong></article>
+                <article class="material-item">Endurecedor para resina — <strong>$20.000</strong></article>
+                <article class="material-item">Masilla para madera — <strong>$12.000</strong></article>
+                <article class="material-item">Resanador para madera — <strong>$15.000</strong></article>
+                <article class="material-item">Adhesivo epóxico — <strong>$28.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 20. BARNICES, PINTURAS Y ACABADOS -->
+            <details class="categoria-group">
+                <summary><strong>20. Barnices, Pinturas y Acabados</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">Sellador para madera ¼ galón — <strong>$25.000</strong></article>
+                <article class="material-item">Sellador para madera 1 galón — <strong>$75.000</strong></article>
+                <article class="material-item">Barniz transparente ¼ galón — <strong>$28.000</strong></article>
+                <article class="material-item">Barniz transparente 1 galón — <strong>$85.000</strong></article>
+                <article class="material-item">Barniz mate ¼ galón — <strong>$30.000</strong></article>
+                <article class="material-item">Barniz brillante ¼ galón — <strong>$30.000</strong></article>
+                <article class="material-item">Laca transparente ¼ galón — <strong>$35.000</strong></article>
+                <article class="material-item">Laca blanca ¼ galón — <strong>$38.000</strong></article>
+                <article class="material-item">Tinte nogal — <strong>$18.000</strong></article>
+                <article class="material-item">Tinte roble — <strong>$18.000</strong></article>
+                <article class="material-item">Tinte cedro — <strong>$18.000</strong></article>
+                <article class="material-item">Tinte wengué — <strong>$18.000</strong></article>
+                <article class="material-item">Tinte caoba — <strong>$18.000</strong></article>
+                <article class="material-item">Pintura para madera ¼ galón — <strong>$35.000</strong></article>
+                <article class="material-item">Esmalte blanco ¼ galón — <strong>$30.000</strong></article>
+                <article class="material-item">Poliuretano para madera ¼ galón — <strong>$45.000</strong></article>
+                <article class="material-item">Aceite para madera — <strong>$35.000</strong></article>
+                <article class="material-item">Cera para madera — <strong>$25.000</strong></article>
+                <article class="material-item">Thinner 1 litro — <strong>$15.000</strong></article>
+                <article class="material-item">Diluyente 1 litro — <strong>$18.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 21. LIJAS Y ABRASIVOS -->
+            <details class="categoria-group">
+                <summary><strong>21. Lijas y Abrasivos</strong> <span class="counter-badge">15</span></summary>
+                <br>
+                <article class="material-item">Lija grano 40 — <strong>$2.500</strong></article>
+                <article class="material-item">Lija grano 60 — <strong>$2.500</strong></article>
+                <article class="material-item">Lija grano 80 — <strong>$2.500</strong></article>
+                <article class="material-item">Lija grano 100 — <strong>$2.500</strong></article>
+                <article class="material-item">Lija grano 120 — <strong>$2.500</strong></article>
+                <article class="material-item">Lija grano 150 — <strong>$2.800</strong></article>
+                <article class="material-item">Lija grano 180 — <strong>$2.800</strong></article>
+                <article class="material-item">Lija grano 220 — <strong>$3.000</strong></article>
+                <article class="material-item">Lija grano 320 — <strong>$3.500</strong></article>
+                <article class="material-item">Disco de lija — <strong>$4.000</strong></article>
+                <article class="material-item">Banda de lija — <strong>$8.000</strong></article>
+                <article class="material-item">Esponja abrasiva — <strong>$5.000</strong></article>
+                <article class="material-item">Lana de acero — <strong>$6.000</strong></article>
+                <article class="material-item">Disco flap — <strong>$10.000</strong></article>
+                <article class="material-item">Disco de pulido — <strong>$15.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 22. PATAS, SOPORTES Y NIVELADORES -->
+            <details class="categoria-group">
+                <summary><strong>22. Patas, Soportes y Niveladores</strong> <span class="counter-badge">15</span></summary>
+                <br>
+                <article class="material-item">Pata plástica para mueble — <strong>$4.000</strong></article>
+                <article class="material-item">Pata metálica para mueble — <strong>$12.000</strong></article>
+                <article class="material-item">Pata cromada para sofá — <strong>$18.000</strong></article>
+                <article class="material-item">Pata de madera para sofá — <strong>$20.000</strong></article>
+                <article class="material-item">Pata metálica tipo horquilla — <strong>$35.000</strong></article>
+                <article class="material-item">Pata para mesa — <strong>$45.000</strong></article>
+                <article class="material-item">Juego de 4 patas metálicas — <strong>$120.000</strong></article>
+                <article class="material-item">Nivelador plástico — <strong>$3.000</strong></article>
+                <article class="material-item">Nivelador metálico — <strong>$8.000</strong></article>
+                <article class="material-item">Soporte para repisa — <strong>$4.000</strong></article>
+                <article class="material-item">Soporte invisible para repisa — <strong>$12.000</strong></article>
+                <article class="material-item">Soporte reforzado para repisa — <strong>$18.000</strong></article>
+                <article class="material-item">Fieltro protector para muebles — <strong>$5.000</strong></article>
+                <article class="material-item">Deslizador plástico — <strong>$4.000</strong></article>
+                <article class="material-item">Protector de piso para muebles — <strong>$6.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 23. ACCESORIOS Y SISTEMAS PARA MUEBLES -->
+            <details class="categoria-group">
+                <summary><strong>23. Accesorios y Sistemas para Muebles</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">Imán para puerta de mueble — <strong>$4.000</strong></article>
+                <article class="material-item">Retenedor magnético — <strong>$8.000</strong></article>
+                <article class="material-item">Tope de puerta de mueble — <strong>$3.000</strong></article>
+                <article class="material-item">Amortiguador para puerta — <strong>$8.000</strong></article>
+                <article class="material-item">Pistón de gas pequeño — <strong>$25.000</strong></article>
+                <article class="material-item">Pistón de gas mediano — <strong>$35.000</strong></article>
+                <article class="material-item">Pistón de gas grande — <strong>$45.000</strong></article>
+                <article class="material-item">Brazo elevable para puerta — <strong>$60.000</strong></article>
+                <article class="material-item">Sistema abatible sencillo — <strong>$75.000</strong></article>
+                <article class="material-item">Sistema abatible premium — <strong>$150.000</strong></article>
+                <article class="material-item">Sistema push to open — <strong>$18.000</strong></article>
+                <article class="material-item">Organizador de cajón — <strong>$45.000</strong></article>
+                <article class="material-item">Canasta extraíble para cocina — <strong>$120.000</strong></article>
+                <article class="material-item">Botellero extraíble — <strong>$180.000</strong></article>
+                <article class="material-item">Sistema para pantalones de clóset — <strong>$150.000</strong></article>
+                <article class="material-item">Zapatero extraíble — <strong>$180.000</strong></article>
+                <article class="material-item">Tubo para clóset 1 metro — <strong>$18.000</strong></article>
+                <article class="material-item">Soporte para tubo de clóset — <strong>$6.000</strong></article>
+                <article class="material-item">Colgador para ropa extraíble — <strong>$95.000</strong></article>
+                <article class="material-item">Esquinero para cocina — <strong>$250.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 24. CERRADURAS, CHAPAS Y CIERRES -->
+            <details class="categoria-group">
+                <summary><strong>24. Cerraduras, Chapas y Cierres</strong> <span class="counter-badge">15</span></summary>
+                <br>
+                <article class="material-item">Cerradura para cajón — <strong>$12.000</strong></article>
+                <article class="material-item">Cerradura para vitrina — <strong>$18.000</strong></article>
+                <article class="material-item">Cerradura para clóset — <strong>$25.000</strong></article>
+                <article class="material-item">Cerradura tipo leva — <strong>$10.000</strong></article>
+                <article class="material-item">Cerradura magnética — <strong>$15.000</strong></article>
+                <article class="material-item">Pasador pequeño — <strong>$8.000</strong></article>
+                <article class="material-item">Pasador mediano — <strong>$12.000</strong></article>
+                <article class="material-item">Pasador grande — <strong>$18.000</strong></article>
+                <article class="material-item">Chapilla para mueble — <strong>$10.000</strong></article>
+                <article class="material-item">Kit de cierre para mueble — <strong>$30.000</strong></article>
+                <article class="material-item">Pestillo metálico — <strong>$8.000</strong></article>
+                <article class="material-item">Retenedor de puerta — <strong>$10.000</strong></article>
+                <article class="material-item">Tope magnético — <strong>$8.000</strong></article>
+                <article class="material-item">Cierre automático — <strong>$15.000</strong></article>
+                <article class="material-item">Sistema de cierre suave — <strong>$25.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 25. VIDRIOS Y ESPEJOS -->
+            <details class="categoria-group">
+                <summary><strong>25. Vidrios y Espejos</strong> <span class="counter-badge">15</span></summary>
+                <br>
+                <article class="material-item">Vidrio transparente 3 mm (m²) — <strong>$85.000</strong></article>
+                <article class="material-item">Vidrio transparente 4 mm (m²) — <strong>$110.000</strong></article>
+                <article class="material-item">Vidrio transparente 5 mm (m²) — <strong>$135.000</strong></article>
+                <article class="material-item">Vidrio transparente 6 mm (m²) — <strong>$160.000</strong></article>
+                <article class="material-item">Vidrio esmerilado 4 mm (m²) — <strong>$145.000</strong></article>
+                <article class="material-item">Vidrio esmerilado 5 mm (m²) — <strong>$170.000</strong></article>
+                <article class="material-item">Vidrio templado 6 mm (m²) — <strong>$280.000</strong></article>
+                <article class="material-item">Vidrio templado 8 mm (m²) — <strong>$350.000</strong></article>
+                <article class="material-item">Vidrio templado 10 mm (m²) — <strong>$420.000</strong></article>
+                <article class="material-item">Espejo 3 mm (m²) — <strong>$120.000</strong></article>
+                <article class="material-item">Espejo 4 mm (m²) — <strong>$150.000</strong></article>
+                <article class="material-item">Espejo biselado (m²) — <strong>$220.000</strong></article>
+                <article class="material-item">Vidrio bronce (m²) — <strong>$180.000</strong></article>
+                <article class="material-item">Vidrio ahumado (m²) — <strong>$190.000</strong></article>
+                <article class="material-item">Vidrio decorativo (m²) — <strong>$220.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 26. ACCESORIOS PARA VIDRIO Y ESPEJOS -->
+            <details class="categoria-group">
+                <summary><strong>26. Accesorios para Vidrio y Espejos</strong> <span class="counter-badge">15</span></summary>
+                <br>
+                <article class="material-item">Pisavidrio plástico — <strong>$2.000</strong></article>
+                <article class="material-item">Pisavidrio metálico — <strong>$5.000</strong></article>
+                <article class="material-item">Soporte para vidrio — <strong>$8.000</strong></article>
+                <article class="material-item">Soporte cromado para vidrio — <strong>$12.000</strong></article>
+                <article class="material-item">Bisagra para puerta de vidrio — <strong>$25.000</strong></article>
+                <article class="material-item">Cerradura para vitrina de vidrio — <strong>$35.000</strong></article>
+                <article class="material-item">Perfil de aluminio para vidrio (metro) — <strong>$20.000</strong></article>
+                <article class="material-item">Perfil en U para vidrio (metro) — <strong>$18.000</strong></article>
+                <article class="material-item">Perfil en H para vidrio (metro) — <strong>$22.000</strong></article>
+                <article class="material-item">Empaque de goma para vidrio (metro) — <strong>$8.000</strong></article>
+                <article class="material-item">Separador para vidrio — <strong>$5.000</strong></article>
+                <article class="material-item">Ventosa para manipulación de vidrio — <strong>$35.000</strong></article>
+                <article class="material-item">Esquinero para vidrio — <strong>$12.000</strong></article>
+                <article class="material-item">Tope para puerta de vidrio — <strong>$15.000</strong></article>
+                <article class="material-item">Soporte invisible para espejo — <strong>$10.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 27. TAPICERÍA Y COMPLEMENTOS -->
+            <details class="categoria-group">
+                <summary><strong>27. Tapicería y Complementos</strong> <span class="counter-badge">25</span></summary>
+                <br>
+                <article class="material-item">Espuma de alta densidad 1 cm — <strong>$35.000</strong></article>
+                <article class="material-item">Espuma de alta densidad 2 cm — <strong>$50.000</strong></article>
+                <article class="material-item">Espuma de alta densidad 5 cm — <strong>$95.000</strong></article>
+                <article class="material-item">Espuma de alta densidad 10 cm — <strong>$180.000</strong></article>
+                <article class="material-item">Espuma de densidad media 5 cm — <strong>$70.000</strong></article>
+                <article class="material-item">Espuma de densidad baja 5 cm — <strong>$55.000</strong></article>
+                <article class="material-item">Guata por metro — <strong>$12.000</strong></article>
+                <article class="material-item">Tela para tapicería básica (metro) — <strong>$25.000</strong></article>
+                <article class="material-item">Tela premium para tapicería (metro) — <strong>$55.000</strong></article>
+                <article class="material-item">Microfibra (metro) — <strong>$40.000</strong></article>
+                <article class="material-item">Terciopelo (metro) — <strong>$60.000</strong></article>
+                <article class="material-item">Cuero sintético (metro) — <strong>$45.000</strong></article>
+                <article class="material-item">Vinilo (metro) — <strong>$35.000</strong></article>
+                <article class="material-item">Lona para tapicería (metro) — <strong>$30.000</strong></article>
+                <article class="material-item">Tela antifluido (metro) — <strong>$38.000</strong></article>
+                <article class="material-item">Cincha elástica para sofá (metro) — <strong>$8.000</strong></article>
+                <article class="material-item">Cincha de yute (metro) — <strong>$6.000</strong></article>
+                <article class="material-item">Resorte para sofá — <strong>$12.000</strong></article>
+                <article class="material-item">Grapas para tapicería (caja) — <strong>$15.000</strong></article>
+                <article class="material-item">Tachuelas decorativas (paquete) — <strong>$18.000</strong></article>
+                <article class="material-item">Hilo para tapicería — <strong>$12.000</strong></article>
+                <article class="material-item">Cremallera por metro — <strong>$8.000</strong></article>
+                <article class="material-item">Botón decorativo para tapicería — <strong>$3.000</strong></article>
+                <article class="material-item">Base para sofá — <strong>$120.000</strong></article>
+                <article class="material-item">Juego de patas para sofá — <strong>$80.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 28. ACCESORIOS ADICIONALES PARA FABRICACIÓN -->
+            <details class="categoria-group">
+                <summary><strong>28. Accesorios Adicionales para Fabricación</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">Rejilla de ventilación — <strong>$10.000</strong></article>
+                <article class="material-item">Pasacables plástico — <strong>$5.000</strong></article>
+                <article class="material-item">Pasacables metálico — <strong>$12.000</strong></article>
+                <article class="material-item">Tapa pasacables — <strong>$8.000</strong></article>
+                <article class="material-item">Regleta eléctrica para escritorio — <strong>$45.000</strong></article>
+                <article class="material-item">Organizador de cables — <strong>$25.000</strong></article>
+                <article class="material-item">Soporte para monitor — <strong>$120.000</strong></article>
+                <article class="material-item">Base giratoria para TV — <strong>$80.000</strong></article>
+                <article class="material-item">Plato giratorio para mueble — <strong>$45.000</strong></article>
+                <article class="material-item">Sistema giratorio para cocina — <strong>$180.000</strong></article>
+                <article class="material-item">Rejilla para zapatero — <strong>$35.000</strong></article>
+                <article class="material-item">Perchero para clóset — <strong>$20.000</strong></article>
+                <article class="material-item">Gancho doble para ropa — <strong>$8.000</strong></article>
+                <article class="material-item">Gancho triple para ropa — <strong>$12.000</strong></article>
+                <article class="material-item">Barra para clóset 2 m — <strong>$35.000</strong></article>
+                <article class="material-item">Soporte central para barra — <strong>$8.000</strong></article>
+                <article class="material-item">Organizador lateral — <strong>$65.000</strong></article>
+                <article class="material-item">Bandeja extraíble — <strong>$95.000</strong></article>
+                <article class="material-item">Bandeja giratoria — <strong>$110.000</strong></article>
+                <article class="material-item">Cesta metálica — <strong>$70.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 29. ILUMINACIÓN PARA MUEBLES -->
+            <details class="categoria-group">
+                <summary><strong>29. Iluminación para Muebles</strong> <span class="counter-badge">10</span></summary>
+                <br>
+                <article class="material-item">Tira LED 1 m — <strong>$12.000</strong></article>
+                <article class="material-item">Tira LED 5 m — <strong>$45.000</strong></article>
+                <article class="material-item">Perfil de aluminio para LED 1 m — <strong>$18.000</strong></article>
+                <article class="material-item">Difusor para perfil LED 1 m — <strong>$10.000</strong></article>
+                <article class="material-item">Luz LED para clóset — <strong>$35.000</strong></article>
+                <article class="material-item">Luz LED con sensor — <strong>$55.000</strong></article>
+                <article class="material-item">Sensor de movimiento — <strong>$30.000</strong></article>
+                <article class="material-item">Interruptor táctil — <strong>$25.000</strong></article>
+                <article class="material-item">Fuente para tira LED — <strong>$45.000</strong></article>
+                <article class="material-item">Cable para iluminación (metro) — <strong>$3.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 30. MATERIALES PARA PUERTAS -->
+            <details class="categoria-group">
+                <summary><strong>30. Materiales para Puertas</strong> <span class="counter-badge">10</span></summary>
+                <br>
+                <article class="material-item">Puerta MDF lisa — <strong>$180.000</strong></article>
+                <article class="material-item">Puerta MDF entamborada — <strong>$250.000</strong></article>
+                <article class="material-item">Puerta de pino — <strong>$350.000</strong></article>
+                <article class="material-item">Puerta de roble — <strong>$900.000</strong></article>
+                <article class="material-item">Marco para puerta de madera — <strong>$180.000</strong></article>
+                <article class="material-item">Tapajuntas de madera (metro) — <strong>$18.000</strong></article>
+                <article class="material-item">Tope de puerta — <strong>$8.000</strong></article>
+                <article class="material-item">Burlete para puerta (metro) — <strong>$10.000</strong></article>
+                <article class="material-item">Cerradura para puerta interior — <strong>$65.000</strong></article>
+                <article class="material-item">Manija para puerta interior — <strong>$75.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 31. MATERIALES COMPLEMENTARIOS -->
+            <details class="categoria-group">
+                <summary><strong>31. Materiales Complementarios</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">Papel contact madera (metro) — <strong>$15.000</strong></article>
+                <article class="material-item">Vinilo adhesivo blanco (metro) — <strong>$12.000</strong></article>
+                <article class="material-item">Vinilo adhesivo negro (metro) — <strong>$12.000</strong></article>
+                <article class="material-item">Vinilo adhesivo tipo roble (metro) — <strong>$18.000</strong></article>
+                <article class="material-item">Lámina decorativa para muebles — <strong>$35.000</strong></article>
+                <article class="material-item">Protector para cajón — <strong>$18.000</strong></article>
+                <article class="material-item">Base antideslizante (metro) — <strong>$12.000</strong></article>
+                <article class="material-item">Goma EVA (lámina) — <strong>$15.000</strong></article>
+                <article class="material-item">Lámina de corcho — <strong>$25.000</strong></article>
+                <article class="material-item">Fieltro por metro — <strong>$20.000</strong></article>
+                <article class="material-item">Protector transparente para mesa — <strong>$45.000</strong></article>
+                <article class="material-item">Lámina acrílica transparente 3 mm — <strong>$85.000</strong></article>
+                <article class="material-item">Lámina acrílica blanca 3 mm — <strong>$90.000</strong></article>
+                <article class="material-item">Lámina acrílica negra 3 mm — <strong>$95.000</strong></article>
+                <article class="material-item">Acrílico de color 3 mm — <strong>$110.000</strong></article>
+                <article class="material-item">Policarbonato transparente 3 mm — <strong>$120.000</strong></article>
+                <article class="material-item">Rejilla metálica decorativa — <strong>$65.000</strong></article>
+                <article class="material-item">Lámina perforada decorativa — <strong>$80.000</strong></article>
+                <article class="material-item">Malla metálica decorativa — <strong>$55.000</strong></article>
+                <article class="material-item">Perfil decorativo de aluminio (metro) — <strong>$25.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 32. CONSUMIBLES Y OTROS INSUMOS -->
+            <details class="categoria-group">
+                <summary><strong>32. Consumibles y Otros Insumos</strong> <span class="counter-badge">20</span></summary>
+                <br>
+                <article class="material-item">Brocha pequeña — <strong>$5.000</strong></article>
+                <article class="material-item">Brocha mediana — <strong>$8.000</strong></article>
+                <article class="material-item">Brocha grande — <strong>$12.000</strong></article>
+                <article class="material-item">Rodillo pequeño — <strong>$8.000</strong></article>
+                <article class="material-item">Rodillo para barniz — <strong>$15.000</strong></article>
+                <article class="material-item">Bandeja para pintura — <strong>$8.000</strong></article>
+                <article class="material-item">Cinta de enmascarar — <strong>$8.000</strong></article>
+                <article class="material-item">Cinta doble faz — <strong>$12.000</strong></article>
+                <article class="material-item">Cinta de embalaje — <strong>$8.000</strong></article>
+                <article class="material-item">Trapo industrial — <strong>$5.000</strong></article>
+                <article class="material-item">Paño de microfibra — <strong>$8.000</strong></article>
+                <article class="material-item">Estopa — <strong>$6.000</strong></article>
+                <article class="material-item">Espátula plástica — <strong>$5.000</strong></article>
+                <article class="material-item">Espátula metálica — <strong>$10.000</strong></article>
+                <article class="material-item">Jeringa para adhesivo — <strong>$6.000</strong></article>
+                <article class="material-item">Mezclador para pintura — <strong>$5.000</strong></article>
+                <article class="material-item">Cubeta plástica — <strong>$12.000</strong></article>
+                <article class="material-item">Recipiente para mezcla — <strong>$8.000</strong></article>
+                <article class="material-item">Regla metálica 1 m — <strong>$25.000</strong></article>
+                <article class="material-item">Escuadra de carpintero — <strong>$30.000</strong></article>
+            </details>
+
+            <br>
+
+            <!-- 33. ÚLTIMOS ACCESORIOS -->
+            <details class="categoria-group">
+                <summary><strong>33. Últimos Accesorios</strong> <span class="counter-badge">10</span></summary>
+                <br>
+                <article class="material-item">Tope de goma autoadhesivo — <strong>$4.000</strong></article>
+                <article class="material-item">Tope transparente para puerta — <strong>$5.000</strong></article>
+                <article class="material-item">Protector de esquina metálico — <strong>$8.000</strong></article>
+                <article class="material-item">Protector de esquina plástico — <strong>$5.000</strong></article>
+                <article class="material-item">Manija de cuero para mueble — <strong>$25.000</strong></article>
+                <article class="material-item">Etiqueta identificadora para cajón — <strong>$4.000</strong></article>
+                <article class="material-item">Portaobjetos metálico — <strong>$18.000</strong></article>
+                <article class="material-item">Separador de cajones — <strong>$20.000</strong></article>
+                <article class="material-item">Organizador modular — <strong>$55.000</strong></article>
+                <article class="material-item">Sistema de apertura táctil — <strong>$35.000</strong></article>
+            </details>
+
+        </section>
+
+        <br><br>
+
+        <!-- NAVEGACIÓN -->
+        <section>
+            <a href="inicio.html">◀️ Volver al Inicio</a>
         </section>
 
     </main>
 
-
     <!-- PIE DE PÁGINA -->
-
     <footer>
-
-        <p>
-            Versión 1.0 &nbsp; © 2026 Quotixx
-        </p>
-
+        <p>Versión 1.1 &nbsp; © 2026 Quotixx</p>
     </footer>
 
+    <!-- SCRIPT DEL BUSCADOR INTEGRADO -->
+    <script>
+        function filtrarMateriales() {
+            const input = document.getElementById('buscarMaterial');
+            const filter = input.value.toLowerCase().trim();
+            const categorias = document.querySelectorAll('.categoria-group');
+            const noResults = document.getElementById('noResults');
+            let totalVisibles = 0;
+
+            categorias.forEach(categoria => {
+                const items = categoria.querySelectorAll('.material-item');
+                let itemsVisiblesEnCategoria = 0;
+
+                items.forEach(item => {
+                    // Guardar texto original en atributo si no existe
+                    if (!item.hasAttribute('data-original-text')) {
+                        item.setAttribute('data-original-text', item.innerHTML);
+                    }
+                    const textOriginal = item.getAttribute('data-original-text');
+                    const textClean = textOriginal.replace(/<[^>]*>?/gm, '').toLowerCase();
+
+                    if (filter === '') {
+                        item.classList.remove('item-hidden');
+                        item.innerHTML = textOriginal;
+                        itemsVisiblesEnCategoria++;
+                    } else if (textClean.includes(filter)) {
+                        item.classList.remove('item-hidden');
+                        itemsVisiblesEnCategoria++;
+
+                        // Resaltar coincidencia
+                        const regex = new RegExp(`(${filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                        const partes = textOriginal.split(/(<[^>]*>)/);
+                        
+                        const highlighted = partes.map(parte => {
+                            if (parte.startsWith('<')) return parte;
+                            return parte.replace(regex, '<mark class="highlight">$1</mark>');
+                        }).join('');
+
+                        item.innerHTML = highlighted;
+                    } else {
+                        item.classList.add('item-hidden');
+                    }
+                });
+
+                if (itemsVisiblesEnCategoria > 0) {
+                    categoria.classList.remove('details-hidden');
+                    if (filter !== '') {
+                        categoria.open = true; // Abre automáticamente si hay resultados
+                    } else {
+                        categoria.open = false; // Cierra si se limpia el buscador
+                    }
+                    totalVisibles += itemsVisiblesEnCategoria;
+                } else {
+                    categoria.classList.add('details-hidden');
+                    categoria.open = false;
+                }
+            });
+
+            if (totalVisibles === 0 && filter !== '') {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 
