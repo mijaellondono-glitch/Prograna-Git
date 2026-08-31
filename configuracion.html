@@ -87,7 +87,7 @@
                     type="text"
                     id="nombreNegocio"
                     name="nombreNegocio"
-                    placeholder="Ej: Carpintería"
+                    placeholder="Ej: maderas y más"
                 >
 
             </div>
@@ -126,7 +126,22 @@
 
             </div>
 
-<br><br><br>
+<br>
+
+            <div>
+
+                <label for="direccionNegocio">
+                    🏠 Dirección
+                </label>
+
+                <input
+                    type="text"
+                    id="direccionNegocio"
+                    name="direccionNegocio"
+                    placeholder="Dirección del negocio"
+                >
+
+            </div>
 
         </section>
 
@@ -139,27 +154,6 @@
                 🔧 Preferencias
             </h3>
 
-<br><br>
-
-            <div>
-
-                <label for="moneda">
-                    💰 Moneda
-                </label>
-
-                <select id="moneda" name="moneda">
-
-                    <option value="COP">
-                        Peso colombiano (COP)
-                    </option>
-
-                    <option value="USD">
-                        Dólar estadounidense (USD)
-                    </option>
-
-                </select>
-
-            </div>
 
 <br>
 
@@ -215,9 +209,7 @@
 
         <section style="display: flex; gap: 100px; align-items: center;">
 
-            <button type="button">
-                💾 Guardar cambios
-            </button>
+           <button type="button" id="btnGuardarConfig">💾 Guardar cambios</button>
 
             <a href="inicio.html">
                 ◀️ Volver
@@ -237,6 +229,73 @@
         </p>
 
     </footer>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Obtener el objeto de usuario o correo guardado
+    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
+    const emailUsuario = localStorage.getItem('usuarioEmail') || usuarioLogueado?.email;
+
+    if (!emailUsuario) {
+      alert('Por favor, inicia sesión primero.');
+      window.location.href = 'index.html';
+      return;
+    }
+
+    const inputNombre = document.getElementById('nombreNegocio');
+    const inputTelefono = document.getElementById('telefonoNegocio');
+    const inputCorreo = document.getElementById('correoNegocio');
+    const inputDireccion = document.getElementById('direccionNegocio');
+
+    // 2. Traer datos desde MongoDB al cargar la página
+    try {
+      const res = await fetch(`http://localhost:5000/api/auth/configuracion/${emailUsuario}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (inputNombre && data.nombreNegocio) inputNombre.value = data.nombreNegocio;
+        if (inputTelefono && data.telefonoNegocio) inputTelefono.value = data.telefonoNegocio;
+        if (inputCorreo && data.correoNegocio) inputCorreo.value = data.correoNegocio;
+        if (inputDireccion && data.direccionNegocio) inputDireccion.value = data.direccionNegocio;
+      }
+    } catch (e) {
+      console.error('Error al conectar con la API:', e);
+    }
+
+    // 3. Escuchar el evento de guardar
+    const btnGuardar = document.getElementById('btnGuardarConfig');
+    if (btnGuardar) {
+      btnGuardar.addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        const payload = {
+          email: emailUsuario,
+          nombreNegocio: inputNombre ? inputNombre.value : '',
+          telefonoNegocio: inputTelefono ? inputTelefono.value : '',
+          correoNegocio: inputCorreo ? inputCorreo.value : '',
+          direccionNegocio: inputDireccion ? inputDireccion.value : ''
+        };
+
+        try {
+          const res = await fetch('http://localhost:5000/api/auth/configuracion', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (res.ok) {
+            alert('✅ Datos guardados exitosamente en MongoDB');
+          } else {
+            alert('❌ No se pudo guardar la información');
+          }
+        } catch (err) {
+          alert('🔴 Error al conectar con el servidor');
+        }
+      });
+    }
+  });
+</script>
 
 
 </body>

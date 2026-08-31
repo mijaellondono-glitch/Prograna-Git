@@ -1,60 +1,138 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar Contraseña</title>
+    <title>Quotixx - Recuperar Contraseña</title>
 
-    <!-- Configuración Base -->
+    <!-- Configuración Base y Estilos -->
     <link rel="stylesheet" href="css/Configuración general.css">
-
-    <!-- Estructura y Capas -->
-    <link rel="stylesheet" href="css/Encabezado.css">
-    <link rel="stylesheet" href="css/Contenido principal.css">
-    <link rel="stylesheet" href="css/Secciones.css">
-    <link rel="stylesheet" href="css/Pie de página.css">
-
-    <!-- Componentes e Interfaz -->
-    <link rel="stylesheet" href="css/Títulos.css">
     <link rel="stylesheet" href="css/Formularios.css">
-    <link rel="stylesheet" href="css/Buscadores.css">
     <link rel="stylesheet" href="css/Botones.css">
-    <link rel="stylesheet" href="css/Enlaces.css">
-    <link rel="stylesheet" href="css/Menú principal.css">
-    <link rel="stylesheet" href="css/Tarjetas.css">
-    <link rel="stylesheet" href="css/Login.css">
-
-    <!-- Adaptación Móvil -->
-    <link rel="stylesheet" href="css/Adaptación celular.css">
+    <link rel="stylesheet" href="css/Títulos.css">
 </head>
-<body>
-    <!-- ENCABEZADO -->
-    <header>
-        <h1>🛠️ Quotixx 📐</h1>
-        <p>Cotización para Carpintería</p>
-    </header>
 
-    <!-- CONTENIDO PRINCIPAL -->
+<body>
+
     <main>
         <h2>🔑 Recuperar Contraseña</h2>
-        <p>Ingresa tu correo electrónico registrado para enviarte las instrucciones de restablecimiento.</p>
-
-       <form action="confirmar_codigo.html" method="POST">
-            <div>
-                <label for="recovery-email">Correo Electrónico:</label>
-                <input type="email" id="recovery-email" name="email" placeholder="Escribe tu correo..." required>
-            </div>
-
-            <button type="submit">Enviar Codigo</button>
-        </form>
+        <p>Restablece el acceso a tu cuenta de QuotiXX</p>
 
         <br>
-        <p>¿Recordaste tu contraseña? <a href="index.html">Inicia Sesión</a></p>
+
+        <!-- Paso 1: Solicitar Código por Correo -->
+        <form id="formSolicitarCodigo">
+            <div>
+                <label for="emailForgot">📧 Correo Electrónico</label>
+                <input 
+                    type="email" 
+                    id="emailForgot" 
+                    placeholder="Escribe el correo de tu cuenta..." 
+                    required
+                >
+            </div>
+            <br>
+            <button type="submit">Enviar Código</button>
+        </form>
+
+        <!-- Paso 2: Digitar Código y Nueva Contraseña (Se muestra tras enviar el código) -->
+        <form id="formRestablecerPass" style="display: none;">
+            <div>
+                <label for="codigoInput">🔢 Código de 6 dígitos</label>
+                <input 
+                    type="text" 
+                    id="codigoInput" 
+                    placeholder="Ej: 123456" 
+                    required
+                >
+            </div>
+            <br>
+            <div>
+                <label for="nuevaPassInput">🔒 Nueva Contraseña</label>
+                <input 
+                    type="password" 
+                    id="nuevaPassInput" 
+                    placeholder="Escribe tu nueva contraseña..." 
+                    required
+                >
+            </div>
+            <br>
+            <button type="submit">Restablecer Contraseña</button>
+        </form>
+
+        <br><br>
+        <div>
+            <a href="index.html">← Volver al Inicio de Sesión</a>
+        </div>
     </main>
 
-    <!-- PIE DE PÁGINA -->
-    <footer>
-        <p>Versión 1.0 © 2026 Quotixx</p>
-    </footer>
+    <!-- Script de lógica de recuperación de contraseña -->
+    <script>
+        const formSolicitar = document.getElementById('formSolicitarCodigo');
+        const formRestablecer = document.getElementById('formRestablecerPass');
+        let emailUsuario = '';
+
+        // PASO 1: Enviar correo para solicitar código
+        formSolicitar.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            emailUsuario = document.getElementById('emailForgot').value.trim();
+
+            try {
+                const res = await fetch('http://localhost:5000/api/auth/forgot-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: emailUsuario })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert(data.message);
+                    formSolicitar.style.display = 'none';
+                    formRestablecer.style.display = 'block';
+                } else {
+                    alert(data.message || 'Error al enviar el código.');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('No se pudo conectar con el servidor backend.');
+            }
+        });
+
+        // PASO 2: Enviar código recibido y la nueva contraseña
+        formRestablecer.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const codigo = document.getElementById('codigoInput').value.trim();
+            const newPassword = document.getElementById('nuevaPassInput').value;
+
+            try {
+                const res = await fetch('http://localhost:5000/api/auth/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: emailUsuario,
+                        code: codigo,
+                        newPassword: newPassword
+                    })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert(data.message);
+                    window.location.href = 'index.html'; // Redirige al inicio de sesión
+                } else {
+                    alert(data.message || 'Error al cambiar la contraseña.');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('No se pudo conectar con el servidor backend.');
+            }
+        });
+    </script>
+
 </body>
+
 </html>

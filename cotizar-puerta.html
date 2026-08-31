@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotización de Puerta - Quotixx</title>
+    <title>Quotixx - Cotizar Puertas</title>
 
     <!-- Configuración Base -->
     <link rel="stylesheet" href="css/Configuración general.css">
@@ -36,115 +37,205 @@
     </header>
 
     <main>
+
         <section>
-            <h2>Cotización de Puerta</h2>
-            <p>
-                Ingresa las dimensiones de la puerta que deseas cotizar. Asegúrate de proporcionar medidas precisas para obtener un presupuesto exacto.
-            </p>
+            <h2>🚪 Cotizador de Puertas</h2>
+            <p>Configura las medidas y opciones de la puerta para calcular el precio total</p>
         </section>
 
-        <br><br>
-
-        <!-- ABRIMOS LA ETIQUETA FORM AQUÍ -->
-        <form action="/cotizar-puerta" method="POST">
+        <form id="formCotizarPuerta">
 
             <div>
-                <label for="tipoPuerta">🚪 Tipo de puerta</label>
-                <select id="tipoPuerta" name="tipoPuerta" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="Corrediza">Corrediza</option>
-                    <option value="Normal">Normal</option>
-                    <option value="Maciza">Maciza</option>
+                <label for="clienteInput">👤 Nombre del Cliente</label>
+                <input 
+                    type="text" 
+                    id="clienteInput" 
+                    placeholder="Ej: Juan Pérez" 
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="tipoPuerta">🛠️ Tipo de Puerta</label>
+                <select id="tipoPuerta" required>
+                    <option value="650000" data-nombre="Puerta Entamborada Normal">Puerta Entamborada Normal ($650.000)</option>
+                    <option value="880000" data-nombre="Puerta Corrediza con Riel">Puerta Corrediza con Riel ($880.000)</option>
+                    <option value="1150000" data-nombre="Puerta Maciza">Puerta Maciza ($1.150.000)</option>
                 </select>
             </div>
-               
-            <br>
-
-            <div>   
-                <label for="alto">📏 Alto (en cm)</label>
-                <input 
-                    type="number" 
-                    id="alto" 
-                    name="alto" 
-                    placeholder="Ingresa el alto de la puerta"
-                    min="0"
-                    max="300"
-                    required>
-            </div>
-
-            <br>
 
             <div>
-                <label for="ancho">📏 Ancho (en cm)</label>
+                <label for="anchoInput">📐 Ancho (en cm)</label>
                 <input 
                     type="number" 
-                    id="ancho" 
-                    name="ancho" 
-                    placeholder="Ingresa el ancho de la puerta"
-                    min="0"
-                    max="150"
-                    required>
+                    id="anchoInput" 
+                    value="90" 
+                    min="50" 
+                    max="250" 
+                    required
+                >
             </div>
 
-            <br>
-
             <div>
-                <label for="grosor">🔍 Grosor del marco (en cm)</label>
+                <label for="altoInput">📏 Alto (en cm)</label>
                 <input 
                     type="number" 
-                    id="grosor" 
-                    name="grosor" 
-                    placeholder="Ingresa el grosor del marco"
-                    min="0"
-                    max="10"
-                    required>
+                    id="altoInput" 
+                    value="210" 
+                    min="100" 
+                    max="300" 
+                    required
+                >
             </div>
 
-            <br>
+            <div>
+                <label for="colorInput">🎨 Color / Acabado</label>
+                <input 
+                    type="text" 
+                    id="colorInput" 
+                    placeholder="Ej: Miel, Blanco, Cedro..." 
+                    required
+                >
+            </div>
 
             <div>
-                <label for="apertura">↔️ Sentido de apertura</label>
-                <select id="apertura" name="apertura" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="izquierda">Izquierda</option>
-                    <option value="derecha">Derecha</option>
+                <label for="incluyeChapa">🔑 ¿Incluye Chapa/Cerradura?</label>
+                <select id="incluyeChapa">
+                    <option value="0">No (El cliente la proporciona)</option>
+                    <option value="30000">Sí (+ $30.000)</option>
                 </select>
             </div>
 
             <br>
 
-            <div>
-                <label for="color">🎨 Color</label>
-                <select id="color" name="color" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="blanco">Blanco</option>
-                    <option value="negro wengue">negro wengue</option>
-                    <option value="miel">miel</option>
-                    <option value="caramelo">caramelo</option>
-                </select>
-            </div>
-
-            <br><br>
-
-            <!-- Cambiado tipo a submit y corregida la etiqueta a section -->
             <section>
-                <button type="submit">💰 Cotizar</button>
+                <div style="text-align: center;">
+                    <h3>Total Estimado:</h3>
+                    <h2 id="precioTotal" style="color: #004085; font-size: 1.8rem;">$650.000 COP</h2>
+                </div>
             </section>
 
-        </form> 
-        <!-- CERRAMOS LA ETIQUETA FORM AQUÍ -->
+            <br>
 
-        <br>
+            <div>
+                <button type="submit" id="btnGenerar">📄 Descargar Cotización PDF</button>
+            </div>
 
-        <section>
-            <a href="nueva-cotizacion.html">◀️ Volver</a>
-        </section>
+            <br>
+
+            <div>
+                <p style="text-align: center;">
+                    <a href="inicio.html">← Volver al Panel Principal</a>
+                </p>
+            </div>
+
+        </form>
 
     </main>
 
     <footer>
         <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
     </footer>
-    
+
+    <script>
+        const tipoPuerta = document.getElementById('tipoPuerta');
+        const anchoInput = document.getElementById('anchoInput');
+        const altoInput = document.getElementById('altoInput');
+        const incluyeChapa = document.getElementById('incluyeChapa');
+        const precioTotalEl = document.getElementById('precioTotal');
+        const clienteInput = document.getElementById('clienteInput');
+        const colorInput = document.getElementById('colorInput');
+
+        function calcularDatos() {
+            const precioBase = parseFloat(tipoPuerta.value);
+            const anchoMetros = parseFloat(anchoInput.value || 0) / 100;
+            const altoMetros = parseFloat(altoInput.value || 0) / 100;
+            const chapa = parseFloat(incluyeChapa.value);
+
+            const areaM2 = anchoMetros * altoMetros;
+            const areaEstandard = 1.98; // 0.90m x 2.20m
+            let recargoExceso = 0;
+
+            if (areaM2 > areaEstandard) {
+                const m2Extra = areaM2 - areaEstandard;
+                const tarifaExtra = precioBase >= 1150000 ? 220000 : 150000;
+                recargoExceso = m2Extra * tarifaExtra;
+            }
+
+            const total = precioBase + recargoExceso + chapa;
+
+            return {
+                precioBase,
+                anchoMetros,
+                altoMetros,
+                areaM2,
+                recargoExceso,
+                chapa,
+                total
+            };
+        }
+
+        function actualizarPantalla() {
+            const datos = calcularDatos();
+            precioTotalEl.textContent = `$${Math.round(datos.total).toLocaleString('es-CO')} COP`;
+        }
+
+        [tipoPuerta, anchoInput, altoInput, incluyeChapa].forEach(element => {
+            element.addEventListener('change', actualizarPantalla);
+            element.addEventListener('input', actualizarPantalla);
+        });
+
+        // ENVÍO AL BACKEND Y DESCARGA DIRECTA DEL PDF
+        document.getElementById('formCotizarPuerta').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const datos = calcularDatos();
+            const cliente = clienteInput.value.trim();
+            const color = colorInput.value.trim();
+            const tipoNombre = tipoPuerta.options[tipoPuerta.selectedIndex].getAttribute('data-nombre');
+
+            // 1. Lee el nombre guardado en Configuración (o toma Carpin Fino por defecto)
+            const nombreCarpinteria = localStorage.getItem('nombreCarpinteria') || 'Carpin Fino';
+
+            // 2. Envía la información al backend
+            const payload = {
+                cliente,
+                nombreCarpinteria,
+                tipoNombre,
+                ancho: anchoInput.value,
+                alto: altoInput.value,
+                areaM2: datos.areaM2.toFixed(2),
+                color,
+                chapa: datos.chapa,
+                total: datos.total
+            };
+
+            try {
+                const respuesta = await fetch('http://localhost:5000/api/auth/cotizar-puerta-pdf', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!respuesta.ok) throw new Error('Error al solicitar el PDF al backend');
+
+                const blob = await respuesta.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Cotizacion_Puerta_${cliente.replace(/\s+/g, '_')}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+
+            } catch (error) {
+                console.error(error);
+                alert('No se pudo generar el archivo PDF. Verifica que el servidor esté encendido.');
+            }
+        });
+    </script>
+
 </body>
+
 </html>
