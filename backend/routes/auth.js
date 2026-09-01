@@ -150,7 +150,20 @@ router.post('/reset-password', async (req, res) => {
 // 📄 GENERACIÓN DE PDF: MÓDULO DE PUERTAS
 // ==========================================
 router.post('/cotizar-puerta-pdf', (req, res) => {
-  const { cliente, nombreNegocio, nombreCarpinteria, tipoNombre, ancho, alto, areaM2, color, chapa, total } = req.body;
+  const { 
+    cliente, 
+    nombreNegocio, 
+    telefonoNegocio, 
+    correoNegocio, 
+    direccionNegocio, 
+    tipoNombre, 
+    ancho, 
+    alto, 
+    areaM2, 
+    color, 
+    chapa, 
+    total 
+  } = req.body;
 
   try {
     const doc = new PDFDocument({ size: 'A4', margin: 40 });
@@ -160,29 +173,43 @@ router.post('/cotizar-puerta-pdf', (req, res) => {
 
     doc.pipe(res);
 
-    // 1. Encabezado principal dinámico
-    const tituloMostrado = nombreNegocio || nombreCarpinteria || 'QuotiXX Carpintería';
+    // 1. Encabezado principal ampliado para datos del negocio
+    const tituloMostrado = nombreNegocio || 'QuotiXX Carpintería';
 
-    doc.fillColor('#0d6efd').rect(0, 0, 600, 70).fill();
-    doc.fillColor('#FFFFFF').fontSize(22).font('Helvetica-Bold').text(tituloMostrado, 40, 20);
-    doc.fontSize(11).font('Helvetica').text('Documento Oficial de Cotización', 40, 46);
+    doc.fillColor('#0d6efd').rect(0, 0, 600, 95).fill();
+    
+    // Nombre del Negocio
+    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15);
+    
+    // Subtítulo y datos de contacto del negocio (Derecha e Izquierda)
+    doc.fontSize(9).font('Helvetica');
+    doc.text('Documento Oficial de Cotización', 40, 42);
+    
+    let infoNegocio = [];
+    if (telefonoNegocio) infoNegocio.push(`Tel: ${telefonoNegocio}`);
+    if (correoNegocio) infoNegocio.push(`Email: ${correoNegocio}`);
+    if (direccionNegocio) infoNegocio.push(`Dir: ${direccionNegocio}`);
+
+    if (infoNegocio.length > 0) {
+      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: 515 });
+    }
 
     // 2. Bloque de Datos del Cliente y Fecha
     doc.moveDown(3);
-    doc.fillColor('#212529').fontSize(11).font('Helvetica-Bold').text('CLIENTE:', 40, 95);
-    doc.font('Helvetica').text(cliente, 95, 95);
+    doc.fillColor('#212529').fontSize(11).font('Helvetica-Bold').text('CLIENTE:', 40, 115);
+    doc.font('Helvetica').text(cliente, 95, 115);
     
-    doc.font('Helvetica-Bold').text('FECHA:', 400, 95);
-    doc.font('Helvetica').text(new Date().toLocaleDateString('es-CO'), 450, 95);
+    doc.font('Helvetica-Bold').text('FECHA:', 400, 115);
+    doc.font('Helvetica').text(new Date().toLocaleDateString('es-CO'), 450, 115);
 
-    doc.font('Helvetica-Bold').text('MÓDULO:', 40, 115);
-    doc.font('Helvetica').text('Cotización de Puerta Personalizada', 100, 115);
+    doc.font('Helvetica-Bold').text('MÓDULO:', 40, 135);
+    doc.font('Helvetica').text('Cotización de Puerta Personalizada', 100, 135);
 
     // Línea divisora
-    doc.moveTo(40, 135).lineTo(555, 135).strokeColor('#dee2e6').lineWidth(1).stroke();
+    doc.moveTo(40, 155).lineTo(555, 155).strokeColor('#dee2e6').lineWidth(1).stroke();
 
     // 3. Tabla de Resumen
-    let startY = 150;
+    let startY = 170;
 
     // Encabezado Tabla
     doc.fillColor('#0d6efd').rect(40, startY, 515, 25).fill();
@@ -203,7 +230,6 @@ router.post('/cotizar-puerta-pdf', (req, res) => {
     doc.font('Helvetica').fontSize(10);
 
     filas.forEach((fila, index) => {
-      // Fondo alternado para filas
       if (index % 2 === 0) {
         doc.fillColor('#f8f9fa').rect(40, currentY, 515, 22).fill();
       }

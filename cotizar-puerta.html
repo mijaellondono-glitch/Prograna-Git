@@ -142,7 +142,7 @@
     <script src="js/main.js"></script>
 
     <script>
-        const tipoPuerta = document.getElementById('tipoPuerta');
+       const tipoPuerta = document.getElementById('tipoPuerta');
         const anchoInput = document.getElementById('anchoInput');
         const altoInput = document.getElementById('altoInput');
         const incluyeChapa = document.getElementById('incluyeChapa');
@@ -197,11 +197,13 @@
             const cliente = clienteInput.value.trim();
             const color = colorInput.value.trim();
             const tipoNombre = tipoPuerta.options[tipoPuerta.selectedIndex].getAttribute('data-nombre');
-            const nombreNegocio = localStorage.getItem('nombreNegocio') || '';
 
             const payload = {
                 cliente,
-                nombreNegocio,
+                nombreNegocio: localStorage.getItem('nombreNegocio') || '',
+                telefonoNegocio: localStorage.getItem('telefonoNegocio') || '',
+                correoNegocio: localStorage.getItem('correoNegocio') || '',
+                direccionNegocio: localStorage.getItem('direccionNegocio') || '',
                 tipoNombre,
                 ancho: anchoInput.value,
                 alto: altoInput.value,
@@ -212,7 +214,6 @@
             };
 
             try {
-                // Fallback por si js/main.js no define API_BASE_URL
                 const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
 
                 const respuesta = await fetch(`${baseUrl}/api/auth/cotizar-puerta-pdf`, {

@@ -130,11 +130,13 @@
             const inputCorreo = document.getElementById('correoNegocio');
             const inputDireccion = document.getElementById('direccionNegocio');
 
-            // 1. Cargar desde LocalStorage si existe o traer desde MongoDB
-            if (inputNombre && localStorage.getItem('nombreNegocio')) {
-                inputNombre.value = localStorage.getItem('nombreNegocio');
-            }
+            // 1. Cargar desde LocalStorage
+            if (inputNombre && localStorage.getItem('nombreNegocio')) inputNombre.value = localStorage.getItem('nombreNegocio');
+            if (inputTelefono && localStorage.getItem('telefonoNegocio')) inputTelefono.value = localStorage.getItem('telefonoNegocio');
+            if (inputCorreo && localStorage.getItem('correoNegocio')) inputCorreo.value = localStorage.getItem('correoNegocio');
+            if (inputDireccion && localStorage.getItem('direccionNegocio')) inputDireccion.value = localStorage.getItem('direccionNegocio');
 
+            // 2. Sincronizar desde MongoDB
             try {
                 const res = await fetch(`${API_BASE_URL}/api/auth/configuracion/${emailUsuario}`);
                 if (res.ok) {
@@ -143,28 +145,40 @@
                         inputNombre.value = data.nombreNegocio;
                         localStorage.setItem('nombreNegocio', data.nombreNegocio);
                     }
-                    if (inputTelefono && data.telefonoNegocio) inputTelefono.value = data.telefonoNegocio;
-                    if (inputCorreo && data.correoNegocio) inputCorreo.value = data.correoNegocio;
-                    if (inputDireccion && data.direccionNegocio) inputDireccion.value = data.direccionNegocio;
+                    if (inputTelefono && data.telefonoNegocio) {
+                        inputTelefono.value = data.telefonoNegocio;
+                        localStorage.setItem('telefonoNegocio', data.telefonoNegocio);
+                    }
+                    if (inputCorreo && data.correoNegocio) {
+                        inputCorreo.value = data.correoNegocio;
+                        localStorage.setItem('correoNegocio', data.correoNegocio);
+                    }
+                    if (inputDireccion && data.direccionNegocio) {
+                        inputDireccion.value = data.direccionNegocio;
+                        localStorage.setItem('direccionNegocio', data.direccionNegocio);
+                    }
                 }
             } catch (e) {
                 console.error('Error al conectar con la API:', e);
             }
 
-            // 2. Evento para guardar cambios en MongoDB y LocalStorage
+            // 3. Evento para guardar cambios
             const btnGuardar = document.getElementById('btnGuardarConfig');
             if (btnGuardar) {
                 btnGuardar.addEventListener('click', async (e) => {
                     e.preventDefault();
 
                     const valNombre = inputNombre ? inputNombre.value.trim() : '';
+                    const valTelefono = inputTelefono ? inputTelefono.value.trim() : '';
+                    const valCorreo = inputCorreo ? inputCorreo.value.trim() : '';
+                    const valDireccion = inputDireccion ? inputDireccion.value.trim() : '';
 
                     const payload = {
                         email: emailUsuario,
                         nombreNegocio: valNombre,
-                        telefonoNegocio: inputTelefono ? inputTelefono.value : '',
-                        correoNegocio: inputCorreo ? inputCorreo.value : '',
-                        direccionNegocio: inputDireccion ? inputDireccion.value : ''
+                        telefonoNegocio: valTelefono,
+                        correoNegocio: valCorreo,
+                        direccionNegocio: valDireccion
                     };
 
                     try {
@@ -175,8 +189,10 @@
                         });
 
                         if (res.ok) {
-                            // Guardar en almacenamiento local para usar de inmediato en el PDF
                             localStorage.setItem('nombreNegocio', valNombre);
+                            localStorage.setItem('telefonoNegocio', valTelefono);
+                            localStorage.setItem('correoNegocio', valCorreo);
+                            localStorage.setItem('direccionNegocio', valDireccion);
                             alert('✅ Datos guardados exitosamente');
                         } else {
                             alert('❌ No se pudo guardar la información');
