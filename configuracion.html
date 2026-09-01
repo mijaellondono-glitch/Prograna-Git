@@ -2,304 +2,192 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Quotixx - Configuración</title>
 
-<!-- Configuración Base -->
-<link rel="stylesheet" href="css/Configuración general.css">
+    <!-- Configuración Base -->
+    <link rel="stylesheet" href="css/Configuración general.css">
 
-<!-- Estructura y Capas -->
-<link rel="stylesheet" href="css/Encabezado.css">
-<link rel="stylesheet" href="css/Contenido principal.css">
-<link rel="stylesheet" href="css/Secciones.css">
-<link rel="stylesheet" href="css/Pie de página.css">
+    <!-- Estructura y Capas -->
+    <link rel="stylesheet" href="css/Encabezado.css">
+    <link rel="stylesheet" href="css/Contenido principal.css">
+    <link rel="stylesheet" href="css/Secciones.css">
+    <link rel="stylesheet" href="css/Pie de página.css">
 
-<!-- Componentes e Interfaz -->
-<link rel="stylesheet" href="css/Títulos.css">
-<link rel="stylesheet" href="css/Formularios.css">
-<link rel="stylesheet" href="css/Buscadores.css">
-<link rel="stylesheet" href="css/Botones.css">
-<link rel="stylesheet" href="css/Enlaces.css">
-<link rel="stylesheet" href="css/Menú principal.css">
-<link rel="stylesheet" href="css/Tarjetas.css">
-<link rel="stylesheet" href="css/Login.css">
+    <!-- Componentes e Interfaz -->
+    <link rel="stylesheet" href="css/Títulos.css">
+    <link rel="stylesheet" href="css/Formularios.css">
+    <link rel="stylesheet" href="css/Buscadores.css">
+    <link rel="stylesheet" href="css/Botones.css">
+    <link rel="stylesheet" href="css/Enlaces.css">
+    <link rel="stylesheet" href="css/Menú principal.css">
+    <link rel="stylesheet" href="css/Tarjetas.css">
+    <link rel="stylesheet" href="css/Login.css">
 
-<!-- Adaptación Móvil (Debe ir al final para sobrescribir los estilos anteriores) -->
-<link rel="stylesheet" href="css/Adaptación celular.css">
-
+    <!-- Adaptación Móvil -->
+    <link rel="stylesheet" href="css/Adaptación celular.css">
 </head>
 
 <body>
 
     <!-- ENCABEZADO -->
-
     <header>
-
         <h1>🛠️ Quotixx 📐</h1>
-
-        <p>
-            Cotización para Carpintería
-        </p>
-
+        <p>Cotización para Carpintería</p>
     </header>
 
-
     <!-- CONTENIDO PRINCIPAL -->
-
     <main>
-
         <!-- TÍTULO -->
-
         <section>
-
-            <h2>
-                ⚙️ Configuración
-            </h2>
-
-            <p>
-                Administra las opciones generales de la aplicación.
-            </p>
-
+            <h2>⚙️ Configuración</h2>
+            <p>Administra las opciones generales de la aplicación.</p>
         </section>
-
 
         <!-- INFORMACIÓN DEL NEGOCIO -->
-
         <section>
-
-            <h3>
-                🏪 Información del negocio
-            </h3>
-
-<br><br>
+            <h3>🏪 Información del negocio</h3>
+            <br><br>
 
             <div>
-
-                <label for="nombreNegocio">
-                    Nombre del negocio
-                </label>
-
-                <input
-                    type="text"
-                    id="nombreNegocio"
-                    name="nombreNegocio"
-                    placeholder="Ej: maderas y más"
-                >
-
+                <label for="nombreNegocio">Nombre del negocio</label>
+                <input type="text" id="nombreNegocio" name="nombreNegocio" placeholder="Ej: maderas y más">
             </div>
 
-<br>
+            <br>
 
             <div>
-
-                <label for="telefonoNegocio">
-                    📞 Teléfono
-                </label>
-
-                <input
-                    type="tel"
-                    id="telefonoNegocio"
-                    name="telefonoNegocio"
-                    placeholder="Número de teléfono"
-                >
-
+                <label for="telefonoNegocio">📞 Teléfono</label>
+                <input type="tel" id="telefonoNegocio" name="telefonoNegocio" placeholder="Número de teléfono">
             </div>
 
-<br>
+            <br>
 
             <div>
-
-                <label for="correoNegocio">
-                    📧 Correo electrónico
-                </label>
-
-                <input
-                    type="email"
-                    id="correoNegocio"
-                    name="correoNegocio"
-                    placeholder="Correo electrónico"
-                >
-
+                <label for="correoNegocio">📧 Correo electrónico</label>
+                <input type="email" id="correoNegocio" name="correoNegocio" placeholder="Correo electrónico">
             </div>
 
-<br>
+            <br>
 
             <div>
-
-                <label for="direccionNegocio">
-                    🏠 Dirección
-                </label>
-
-                <input
-                    type="text"
-                    id="direccionNegocio"
-                    name="direccionNegocio"
-                    placeholder="Dirección del negocio"
-                >
-
+                <label for="direccionNegocio">🏠 Dirección</label>
+                <input type="text" id="direccionNegocio" name="direccionNegocio" placeholder="Dirección del negocio">
             </div>
-
         </section>
-
 
         <!-- PREFERENCIAS -->
-
         <section>
-
-            <h3>
-                🔧 Preferencias
-            </h3>
-
-
-<br>
-
+            <h3>🔧 Preferencias</h3>
+            <br>
             <div>
-
-                <label for="notificaciones">
-                    🔔 Notificaciones
-                </label>
-
+                <label for="notificaciones">🔔 Notificaciones</label>
                 <select id="notificaciones" name="notificaciones">
-
-                    <option value="activadas">
-                        Activadas
-                    </option>
-
-                    <option value="desactivadas">
-                        Desactivadas
-                    </option>
-
+                    <option value="activadas">Activadas</option>
+                    <option value="desactivadas">Desactivadas</option>
                 </select>
-
             </div>
-
         </section>
 
-<br><br><br>
-
+        <br><br><br>
 
         <!-- INFORMACIÓN DE LA APLICACIÓN -->
-
         <section>
-
-            <h3 style="text-align: center;">
-                ℹ️ Información de la aplicación
-            </h3>
-
-            <p>
-                Nombre: Quotixx
-            </p>
-
-            <p>
-                Versión: 1.0
-            </p>
-
-            <p>
-                © 2026 Quotixx
-            </p>
-
+            <h3 style="text-align: center;">ℹ️ Información de la aplicación</h3>
+            <p>Nombre: Quotixx</p>
+            <p>Versión: 1.0</p>
+            <p>© 2026 Quotixx</p>
         </section>
-
 
         <!-- BOTONES -->
-
         <section style="display: flex; gap: 100px; align-items: center;">
-
-           <button type="button" id="btnGuardarConfig">💾 Guardar cambios</button>
-
-            <a href="inicio.html">
-                ◀️ Volver
-            </a>
-
+            <button type="button" id="btnGuardarConfig">💾 Guardar cambios</button>
+            <a href="inicio.html">◀️ Volver</a>
         </section>
-
     </main>
 
-
     <!-- PIE DE PÁGINA -->
-
     <footer>
-
-        <p>
-            Versión 1.0 &nbsp; © 2026 Quotixx
-        </p>
-
+        <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
     </footer>
 
+    <script>
+        const API_BASE_URL = 'https://quotixx-backend.onrender.com';
 
+        document.addEventListener('DOMContentLoaded', async () => {
+            const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
+            const emailUsuario = localStorage.getItem('usuarioEmail') || usuarioLogueado?.email;
 
-<script>
-  const API_BASE_URL = 'https://quotixx-backend.onrender.com';
+            if (!emailUsuario) {
+                alert('Por favor, inicia sesión primero.');
+                window.location.href = 'index.html';
+                return;
+            }
 
-  document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Obtener el objeto de usuario o correo guardado
-    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
-    const emailUsuario = localStorage.getItem('usuarioEmail') || usuarioLogueado?.email;
+            const inputNombre = document.getElementById('nombreNegocio');
+            const inputTelefono = document.getElementById('telefonoNegocio');
+            const inputCorreo = document.getElementById('correoNegocio');
+            const inputDireccion = document.getElementById('direccionNegocio');
 
-    if (!emailUsuario) {
-      alert('Por favor, inicia sesión primero.');
-      window.location.href = 'index.html';
-      return;
-    }
+            // 1. Cargar desde LocalStorage si existe o traer desde MongoDB
+            if (inputNombre && localStorage.getItem('nombreNegocio')) {
+                inputNombre.value = localStorage.getItem('nombreNegocio');
+            }
 
-    const inputNombre = document.getElementById('nombreNegocio');
-    const inputTelefono = document.getElementById('telefonoNegocio');
-    const inputCorreo = document.getElementById('correoNegocio');
-    const inputDireccion = document.getElementById('direccionNegocio');
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/auth/configuracion/${emailUsuario}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (inputNombre && data.nombreNegocio) {
+                        inputNombre.value = data.nombreNegocio;
+                        localStorage.setItem('nombreNegocio', data.nombreNegocio);
+                    }
+                    if (inputTelefono && data.telefonoNegocio) inputTelefono.value = data.telefonoNegocio;
+                    if (inputCorreo && data.correoNegocio) inputCorreo.value = data.correoNegocio;
+                    if (inputDireccion && data.direccionNegocio) inputDireccion.value = data.direccionNegocio;
+                }
+            } catch (e) {
+                console.error('Error al conectar con la API:', e);
+            }
 
-    // 2. Traer datos desde MongoDB al cargar la página
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/auth/configuracion/${emailUsuario}`);
-      if (res.ok) {
-        const data = await res.json();
-        if (inputNombre && data.nombreNegocio) inputNombre.value = data.nombreNegocio;
-        if (inputTelefono && data.telefonoNegocio) inputTelefono.value = data.telefonoNegocio;
-        if (inputCorreo && data.correoNegocio) inputCorreo.value = data.correoNegocio;
-        if (inputDireccion && data.direccionNegocio) inputDireccion.value = data.direccionNegocio;
-      }
-    } catch (e) {
-      console.error('Error al conectar con la API:', e);
-    }
+            // 2. Evento para guardar cambios en MongoDB y LocalStorage
+            const btnGuardar = document.getElementById('btnGuardarConfig');
+            if (btnGuardar) {
+                btnGuardar.addEventListener('click', async (e) => {
+                    e.preventDefault();
 
-    // 3. Escuchar el evento de guardar
-    const btnGuardar = document.getElementById('btnGuardarConfig');
-    if (btnGuardar) {
-      btnGuardar.addEventListener('click', async (e) => {
-        e.preventDefault();
+                    const valNombre = inputNombre ? inputNombre.value.trim() : '';
 
-        const payload = {
-          email: emailUsuario,
-          nombreNegocio: inputNombre ? inputNombre.value : '',
-          telefonoNegocio: inputTelefono ? inputTelefono.value : '',
-          correoNegocio: inputCorreo ? inputCorreo.value : '',
-          direccionNegocio: inputDireccion ? inputDireccion.value : ''
-        };
+                    const payload = {
+                        email: emailUsuario,
+                        nombreNegocio: valNombre,
+                        telefonoNegocio: inputTelefono ? inputTelefono.value : '',
+                        correoNegocio: inputCorreo ? inputCorreo.value : '',
+                        direccionNegocio: inputDireccion ? inputDireccion.value : ''
+                    };
 
-        try {
-          const res = await fetch(`${API_BASE_URL}/api/auth/configuracion`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
+                    try {
+                        const res = await fetch(`${API_BASE_URL}/api/auth/configuracion`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
 
-          if (res.ok) {
-            alert('✅ Datos guardados exitosamente en MongoDB');
-          } else {
-            alert('❌ No se pudo guardar la información');
-          }
-        } catch (err) {
-          alert('🔴 Error al conectar con el servidor');
-        }
-      });
-    }
-  });
-</script>
-
-
+                        if (res.ok) {
+                            // Guardar en almacenamiento local para usar de inmediato en el PDF
+                            localStorage.setItem('nombreNegocio', valNombre);
+                            alert('✅ Datos guardados exitosamente');
+                        } else {
+                            alert('❌ No se pudo guardar la información');
+                        }
+                    } catch (err) {
+                        alert('🔴 Error al conectar con el servidor');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

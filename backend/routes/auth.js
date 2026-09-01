@@ -150,7 +150,7 @@ router.post('/reset-password', async (req, res) => {
 // 📄 GENERACIÓN DE PDF: MÓDULO DE PUERTAS
 // ==========================================
 router.post('/cotizar-puerta-pdf', (req, res) => {
-  const { cliente, nombreCarpinteria, tipoNombre, ancho, alto, areaM2, color, chapa, total } = req.body;
+  const { cliente, nombreNegocio, nombreCarpinteria, tipoNombre, ancho, alto, areaM2, color, chapa, total } = req.body;
 
   try {
     const doc = new PDFDocument({ size: 'A4', margin: 40 });
@@ -160,9 +160,11 @@ router.post('/cotizar-puerta-pdf', (req, res) => {
 
     doc.pipe(res);
 
-    // 1. Encabezado principal con nombre personalizado
+    // 1. Encabezado principal dinámico
+    const tituloMostrado = nombreNegocio || nombreCarpinteria || 'QuotiXX Carpintería';
+
     doc.fillColor('#0d6efd').rect(0, 0, 600, 70).fill();
-    doc.fillColor('#FFFFFF').fontSize(22).font('Helvetica-Bold').text(nombreCarpinteria || 'QuotiXX Carpintería', 40, 20);
+    doc.fillColor('#FFFFFF').fontSize(22).font('Helvetica-Bold').text(tituloMostrado, 40, 20);
     doc.fontSize(11).font('Helvetica').text('Documento Oficial de Cotización', 40, 46);
 
     // 2. Bloque de Datos del Cliente y Fecha
@@ -270,6 +272,5 @@ router.put('/configuracion', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
 
 module.exports = router;
