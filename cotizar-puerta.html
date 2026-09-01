@@ -138,6 +138,9 @@
         <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
     </footer>
 
+    <!-- Cargar API_BASE_URL desde main.js -->
+    <script src="js/main.js"></script>
+
     <script>
         const tipoPuerta = document.getElementById('tipoPuerta');
         const anchoInput = document.getElementById('anchoInput');
@@ -145,7 +148,7 @@
         const incluyeChapa = document.getElementById('incluyeChapa');
         const precioTotalEl = document.getElementById('precioTotal');
         const clienteInput = document.getElementById('clienteInput');
-        const colorInput = document.getElementById('colorInput');
+        const colorInput = document.getElementById('color');
 
         function calcularDatos() {
             const precioBase = parseFloat(tipoPuerta.value);
@@ -194,14 +197,11 @@
             const cliente = clienteInput.value.trim();
             const color = colorInput.value.trim();
             const tipoNombre = tipoPuerta.options[tipoPuerta.selectedIndex].getAttribute('data-nombre');
-
-            // 1. Lee el nombre guardado en Configuración (o toma CarpinFine por defecto)
             const nombreNegocio = localStorage.getItem('nombreNegocio') || '';
 
-            // 2. Envía la información al backend
             const payload = {
                 cliente,
-                nombreNegocio: nombreNegocio,
+                nombreNegocio,
                 tipoNombre,
                 ancho: anchoInput.value,
                 alto: altoInput.value,
@@ -212,7 +212,10 @@
             };
 
             try {
-                const respuesta = await fetch(`${API_BASE_URL}/api/auth/cotizar-puerta-pdf`, {
+                // Fallback por si js/main.js no define API_BASE_URL
+                const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
+
+                const respuesta = await fetch(`${baseUrl}/api/auth/cotizar-puerta-pdf`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -232,7 +235,7 @@
 
             } catch (error) {
                 console.error(error);
-                alert('No se pudo generar el archivo PDF. Verifica que el servidor esté encendido.');
+                alert('No se pudo generar el archivo PDF. Verifica la conexión con el servidor.');
             }
         });
     </script>
