@@ -233,6 +233,8 @@
 
 
 <script>
+  const API_BASE_URL = 'https://quotixx-backend.onrender.com';
+
   document.addEventListener('DOMContentLoaded', async () => {
     // 1. Obtener el objeto de usuario o correo guardado
     const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
@@ -251,7 +253,7 @@
 
     // 2. Traer datos desde MongoDB al cargar la página
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/configuracion/${emailUsuario}`);
+      const res = await fetch(`${API_BASE_URL}/api/auth/configuracion/${emailUsuario}`);
       if (res.ok) {
         const data = await res.json();
         if (inputNombre && data.nombreNegocio) inputNombre.value = data.nombreNegocio;
@@ -278,7 +280,7 @@
         };
 
         try {
-          const res = await fetch('http://localhost:5000/api/auth/configuracion', {
+          const res = await fetch(`${API_BASE_URL}/api/auth/configuracion`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)

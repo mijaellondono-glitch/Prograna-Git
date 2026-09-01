@@ -1,3 +1,5 @@
+const API_BASE_URL = 'https://quotixx-backend.onrender.com';
+
 // ==========================================
 // 1. MANEJO DEL REGISTRO DE USUARIO
 // ==========================================
@@ -9,7 +11,7 @@ document.getElementById('formRegistro')?.addEventListener('submit', async (e) =>
     const password = document.getElementById('passwordInput').value;
 
     try {
-        const respuesta = await fetch('http://localhost:5000/api/auth/register', {
+        const respuesta = await fetch(`${API_BASE_URL}/api/auth/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nombre, email, password })
@@ -39,7 +41,7 @@ document.getElementById('formLogin')?.addEventListener('submit', async (e) => {
     const password = document.getElementById('passwordLogin').value;
 
     try {
-        const respuesta = await fetch('http://localhost:5000/api/auth/login', {
+        const respuesta = await fetch(`${API_BASE_URL}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nombre, password })
@@ -78,7 +80,7 @@ document.getElementById('formSolicitarCodigo')?.addEventListener('submit', async
     const email = document.getElementById('emailForgot').value;
 
     try {
-        const respuesta = await fetch('http://localhost:5000/api/auth/forgot-password', {
+        const respuesta = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
@@ -112,7 +114,7 @@ document.getElementById('formRestablecerPass')?.addEventListener('submit', async
     const nuevaPassword = document.getElementById('nuevaPassInput').value;
 
     try {
-        const respuesta = await fetch('http://localhost:5000/api/auth/reset-password', {
+        const respuesta = await fetch(`${API_BASE_URL}/api/auth/reset-password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, codigo, nuevaPassword })

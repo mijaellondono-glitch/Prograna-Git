@@ -89,13 +89,14 @@
             </div>
 
             <div>
-                <label for="colorInput">🎨 Color / Acabado</label>
-                <input 
-                    type="text" 
-                    id="colorInput" 
-                    placeholder="Ej: Miel, Blanco, Cedro..." 
-                    required
-                >
+                <label for="color">🎨 Color</label>
+                <select id="color" name="color" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="blanco">Blanco</option>
+                    <option value="negro wengue">negro wengue</option>
+                    <option value="miel">miel</option>
+                    <option value="caramelo">caramelo</option>
+                </select>
             </div>
 
             <div>
@@ -194,13 +195,13 @@
             const color = colorInput.value.trim();
             const tipoNombre = tipoPuerta.options[tipoPuerta.selectedIndex].getAttribute('data-nombre');
 
-            // 1. Lee el nombre guardado en Configuración (o toma Carpin Fino por defecto)
-            const nombreCarpinteria = localStorage.getItem('nombreCarpinteria') || 'Carpin Fino';
+            // 1. Lee el nombre guardado en Configuración (o toma CarpinFine por defecto)
+            const nombreNegocio = localStorage.getItem('nombreNegocio') || '';
 
             // 2. Envía la información al backend
             const payload = {
                 cliente,
-                nombreCarpinteria,
+                nombreNegocio: nombreNegocio,
                 tipoNombre,
                 ancho: anchoInput.value,
                 alto: altoInput.value,
@@ -211,7 +212,7 @@
             };
 
             try {
-                const respuesta = await fetch('http://localhost:5000/api/auth/cotizar-puerta-pdf', {
+                const respuesta = await fetch(`${API_BASE_URL}/api/auth/cotizar-puerta-pdf`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)

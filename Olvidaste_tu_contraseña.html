@@ -69,6 +69,7 @@
 
     <!-- Script de lógica de recuperación de contraseña -->
     <script>
+        const API_BASE_URL = 'https://quotixx-backend.onrender.com';
         const formSolicitar = document.getElementById('formSolicitarCodigo');
         const formRestablecer = document.getElementById('formRestablecerPass');
         let emailUsuario = '';
@@ -79,7 +80,7 @@
             emailUsuario = document.getElementById('emailForgot').value.trim();
 
             try {
-                const res = await fetch('http://localhost:5000/api/auth/forgot-password', {
+                const res = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: emailUsuario })
@@ -108,7 +109,7 @@
             const newPassword = document.getElementById('nuevaPassInput').value;
 
             try {
-                const res = await fetch('http://localhost:5000/api/auth/reset-password', {
+                const res = await fetch(`${API_BASE_URL}/api/auth/reset-password`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
