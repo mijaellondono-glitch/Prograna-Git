@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,36 +38,46 @@
 
     <main>
         <section>
-            <h2>Cotización de Comedor</h2>
+            <h2>🍽️ Cotización de Comedor</h2>
             <p>
-                Selecciona la forma de la mesa, la cantidad de puestos y el tipo de material para obtener tu presupuesto de comedor.
+                Selecciona la cantidad de puestos, tipo de juego y material para calcular el total estimado.
             </p>
         </section>
 
-        <br><br>
+        <br>
 
-        <form action="/cotizar-comedor" method="POST">
+        <form id="formCotizarComedor">
+
+            <div>
+                <label for="clienteInput">👤 Nombre del Cliente</label>
+                <input 
+                    type="text" 
+                    id="clienteInput" 
+                    placeholder="Ej: Carlos Gómez" 
+                    required
+                >
+            </div>
+
+            <br>
 
             <div>
                 <label for="puestos">🪑 Cantidad de puestos</label>
                 <select id="puestos" name="puestos" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="4_puestos">4 Puestos</option>
-                    <option value="6_puestos">6 Puestos</option>
-                    <option value="8_puestos">8 Puestos</option>
-                    <option value="10_puestos">10 Puestos</option>
+                    <option value="4_puestos" data-base="800000">4 Puestos ($800.000)</option>
+                    <option value="6_puestos" data-base="1200000">6 Puestos ($1.200.000)</option>
+                    <option value="8_puestos" data-base="1600000">8 Puestos ($1.600.000)</option>
+                    <option value="10_puestos" data-base="2000000">10 Puestos ($2.000.000)</option>
                 </select>
             </div>
-               
+
             <br>
 
             <div>
                 <label for="incluyeSillas">🍽️ Incluye sillas o solo mesa</label>
                 <select id="incluyeSillas" name="incluyeSillas" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="juego_completo">Juego completo (Mesa + Sillas)</option>
-                    <option value="solo_mesa">Solo la mesa</option>
-                    <option value="mesa_y_banca">Mesa + Sillas + Banca auxiliar</option>
+                    <option value="juego_completo" data-factor="1">Juego completo (Mesa + Sillas)</option>
+                    <option value="solo_mesa" data-factor="0.6">Solo la mesa (-40%)</option>
+                    <option value="mesa_y_banca" data-factor="0.85">Mesa + Sillas + Banca auxiliar (-15%)</option>
                 </select>
             </div>
 
@@ -75,7 +86,6 @@
             <div>
                 <label for="forma">📐 Forma de la mesa</label>
                 <select id="forma" name="forma" required>
-                    <option value="">Selecciona una opción</option>
                     <option value="rectangular">Rectangular</option>
                     <option value="cuadrada">Cuadrada</option>
                     <option value="redonda">Redonda</option>
@@ -91,8 +101,8 @@
                     type="number" 
                     id="largoMesa" 
                     name="largoMesa" 
-                    placeholder="Ej: 140 para 4 puestos o 180 para 6 puestos"
-                    min="0"
+                    value="140"
+                    min="50"
                     max="400"
                     required>
             </div>
@@ -105,7 +115,7 @@
                     type="number" 
                     id="anchoMesa" 
                     name="anchoMesa" 
-                    placeholder="Ej: 90 cm (Dejar en blanco si es redonda)"
+                    value="90"
                     min="0"
                     max="200">
             </div>
@@ -115,10 +125,9 @@
             <div>
                 <label for="material">🪵 Tipo de madera / Material</label>
                 <select id="material" name="material" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="melamina">Melamina / Aglomerado</option>
-                    <option value="madera_solida">Madera Sólida (Cedro / Roble)</option>
-                    <option value="triplay">Triplay de Pino</option>
+                    <option value="melamina" data-extra="0">Melamina / Aglomerado (Estándar)</option>
+                    <option value="triplay" data-extra="150000">Triplay de Pino (+ $150.000)</option>
+                    <option value="madera_solida" data-extra="450000">Madera Sólida (Cedro / Roble) (+ $450.000)</option>
                 </select>
             </div>
 
@@ -127,7 +136,6 @@
             <div>
                 <label for="color">🎨 Color</label>
                 <select id="color" name="color" required>
-                    <option value="">Selecciona una opción</option>
                     <option value="blanco">Blanco</option>
                     <option value="miel">Miel</option>
                     <option value="caramelo">Caramelo</option>
@@ -135,19 +143,30 @@
                 </select>
             </div>
 
-            <br><br>
+            <br>
 
             <section>
-                <button type="submit">💰 Cotizar</button>
+                <div style="text-align: center;">
+                    <h3>Total Estimado:</h3>
+                    <h2 id="precioTotal" style="color: #004085; font-size: 1.8rem;">$800.000 COP</h2>
+                </div>
             </section>
 
+            <br>
+
+            <div>
+                <button type="submit" id="btnGenerar">📄 Descargar Cotización PDF</button>
+            </div>
+
+            <br>
+
+            <div>
+                <p style="text-align: center;">
+                    <a href="inicio.html">← Volver al Panel Principal</a>
+                </p>
+            </div>
+
         </form> 
-
-        <br>
-
-        <section>
-            <a href="nueva-cotizacion.html">◀️ Volver</a>
-        </section>
 
     </main>
 
@@ -155,5 +174,112 @@
         <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
     </footer>
     
+    <!-- Cargar API_BASE_URL desde main.js -->
+    <script src="js/main.js"></script>
+
+    <script>
+        const clienteInput = document.getElementById('clienteInput');
+        const puestosSelect = document.getElementById('puestos');
+        const incluyeSillasSelect = document.getElementById('incluyeSillas');
+        const formaSelect = document.getElementById('forma');
+        const largoMesaInput = document.getElementById('largoMesa');
+        const anchoMesaInput = document.getElementById('anchoMesa');
+        const materialSelect = document.getElementById('material');
+        const colorSelect = document.getElementById('color');
+        const precioTotalEl = document.getElementById('precioTotal');
+
+        // Deshabilitar ancho si la mesa es redonda
+        formaSelect.addEventListener('change', () => {
+            if (formaSelect.value === 'redonda') {
+                anchoMesaInput.value = '';
+                anchoMesaInput.disabled = true;
+                anchoMesaInput.placeholder = 'N/A (Redonda)';
+            } else {
+                anchoMesaInput.disabled = false;
+                if (!anchoMesaInput.value) anchoMesaInput.value = '90';
+            }
+            actualizarPantalla();
+        });
+
+        function calcularDatos() {
+            const opcionPuestos = puestosSelect.options[puestosSelect.selectedIndex];
+            const precioBasePuestos = parseFloat(opcionPuestos.getAttribute('data-base') || 0);
+
+            const opcionSillas = incluyeSillasSelect.options[incluyeSillasSelect.selectedIndex];
+            const factorSillas = parseFloat(opcionSillas.getAttribute('data-factor') || 1);
+
+            const opcionMaterial = materialSelect.options[materialSelect.selectedIndex];
+            const recargoMaterial = parseFloat(opcionMaterial.getAttribute('data-extra') || 0);
+
+            const subtotal = (precioBasePuestos * factorSillas) + recargoMaterial;
+
+            return {
+                precioBasePuestos,
+                factorSillas,
+                recargoMaterial,
+                total: subtotal
+            };
+        }
+
+        function actualizarPantalla() {
+            const datos = calcularDatos();
+            precioTotalEl.textContent = `$${Math.round(datos.total).toLocaleString('es-CO')} COP`;
+        }
+
+        [puestosSelect, incluyeSillasSelect, formaSelect, largoMesaInput, anchoMesaInput, materialSelect, colorSelect].forEach(element => {
+            element.addEventListener('change', actualizarPantalla);
+            element.addEventListener('input', actualizarPantalla);
+        });
+
+        // ENVÍO AL BACKEND Y DESCARGA DE PDF
+        document.getElementById('formCotizarComedor').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const datos = calcularDatos();
+            const cliente = clienteInput.value.trim();
+
+            const payload = {
+                cliente,
+                nombreNegocio: localStorage.getItem('nombreNegocio') || '',
+                telefonoNegocio: localStorage.getItem('telefonoNegocio') || '',
+                correoNegocio: localStorage.getItem('correoNegocio') || '',
+                direccionNegocio: localStorage.getItem('direccionNegocio') || '',
+                puestosTexto: puestosSelect.options[puestosSelect.selectedIndex].text.split(' ($')[0],
+                incluyeSillasTexto: incluyeSillasSelect.options[incluyeSillasSelect.selectedIndex].text,
+                forma: formaSelect.options[formaSelect.selectedIndex].text,
+                largo: largoMesaInput.value,
+                ancho: formaSelect.value === 'redonda' ? 'N/A' : anchoMesaInput.value,
+                material: materialSelect.options[materialSelect.selectedIndex].text.split(' (+')[0],
+                color: colorSelect.options[colorSelect.selectedIndex].text,
+                total: datos.total
+            };
+
+            try {
+                const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
+
+                const respuesta = await fetch(`${baseUrl}/api/auth/cotizar-comedor-pdf`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!respuesta.ok) throw new Error('Error al solicitar el PDF al backend');
+
+                const blob = await respuesta.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Cotizacion_Comedor_${cliente.replace(/\s+/g, '_')}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+
+            } catch (error) {
+                console.error(error);
+                alert('No se pudo generar el archivo PDF. Verifica la conexión con el servidor.');
+            }
+        });
+    </script>
 </body>
 </html>

@@ -267,6 +267,112 @@ router.post('/cotizar-puerta-pdf', (req, res) => {
 // ==========================================
 
 
+// ==========================================
+// 📄 GENERACIÓN DE PDF: MÓDULO DE COMEDORES
+// ==========================================
+router.post('/cotizar-comedor-pdf', (req, res) => {
+  const { 
+    cliente, 
+    nombreNegocio, 
+    telefonoNegocio, 
+    correoNegocio, 
+    direccionNegocio, 
+    puestosTexto, 
+    incluyeSillasTexto, 
+    forma, 
+    largo, 
+    ancho, 
+    material, 
+    color, 
+    total 
+  } = req.body;
+
+  try {
+    const doc = new PDFDocument({ size: 'A4', margin: 40 });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=Cotizacion_Comedor_${cliente.replace(/\s+/g, '_')}.pdf`);
+
+    doc.pipe(res);
+
+    // 1. Encabezado principal
+    const tituloMostrado = nombreNegocio || 'QuotiXX Carpintería';
+    doc.fillColor('#0d6efd').rect(0, 0, 600, 95).fill();
+    
+    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15);
+    doc.fontSize(9).font('Helvetica').text('Documento Oficial de Cotización', 40, 42);
+    
+    let infoNegocio = [];
+    if (telefonoNegocio) infoNegocio.push(`Tel: ${telefonoNegocio}`);
+    if (correoNegocio) infoNegocio.push(`Email: ${correoNegocio}`);
+    if (direccionNegocio) infoNegocio.push(`Dir: ${direccionNegocio}`);
+
+    if (infoNegocio.length > 0) {
+      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: 515 });
+    }
+
+    // 2. Datos del cliente
+    doc.moveDown(3);
+    doc.fillColor('#212529').fontSize(11).font('Helvetica-Bold').text('CLIENTE:', 40, 115);
+    doc.font('Helvetica').text(cliente, 95, 115);
+    
+    doc.font('Helvetica-Bold').text('FECHA:', 400, 115);
+    doc.font('Helvetica').text(new Date().toLocaleDateString('es-CO'), 450, 115);
+
+    doc.font('Helvetica-Bold').text('MÓDULO:', 40, 135);
+    doc.font('Helvetica').text('Cotización de Comedor Personalizado', 100, 135);
+
+    doc.moveTo(40, 155).lineTo(555, 155).strokeColor('#dee2e6').lineWidth(1).stroke();
+
+    // 3. Tabla de Detalles
+    let startY = 170;
+
+    doc.fillColor('#0d6efd').rect(40, startY, 515, 25).fill();
+    doc.fillColor('#FFFFFF').fontSize(10).font('Helvetica-Bold');
+    doc.text('Concepto / Detalle', 50, startY + 8);
+    doc.text('Especificación', 250, startY + 8);
+    doc.text('Estado', 470, startY + 8);
+
+    const filas = [
+      ['Capacidad / Puestos', puestosTexto, 'Incluido'],
+      ['Configuración', incluyeSillasTexto, 'Incluido'],
+      ['Forma de la Mesa', forma, 'Incluido'],
+      ['Dimensiones', `Largo: ${largo} cm | Ancho: ${ancho} cm`, 'Incluido'],
+      ['Material / Madera', material, 'Incluido'],
+      ['Acabado / Color', color, 'Incluido']
+    ];
+
+    let currentY = startY + 25;
+    doc.font('Helvetica').fontSize(10);
+
+    filas.forEach((fila, index) => {
+      if (index % 2 === 0) {
+        doc.fillColor('#f8f9fa').rect(40, currentY, 515, 22).fill();
+      }
+      doc.fillColor('#212529');
+      doc.text(fila[0], 50, currentY + 6);
+      doc.text(fila[1], 250, currentY + 6);
+      doc.text(fila[2], 470, currentY + 6);
+      currentY += 22;
+    });
+
+    // 4. Total
+    currentY += 15;
+    doc.fillColor('#e7f1ff').rect(320, currentY, 235, 45).fill();
+    doc.rect(320, currentY, 235, 45).strokeColor('#b6d4fe').stroke();
+    
+    doc.fillColor('#084298').fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
+    doc.fillColor('#0d6efd').fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
+
+    // Pie de página
+    doc.fillColor('#6c757d').fontSize(9).font('Helvetica').text('Este documento fue generado automáticamente por QuotiXX. Válido por 15 días.', 40, 780, { align: 'center' });
+
+    doc.end();
+  } catch (error) {
+    res.status(500).json({ message: 'Error al generar el PDF del comedor.', error: error.message });
+  }
+});
+
 // Obtener configuración del negocio
 router.get('/configuracion/:email', async (req, res) => {
   try {
