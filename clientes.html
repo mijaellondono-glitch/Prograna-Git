@@ -135,11 +135,31 @@
                     return;
                 }
                 contenedor.innerHTML = lista.map(c => `
-                    <div style="border:1px solid #ddd; border-radius:8px; padding:12px; margin-bottom:10px;">
-                        <strong>${c.nombre}</strong><br>
-                        📞 ${c.telefono}${c.direccion ? `<br>📍 ${c.direccion}` : ''}
+                    <div style="border:1px solid #ddd; border-radius:8px; padding:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+                        <div>
+                            <strong>${c.nombre}</strong><br>
+                            📞 ${c.telefono}${c.direccion ? `<br>📍 ${c.direccion}` : ''}
+                        </div>
+                        <button type="button" data-id="${c._id}" class="btnEliminarCliente" style="background:#b00020; color:white; border:none; border-radius:4px; padding:4px 10px; cursor:pointer; font-size:0.8rem; flex-shrink:0;">🗑️ Eliminar</button>
                     </div>
                 `).join('');
+
+                contenedor.querySelectorAll('.btnEliminarCliente').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        if (!confirm('¿Eliminar este cliente? Su historial de cotizaciones no se borrará, pero quedará sin cliente asociado.')) return;
+                        try {
+                            const res = await fetch(`${baseUrl}/api/clientes/${btn.dataset.id}`, { method: 'DELETE' });
+                            if (res.ok) {
+                                clientes = clientes.filter(c => c._id !== btn.dataset.id);
+                                renderizar(clientes);
+                            } else {
+                                alert('No se pudo eliminar el cliente.');
+                            }
+                        } catch (err) {
+                            alert('Error al conectar con el servidor.');
+                        }
+                    });
+                });
             }
 
             try {
