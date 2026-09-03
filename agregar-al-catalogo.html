@@ -49,7 +49,7 @@
         <br><br>
 
         <!-- FORMULARIO DE REGISTRO (enctype es OBLIGATORIO para subir imágenes) -->
-        <form action="/guardar-en-catalogo" method="POST" enctype="multipart/form-data">
+        <form id="formAgregarCatalogo" action="/guardar-en-catalogo" method="POST" enctype="multipart/form-data">
 
             <!-- CATEGORÍA DEL MUEBLE -->
             <div>
@@ -139,6 +139,45 @@
     <footer>
         <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
     </footer>
+
+    <script src="js/main.js"></script>
+
+    <script>
+        document.getElementById('formAgregarCatalogo').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const form = e.target;
+            const boton = form.querySelector('button[type="submit"]');
+            const formData = new FormData(form);
+
+            boton.disabled = true;
+            boton.textContent = 'Guardando...';
+
+            try {
+                const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
+
+                const respuesta = await fetch(`${baseUrl}/api/productos`, {
+                    method: 'POST',
+                    body: formData // No poner Content-Type manual: el navegador arma el multipart/form-data solo
+                });
+
+                const datos = await respuesta.json();
+
+                if (respuesta.ok) {
+                    alert('✅ Producto agregado al catálogo correctamente.');
+                    form.reset();
+                } else {
+                    alert(`❌ ${datos.message || 'No se pudo guardar el producto.'}`);
+                }
+            } catch (error) {
+                console.error(error);
+                alert('🔴 Error al conectar con el servidor.');
+            } finally {
+                boton.disabled = false;
+                boton.textContent = '✅ Guardar en Catálogo';
+            }
+        });
+    </script>
 
 </body>
 

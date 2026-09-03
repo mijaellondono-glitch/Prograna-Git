@@ -61,6 +61,18 @@
             <br>
 
             <div>
+                <label for="telefonoClienteInput">📞 Teléfono del Cliente</label>
+                <input 
+                    type="tel" 
+                    id="telefonoClienteInput" 
+                    placeholder="Ej: 3001234567" 
+                    required
+                >
+            </div>
+
+            <br>
+
+            <div>
                 <label for="puestos">🪑 Cantidad de puestos</label>
                 <select id="puestos" name="puestos" required>
                     <option value="4_puestos" data-base="800000">4 Puestos ($800.000)</option>
@@ -237,9 +249,11 @@
 
             const datos = calcularDatos();
             const cliente = clienteInput.value.trim();
+            const telefonoCliente = document.getElementById('telefonoClienteInput').value.trim();
 
             const payload = {
                 cliente,
+                telefonoCliente,
                 nombreNegocio: localStorage.getItem('nombreNegocio') || '',
                 telefonoNegocio: localStorage.getItem('telefonoNegocio') || '',
                 correoNegocio: localStorage.getItem('correoNegocio') || '',
@@ -274,6 +288,19 @@
                 a.click();
                 a.remove();
                 window.URL.revokeObjectURL(url);
+
+                // Guardar en el historial (Clientes + Historial quedan sincronizados)
+                fetch(`${baseUrl}/api/cotizaciones`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        clienteNombre: cliente,
+                        clienteTelefono: telefonoCliente,
+                        tipoMueble: 'comedor',
+                        detalle: `Comedor ${payload.puestosTexto} - ${payload.forma}`,
+                        total: datos.total
+                    })
+                }).catch((err) => console.error('No se pudo guardar en el historial:', err));
 
             } catch (error) {
                 console.error(error);

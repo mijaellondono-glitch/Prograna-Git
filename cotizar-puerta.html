@@ -56,6 +56,16 @@
             </div>
 
             <div>
+                <label for="telefonoClienteInput">📞 Teléfono del Cliente</label>
+                <input 
+                    type="tel" 
+                    id="telefonoClienteInput" 
+                    placeholder="Ej: 3001234567" 
+                    required
+                >
+            </div>
+
+            <div>
                 <label for="tipoPuerta">🛠️ Tipo de Puerta</label>
                 <select id="tipoPuerta" required>
                     <option value="650000" data-nombre="Puerta Entamborada Normal">Puerta Entamborada Normal ($650.000)</option>
@@ -195,11 +205,13 @@
 
             const datos = calcularDatos();
             const cliente = clienteInput.value.trim();
+            const telefonoCliente = document.getElementById('telefonoClienteInput').value.trim();
             const color = colorInput.value.trim();
             const tipoNombre = tipoPuerta.options[tipoPuerta.selectedIndex].getAttribute('data-nombre');
 
             const payload = {
                 cliente,
+                telefonoCliente,
                 nombreNegocio: localStorage.getItem('nombreNegocio') || '',
                 telefonoNegocio: localStorage.getItem('telefonoNegocio') || '',
                 correoNegocio: localStorage.getItem('correoNegocio') || '',
@@ -233,6 +245,19 @@
                 a.click();
                 a.remove();
                 window.URL.revokeObjectURL(url);
+
+                // Guardar en el historial (Clientes + Historial quedan sincronizados)
+                fetch(`${baseUrl}/api/cotizaciones`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        clienteNombre: cliente,
+                        clienteTelefono: telefonoCliente,
+                        tipoMueble: 'puerta',
+                        detalle: `${tipoNombre} - ${color}`,
+                        total: datos.total
+                    })
+                }).catch((err) => console.error('No se pudo guardar en el historial:', err));
 
             } catch (error) {
                 console.error(error);

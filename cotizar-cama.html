@@ -1,20 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotización de Cama - Quotixx</title>
 
-    <!-- Configuración Base -->
     <link rel="stylesheet" href="css/Configuración general.css">
-
-    <!-- Estructura y Capas -->
     <link rel="stylesheet" href="css/Encabezado.css">
     <link rel="stylesheet" href="css/Contenido principal.css">
     <link rel="stylesheet" href="css/Secciones.css">
     <link rel="stylesheet" href="css/Pie de página.css">
-
-    <!-- Componentes e Interfaz -->
     <link rel="stylesheet" href="css/Títulos.css">
     <link rel="stylesheet" href="css/Formularios.css">
     <link rel="stylesheet" href="css/Buscadores.css">
@@ -23,8 +18,6 @@
     <link rel="stylesheet" href="css/Menú principal.css">
     <link rel="stylesheet" href="css/Tarjetas.css">
     <link rel="stylesheet" href="css/Login.css">
-
-    <!-- Adaptación Móvil -->
     <link rel="stylesheet" href="css/Adaptación celular.css">
 </head>
 
@@ -37,38 +30,48 @@
 
     <main>
         <section>
-            <h2>Cotización de Cama</h2>
-            <p>
-                Selecciona las características y dimensiones de la cama que deseas cotizar. Elige los complementos necesarios para obtener un presupuesto exacto.
-            </p>
+            <h2>🛏️ Cotización de Cama</h2>
+            <p>Selecciona las características y complementos de la cama para calcular el presupuesto.</p>
         </section>
 
         <br><br>
 
-        <form action="/cotizar-cama" method="POST">
+        <form id="formCotizarCama">
+
+            <div>
+                <label for="clienteInput">👤 Nombre del Cliente</label>
+                <input type="text" id="clienteInput" placeholder="Ej: Laura Gómez" required>
+            </div>
+
+            <br>
+
+            <div>
+                <label for="telefonoClienteInput">📞 Teléfono del Cliente</label>
+                <input type="tel" id="telefonoClienteInput" placeholder="Ej: 3001234567" required>
+            </div>
+
+            <br>
 
             <div>
                 <label for="tamano">🛏️ Tamaño de la cama</label>
-                <select id="tamano" name="tamano" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="sencilla">Sencilla (1.00m x 1.90m)</option>
-                    <option value="semidoble">Semidoble (1.20m x 1.90m)</option>
-                    <option value="doble">Doble (1.40m x 1.90m)</option>
-                    <option value="queen">Queen (1.60m x 1.90m)</option>
-                    <option value="king">King (2.00m x 2.00m)</option>
+                <select id="tamano" required>
+                    <option value="480000" data-nombre="Sencilla (1.00m x 1.90m)">Sencilla (1.00m x 1.90m) — $480.000</option>
+                    <option value="550000" data-nombre="Semidoble (1.20m x 1.90m)">Semidoble (1.20m x 1.90m) — $550.000</option>
+                    <option value="620000" data-nombre="Doble (1.40m x 1.90m)">Doble (1.40m x 1.90m) — $620.000</option>
+                    <option value="720000" data-nombre="Queen (1.60m x 1.90m)">Queen (1.60m x 1.90m) — $720.000</option>
+                    <option value="850000" data-nombre="King (2.00m x 2.00m)">King (2.00m x 2.00m) — $850.000</option>
                 </select>
             </div>
-               
+
             <br>
 
             <div>
                 <label for="cabecero">🪵 Tipo de cabecero</label>
-                <select id="cabecero" name="cabecero" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="sin_cabecero">Sin cabecero (Solo base)</option>
-                    <option value="cabecero_liso">Cabecero liso de madera</option>
-                    <option value="cabecero_flotante">Cabecero flotante de pared</option>
-                    <option value="cabecero_tapizado">Cabecero tapizado</option>
+                <select id="cabecero" required>
+                    <option value="0" data-nombre="Sin cabecero (Solo base)">Sin cabecero (Solo base)</option>
+                    <option value="180000" data-nombre="Cabecero liso de madera">Cabecero liso de madera (+$180.000)</option>
+                    <option value="250000" data-nombre="Cabecero flotante de pared">Cabecero flotante de pared (+$250.000)</option>
+                    <option value="320000" data-nombre="Cabecero tapizado">Cabecero tapizado (+$320.000)</option>
                 </select>
             </div>
 
@@ -76,11 +79,10 @@
 
             <div>
                 <label for="mesitas">🌙 Juego con mesitas de noche</label>
-                <select id="mesitas" name="mesitas" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="sin_mesitas">Solo la cama (Sin mesitas)</option>
-                    <option value="una_mesita">Cama + 1 Mesita de noche</option>
-                    <option value="dos_mesitas">Cama + 2 Mesitas de noche</option>
+                <select id="mesitas" required>
+                    <option value="0" data-nombre="Solo la cama (Sin mesitas)">Solo la cama (Sin mesitas)</option>
+                    <option value="150000" data-nombre="Cama + 1 Mesita de noche">Cama + 1 Mesita de noche (+$150.000)</option>
+                    <option value="280000" data-nombre="Cama + 2 Mesitas de noche">Cama + 2 Mesitas de noche (+$280.000)</option>
                 </select>
             </div>
 
@@ -88,11 +90,10 @@
 
             <div>
                 <label for="almacenamiento">📦 Espacio de almacenamiento</label>
-                <select id="almacenamiento" name="almacenamiento" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="base_sencilla">Base sencilla (Sin cajones)</option>
-                    <option value="cajones_inferiores">Con cajones inferiores</option>
-                    <option value="baul_abatible">Con baúl abatible (Cama hidráulica)</option>
+                <select id="almacenamiento" required>
+                    <option value="0" data-nombre="Base sencilla (Sin cajones)">Base sencilla (Sin cajones)</option>
+                    <option value="220000" data-nombre="Con cajones inferiores">Con cajones inferiores (+$220.000)</option>
+                    <option value="450000" data-nombre="Con baúl abatible (Cama hidráulica)">Con baúl abatible / hidráulica (+$450.000)</option>
                 </select>
             </div>
 
@@ -100,11 +101,10 @@
 
             <div>
                 <label for="material">🪵 Material principal</label>
-                <select id="material" name="material" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="melamina">Melamina / Aglomerado</option>
-                    <option value="madera_solida">Madera Sólida</option>
-                    <option value="triplay">Triplay de Pino</option>
+                <select id="material" required>
+                    <option value="1" data-nombre="Melamina / Aglomerado">Melamina / Aglomerado</option>
+                    <option value="1.3" data-nombre="Madera Sólida">Madera Sólida (+30%)</option>
+                    <option value="0.9" data-nombre="Triplay de Pino">Triplay de Pino (-10%)</option>
                 </select>
             </div>
 
@@ -112,7 +112,7 @@
 
             <div>
                 <label for="color">🎨 Color</label>
-                <select id="color" name="color" required>
+                <select id="color" required>
                     <option value="">Selecciona una opción</option>
                     <option value="blanco">Blanco</option>
                     <option value="miel">Miel</option>
@@ -124,15 +124,24 @@
             <br><br>
 
             <section>
-                <button type="submit">💰 Cotizar</button>
+                <div style="text-align: center;">
+                    <h3>Total Estimado:</h3>
+                    <h2 id="precioTotal" style="color: #004085; font-size: 1.8rem;">$480.000 COP</h2>
+                </div>
             </section>
 
-        </form> 
+            <br>
+
+            <div style="text-align: center;">
+                <button type="submit" id="btnGenerar">📄 Descargar Cotización PDF</button>
+            </div>
+
+        </form>
 
         <br>
 
         <section>
-            <a href="nueva-cotizacion.html">◀️ Volver</a>
+            <a href="inicio.html">← Volver al Panel Principal</a>
         </section>
 
     </main>
@@ -140,6 +149,111 @@
     <footer>
         <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
     </footer>
-    
+
+    <script src="js/main.js"></script>
+
+    <script>
+        const clienteInput = document.getElementById('clienteInput');
+        const tamanoSelect = document.getElementById('tamano');
+        const cabeceroSelect = document.getElementById('cabecero');
+        const mesitasSelect = document.getElementById('mesitas');
+        const almacenamientoSelect = document.getElementById('almacenamiento');
+        const materialSelect = document.getElementById('material');
+        const colorSelect = document.getElementById('color');
+        const precioTotalEl = document.getElementById('precioTotal');
+
+        function calcularDatos() {
+            const precioBase = parseFloat(tamanoSelect.value) || 0;
+            const precioCabecero = parseFloat(cabeceroSelect.value) || 0;
+            const precioMesitas = parseFloat(mesitasSelect.value) || 0;
+            const precioAlmacenamiento = parseFloat(almacenamientoSelect.value) || 0;
+            const factorMaterial = parseFloat(materialSelect.value) || 1;
+
+            const subtotal = precioBase + precioCabecero + precioMesitas + precioAlmacenamiento;
+            const total = subtotal * factorMaterial;
+
+            return { precioBase, precioCabecero, precioMesitas, precioAlmacenamiento, factorMaterial, total };
+        }
+
+        function actualizarPantalla() {
+            const datos = calcularDatos();
+            precioTotalEl.textContent = `$${Math.round(datos.total).toLocaleString('es-CO')} COP`;
+        }
+
+        [tamanoSelect, cabeceroSelect, mesitasSelect, almacenamientoSelect, materialSelect, colorSelect].forEach(el => {
+            el.addEventListener('change', actualizarPantalla);
+        });
+
+        document.getElementById('formCotizarCama').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const datos = calcularDatos();
+            const cliente = clienteInput.value.trim();
+            const telefonoCliente = document.getElementById('telefonoClienteInput').value.trim();
+            const tamanoTexto = tamanoSelect.options[tamanoSelect.selectedIndex].getAttribute('data-nombre');
+            const cabeceroTexto = cabeceroSelect.options[cabeceroSelect.selectedIndex].getAttribute('data-nombre');
+            const mesitasTexto = mesitasSelect.options[mesitasSelect.selectedIndex].getAttribute('data-nombre');
+            const almacenamientoTexto = almacenamientoSelect.options[almacenamientoSelect.selectedIndex].getAttribute('data-nombre');
+            const materialTexto = materialSelect.options[materialSelect.selectedIndex].getAttribute('data-nombre');
+            const color = colorSelect.options[colorSelect.selectedIndex].text;
+
+            const payload = {
+                cliente,
+                telefonoCliente,
+                nombreNegocio: localStorage.getItem('nombreNegocio') || '',
+                telefonoNegocio: localStorage.getItem('telefonoNegocio') || '',
+                correoNegocio: localStorage.getItem('correoNegocio') || '',
+                direccionNegocio: localStorage.getItem('direccionNegocio') || '',
+                tamanoTexto,
+                cabeceroTexto,
+                mesitasTexto,
+                almacenamientoTexto,
+                material: materialTexto,
+                color,
+                total: datos.total
+            };
+
+            try {
+                const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
+
+                const respuesta = await fetch(`${baseUrl}/api/auth/cotizar-cama-pdf`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!respuesta.ok) throw new Error('Error al solicitar el PDF al backend');
+
+                const blob = await respuesta.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Cotizacion_Cama_${cliente.replace(/\s+/g, '_')}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+
+                fetch(`${baseUrl}/api/cotizaciones`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        clienteNombre: cliente,
+                        clienteTelefono: telefonoCliente,
+                        tipoMueble: 'cama',
+                        detalle: `${tamanoTexto} - ${materialTexto} - ${color}`,
+                        total: datos.total
+                    })
+                }).catch((err) => console.error('No se pudo guardar en el historial:', err));
+
+            } catch (error) {
+                console.error(error);
+                alert('No se pudo generar el archivo PDF. Verifica la conexión con el servidor.');
+            }
+        });
+
+        actualizarPantalla();
+    </script>
+
 </body>
 </html>

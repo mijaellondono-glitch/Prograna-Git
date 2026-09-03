@@ -12,8 +12,15 @@ app.use(express.json());
 // Sirve tus pantallas .html directamente desde la raíz
 app.use(express.static(path.join(__dirname, '../')));
 
+// Sirve las fotos subidas del catálogo
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Rutas de la API
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/productos', require('./routes/productos'));
+app.use('/api/materiales', require('./routes/materiales'));
+app.use('/api/clientes', require('./routes/clientes'));
+app.use('/api/cotizaciones', require('./routes/cotizaciones'));
 
 const PORT = process.env.PORT || 5000;
 

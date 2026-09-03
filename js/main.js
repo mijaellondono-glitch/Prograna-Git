@@ -1,6 +1,24 @@
 const API_BASE_URL = 'https://quotixx-backend.onrender.com';
 
 // ==========================================
+// 0. SESIÓN PERSISTENTE
+// Si ya hay un usuario guardado en este dispositivo, no lo mandamos
+// otra vez al login: lo llevamos directo a inicio.html.
+// Solo aplica en index.html (la pantalla de login).
+// ==========================================
+(function verificarSesionPersistente() {
+    const pagina = window.location.pathname.split('/').pop();
+    const esPaginaLogin = pagina === '' || pagina === 'index.html';
+
+    if (esPaginaLogin) {
+        const usuarioLogueado = localStorage.getItem('usuarioLogueado');
+        if (usuarioLogueado) {
+            window.location.href = 'inicio.html';
+        }
+    }
+})();
+
+// ==========================================
 // 1. MANEJO DEL REGISTRO DE USUARIO
 // ==========================================
 document.getElementById('formRegistro')?.addEventListener('submit', async (e) => {

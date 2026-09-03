@@ -80,7 +80,14 @@
 
         </section>
 
+        <br><br>
 
+        <!-- LISTA DE CLIENTES -->
+        <section id="listaClientes">
+            <!-- Aquí se cargan dinámicamente los clientes -->
+        </section>
+
+        <br><br>
 
 
         <!-- BOTONES -->
@@ -112,6 +119,47 @@
 
     </footer>
 
+
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const contenedor = document.getElementById('listaClientes');
+            const buscador = document.getElementById('buscarCliente');
+            const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
+            let clientes = [];
+
+            function renderizar(lista) {
+                if (lista.length === 0) {
+                    contenedor.innerHTML = '<p style="text-align:center;">No hay clientes registrados todavía.</p>';
+                    return;
+                }
+                contenedor.innerHTML = lista.map(c => `
+                    <div style="border:1px solid #ddd; border-radius:8px; padding:12px; margin-bottom:10px;">
+                        <strong>${c.nombre}</strong><br>
+                        📞 ${c.telefono}${c.direccion ? `<br>📍 ${c.direccion}` : ''}
+                    </div>
+                `).join('');
+            }
+
+            try {
+                const res = await fetch(`${baseUrl}/api/clientes`);
+                clientes = res.ok ? await res.json() : [];
+            } catch (err) {
+                console.error('Error al cargar clientes:', err);
+            }
+            renderizar(clientes);
+
+            if (buscador) {
+                buscador.addEventListener('input', () => {
+                    const texto = buscador.value.trim().toLowerCase();
+                    renderizar(clientes.filter(c =>
+                        c.nombre.toLowerCase().includes(texto) || c.telefono.includes(texto)
+                    ));
+                });
+            }
+        });
+    </script>
 
 </body>
 

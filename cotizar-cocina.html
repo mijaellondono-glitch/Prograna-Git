@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotización de Cocina - Quotixx</title>
+    <title>Cotización de Cocina - QuotiXX</title>
 
     <!-- Configuración Base -->
     <link rel="stylesheet" href="css/Configuración general.css">
@@ -31,69 +31,136 @@
 <body>
 
     <header>
-        <h1>🛠️ Quotixx 📐</h1>
+        <h1>🛠️ QuotiXX 📐</h1>
         <p>Cotización para Carpintería</p>
     </header>
 
+    <br>
+
     <main>
+
         <section>
-            <h2>Cotización de Cocina Integral</h2>
+            <h2>🍳 Cotización de Cocina Integral</h2>
+            <br>
             <p>
-                Dinos qué partes de la cocina deseas cotizar. Puedes llenar solo la parte inferior, solo los gabinetes superiores, o ambos según lo requieras.
+                Ingresa los datos del proyecto, las medidas de los módulos y tus tarifas por metro para realizar el cálculo automático.
             </p>
         </section>
 
-        <br><br>
+        <br><br><hr><br><br>
 
-        <form action="/cotizar-cocina" method="POST">
+        <form id="formCotizarCocina">
 
-            <!-- CONFIGURACIÓN GENERAL DE LA COCINA -->
-            <div>
-                <label for="diseno">🍳 Distribución de la cocina</label>
-                <select id="diseno" name="diseno" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="lineal">Lineal (Una sola pared)</option>
-                    <option value="en_l">En L (Dos paredes)</option>
-                    <option value="en_u">En U (Tres paredes)</option>
-                </select>
-            </div>
-               
-            <br>
-
-            <div>
-                <label for="material">🪵 Tipo de madera / Material</label>
-                <select id="material" name="material" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="melamina_rh">Melamina RH (Resistente a la Humedad)</option>
-                    <option value="mdf_lacado">MDF Lacado / Poliuretano</option>
-                    <option value="triplay">Triplay de Pino</option>
-                    <option value="madera_cedro">Madera Cedro / Sólida</option>
-                </select>
-            </div>
-
-            <br>
-
-            <div>
-                <label for="color">🎨 Color</label>
-                <select id="color" name="color" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="blanco">Blanco</option>
-                    <option value="miel">Miel</option>
-                    <option value="caramelo">Caramelo</option>
-                    <option value="wengue">Negro Wengué</option>
-                </select>
-            </div>
-
-            <br><hr><br>
-
-            <!-- SECCIÓN 1: MUEBLE INFERIOR (PARTE DE ABAJO) -->
+            <!-- ========================================== -->
+            <!-- BLOQUE 0: DATOS GENERALES Y MATERIALES     -->
+            <!-- ========================================== -->
             <fieldset>
-                <legend>👇 <strong>1. Mueble Inferior (Parte de Abajo)</strong></legend>
-                <p><i>Llenar solo si deseas cotizar el mueble base.</i></p>
+                <legend>📋 <strong>Datos Generales del Proyecto</strong></legend>
+                
                 <br>
 
-                <div>   
+                <div class="campo-form">
+                    <label for="clienteInput">👤 Nombre del Cliente</label>
+                    <br><br>
+                    <input 
+                        type="text" 
+                        id="clienteInput" 
+                        placeholder="Ej: María Rodríguez" 
+                        required
+                    >
+                </div>
+
+                <br><br>
+
+                <div class="campo-form">
+                    <label for="telefonoClienteInput">📞 Teléfono del Cliente</label>
+                    <br><br>
+                    <input 
+                        type="tel" 
+                        id="telefonoClienteInput" 
+                        placeholder="Ej: 3001234567" 
+                        required
+                    >
+                </div>
+
+                <br><br>
+
+                <div class="campo-form">
+                    <label for="material">🪵 Tipo de madera / Material</label>
+                    <br><br>
+                    <select id="material" name="material" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="melamina_rh">Melamina RH (Resistente a la Humedad)</option>
+                        <option value="madera_tratada">Madera Tratada</option>
+                    </select>
+                </div>
+
+                <br><br>
+
+                <div class="campo-form">
+                    <label for="color">🎨 Color madera / Acabado</label>
+                    <br><br>
+                    <select id="color" name="color" required>
+                        <option value="">Selecciona primero el tipo de madera</option>
+                    </select>
+                </div>
+
+                <br><br>
+
+                <div class="campo-form">
+                    <label for="tipoBisagras">🔩 Tipo de Bisagras</label>
+                    <br><br>
+                    <select id="tipoBisagras" name="tipoBisagras" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="cierre_lento">Cierre Lento / Amortiguado ($6.000 COP c/u)</option>
+                        <option value="normal">Normal / Estándar ($4.000 COP c/u)</option>
+                    </select>
+                </div>
+
+                <br>
+            </fieldset>
+
+            <br><br><hr><br><br>
+
+            <!-- ========================================== -->
+            <!-- BLOQUE 1: MUEBLE INFERIOR                  -->
+            <!-- ========================================== -->
+            <fieldset>
+                <legend>👇 <strong>1. Mueble Inferior (Parte de Abajo)</strong></legend>
+                
+                <br>
+                <p><i>Llenar solo si deseas cotizar el mueble base.</i></p>
+                <br><br>
+
+                <div class="campo-form">
+                    <label for="precioMetroInferior">💰 Tu Precio por Metro Lineal Mueble Inferior ($ COP)</label>
+                    <br><br>
+                    <input 
+                        type="number" 
+                        id="precioMetroInferior" 
+                        name="precioMetroInferior" 
+                        placeholder="Ej: 800000"
+                        min="0">
+                </div>
+
+                <br><br>
+
+                <div class="campo-form">
+                    <label for="disenoBajo">🍳 Distribución Mueble Inferior</label>
+                    <br><br>
+                    <select id="disenoBajo" name="disenoBajo">
+                        <option value="">Selecciona una opción</option>
+                        <option value="lineal">Lineal (Una sola pared)</option>
+                        <option value="en_l">En L (Dos paredes)</option>
+                        <option value="en_u">En U (Tres paredes)</option>
+                    </select>
+                </div>
+
+                <br><br>
+
+                <div class="campo-form">   
                     <label for="largoBajoPared1">📏 Largo Pared 1 / Tramo Principal (en cm)</label>
+                    <br><br>
                     <input 
                         type="number" 
                         id="largoBajoPared1" 
@@ -103,43 +170,139 @@
                         max="1000">
                 </div>
 
-                <br>
+                <br><br>
 
-                <div>   
-                    <label for="largoBajoPared2">📏 Largo Pared 2 (Solo si es en L o U) (en cm)</label>
+                <div id="contBajoPared2" class="campo-form" style="display: none;">   
+                    <label for="largoBajoPared2">📏 Largo Pared 2 (en cm)</label>
+                    <br><br>
                     <input 
                         type="number" 
                         id="largoBajoPared2" 
                         name="largoBajoPared2" 
-                        placeholder="Ej: 150 (Dejar en blanco si es lineal)"
+                        placeholder="Ej: 150"
                         min="0"
                         max="1000">
+                    <br><br>
                 </div>
 
-                <br>
+                <div id="contBajoPared3" class="campo-form" style="display: none;">   
+                    <label for="largoBajoPared3">📏 Largo Pared 3 (en cm)</label>
+                    <br><br>
+                    <input 
+                        type="number" 
+                        id="largoBajoPared3" 
+                        name="largoBajoPared3" 
+                        placeholder="Ej: 120"
+                        min="0"
+                        max="1000">
+                    <br><br>
+                </div>
 
-                <div>
+                <div class="campo-form">
+                    <label for="manijaInferior">🚪 Tipo de Manija (Mueble Inferior)</label>
+                    <br><br>
+                    <select id="manijaInferior" name="manijaInferior">
+                        <option value="">Selecciona una opción</option>
+                        <option value="con_manija">Con Manija Tradicional (+$3.000 COP c/u)</option>
+                        <option value="manija_invisible">Manija Invisible / Perfil Gola ($0 extra)</option>
+                    </select>
+                </div>
+
+                <br><br>
+
+                <div class="campo-form">
                     <label for="meson">🍳 Tipo de mesón / Cubierta</label>
+                    <br><br>
                     <select id="meson" name="meson">
+                        <option value="">Selecciona una opción</option>
                         <option value="sin_meson">Sin mesón (Solo el mueble)</option>
                         <option value="granito">Granito Natural</option>
                         <option value="cuarzo">Cuarzo Silestone</option>
                         <option value="acero">Acero Inoxidable</option>
-                        <option value="formica">Laminado / Fórmica</option>
                     </select>
                 </div>
+
+                <br><br>
+
+                <div id="contPrecioMeson" class="campo-form" style="display: none;">
+                    <label for="precioMetroMeson">💰 Tu Precio por Metro Lineal de Mesón ($ COP)</label>
+                    <br><br>
+                    <input 
+                        type="number" 
+                        id="precioMetroMeson" 
+                        name="precioMetroMeson" 
+                        placeholder="Ej: 350000"
+                        min="0">
+                    <br><br>
+                </div>
+
+                <div class="campo-form">
+                    <label for="deseaChut">🗑️ ¿Deseas incluir Chut de Basura?</label>
+                    <br><br>
+                    <select id="deseaChut" name="deseaChut">
+                        <option value="">Selecciona una opción</option>
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+
+                <br><br>
+
+                <div id="contPrecioChut" class="campo-form" style="display: none;">
+                    <label for="precioChut">💰 Tu Precio por Chut de Basura ($ COP)</label>
+                    <br><br>
+                    <input 
+                        type="number" 
+                        id="precioChut" 
+                        name="precioChut" 
+                        placeholder="Ej: 150000"
+                        min="0">
+                    <br><br>
+                </div>
+
             </fieldset>
 
-            <br><hr><br>
+            <br><br><hr><br><br>
 
-            <!-- SECCIÓN 2: GABINETES SUPERIORES (PARTE DE ARRIBA) -->
+            <!-- ========================================== -->
+            <!-- BLOQUE 2: GABINETES SUPERIORES             -->
+            <!-- ========================================== -->
             <fieldset>
                 <legend>☝️ <strong>2. Gabinetes Superiores (Parte de Arriba)</strong></legend>
-                <p><i>Llenar solo si deseas cotizar los muebles aéreos.</i></p>
+                
                 <br>
+                <p><i>Llenar solo si deseas cotizar los muebles aéreos.</i></p>
+                <br><br>
 
-                <div>   
+                <div class="campo-form">
+                    <label for="precioMetroSuperior">💰 Tu Precio por Metro Lineal Mueble Superior ($ COP)</label>
+                    <br><br>
+                    <input 
+                        type="number" 
+                        id="precioMetroSuperior" 
+                        name="precioMetroSuperior" 
+                        placeholder="Ej: 750000"
+                        min="0">
+                </div>
+
+                <br><br>
+
+                <div class="campo-form">
+                    <label for="disenoAlto">🍳 Distribución Gabinetes Superiores</label>
+                    <br><br>
+                    <select id="disenoAlto" name="disenoAlto">
+                        <option value="">Selecciona una opción</option>
+                        <option value="lineal">Lineal (Una sola pared)</option>
+                        <option value="en_l">En L (Dos paredes)</option>
+                        <option value="en_u">En U (Tres paredes)</option>
+                    </select>
+                </div>
+
+                <br><br>
+
+                <div class="campo-form">   
                     <label for="largoAltoPared1">📏 Largo Pared 1 / Tramo Principal (en cm)</label>
+                    <br><br>
                     <input 
                         type="number" 
                         id="largoAltoPared1" 
@@ -149,52 +312,446 @@
                         max="1000">
                 </div>
 
-                <br>
+                <br><br>
 
-                <div>   
-                    <label for="largoAltoPared2">📏 Largo Pared 2 (Solo si es en L o U) (en cm)</label>
+                <div id="contAltoPared2" class="campo-form" style="display: none;">   
+                    <label for="largoAltoPared2">📏 Largo Pared 2 (en cm)</label>
+                    <br><br>
                     <input 
                         type="number" 
                         id="largoAltoPared2" 
                         name="largoAltoPared2" 
-                        placeholder="Ej: 150 (Dejar en blanco si es lineal)"
+                        placeholder="Ej: 150"
                         min="0"
                         max="1000">
+                    <br><br>
                 </div>
 
-                <br>
+                <div id="contAltoPared3" class="campo-form" style="display: none;">   
+                    <label for="largoAltoPared3">📏 Largo Pared 3 (en cm)</label>
+                    <br><br>
+                    <input 
+                        type="number" 
+                        id="largoAltoPared3" 
+                        name="largoAltoPared3" 
+                        placeholder="Ej: 120"
+                        min="0"
+                        max="1000">
+                    <br><br>
+                </div>
 
-                <div>   
+                <div class="campo-form">   
                     <label for="alturaGabinete">📐 Altura del gabinete aéreo (en cm)</label>
+                    <br><br>
                     <input 
                         type="number" 
                         id="alturaGabinete" 
                         name="alturaGabinete" 
-                        placeholder="Ej: 60 o 70 cm estándar"
-                        min="0"
+                        placeholder="Ej: 60"
+                        min="30"
                         max="150">
                 </div>
+
+                <br><br>
+
+                <div class="campo-form">
+                    <label for="manijaSuperior">🚪 Tipo de Manija (Gabinetes Superiores)</label>
+                    <br><br>
+                    <select id="manijaSuperior" name="manijaSuperior">
+                        <option value="">Selecciona una opción</option>
+                        <option value="manija_invisible">Manija Invisible / Biselado ($0 extra)</option>
+                        <option value="con_manija">Con Manija Tradicional (+$3.000 COP c/u)</option>
+                    </select>
+                </div>
+
+                <br><br>
+
+                <div class="campo-form">
+                    <label for="aperturaPuertasSuperiores">🚪 Modo de Apertura de Puertas Superiores</label>
+                    <br><br>
+                    <select id="aperturaPuertasSuperiores" name="aperturaPuertasSuperiores">
+                        <option value="">Selecciona una opción</option>
+                        <option value="normal_lado">Normales (Apertura lateral / de lado)</option>
+                        <option value="hacia_arriba">Basculantes (Pistón a gas: +$5.000 COP por unidad)</option>
+                    </select>
+                </div>
+
+                <br>
             </fieldset>
+
+            <br><br><hr><br><br>
+
+            <!-- ========================================== -->
+            <!-- BLOQUE 3: ILUMINACIÓN LED                  -->
+            <!-- ========================================== -->
+            <fieldset>
+                <legend>💡 <strong>3. Iluminación y Luces LED</strong></legend>
+                
+                <br>
+
+                <div class="campo-form">
+                    <label for="deseaLed">¿Deseas incluir Tira LED inferior/superior?</label>
+                    <br><br>
+                    <select id="deseaLed" name="deseaLed">
+                        <option value="">Selecciona una opción</option>
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+
+                <div id="opcionesLedContainer" style="display: none;">
+                    <br><br>
+
+                    <div class="campo-form">
+                        <label for="colorLed">🎨 Color de la Tira LED</label>
+                        <br><br>
+                        <select id="colorLed" name="colorLed">
+                            <option value="">Selecciona una opción</option>
+                            <option value="blanco_calido">Blanco Cálido ($80.000 COP/m)</option>
+                            <option value="blanco_frio">Blanco Frío ($80.000 COP/m)</option>
+                            <option value="rgb">RGB Multicolor ($110.000 COP/m)</option>
+                        </select>
+                    </div>
+
+                    <br><br>
+
+                    <div class="campo-form">
+                        <label for="ubicacionLed">📍 Ubicación de la Tira LED</label>
+                        <br><br>
+                        <select id="ubicacionLed" name="ubicacionLed">
+                            <option value="">Selecciona una opción</option>
+                        </select>
+                    </div>
+                </div>
+
+                <br>
+            </fieldset>
+
+            <br><br><hr><br><br>
+
+            <!-- ========================================== -->
+            <!-- CÁLCULO FINAL Y TOTAL                      -->
+            <!-- ========================================== -->
+            <section>
+                <div style="text-align: center;">
+                    <h3>Total Estimado:</h3>
+                    <br>
+                    <h2 id="precioTotal" style="color: #004085; font-size: 2rem;">$0 COP</h2>
+                </div>
+            </section>
 
             <br><br>
 
-            <section>
-                <button type="submit">💰 Cotizar Cocina</button>
-            </section>
+            <div style="text-align: center;">
+                <button type="button" id="btnGenerar">📄 Descargar Cotización PDF</button>
+            </div>
 
         </form> 
 
-        <br>
+        <br><br><br>
 
         <section>
-            <a href="nueva-cotizacion.html">◀️ Volver</a>
+            <p style="text-align: center;">
+                <a href="inicio.html">← Volver al Panel Principal</a>
+            </p>
         </section>
+
+        <br>
 
     </main>
 
     <footer>
-        <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
+        <p>Versión 1.0 &nbsp; © 2026 QuotiXX</p>
     </footer>
-    
+
+    <!-- Cargar API_BASE_URL desde main.js -->
+    <script src="js/main.js"></script>
+
+    <script>
+        // Catálogos de colores por tipo de madera
+        const coloresPorMaterial = {
+            madera_tratada: [
+                { value: 'blanco', text: 'Blanco' },
+                { value: 'miel', text: 'Miel' },
+                { value: 'caramelo', text: 'Caramelo' },
+                { value: 'wengue', text: 'Negro Wengué' }
+            ],
+            melamina_rh: [
+                { value: 'blanco_liso', text: 'Blanco — Liso' },
+                { value: 'negro_liso', text: 'Negro — Liso' },
+                { value: 'gris_liso', text: 'Gris — Liso' },
+                { value: 'gris_nordico', text: 'Gris Nórdico — Liso' },
+                { value: 'cendra', text: 'Cendra — Liso' },
+                { value: 'arena', text: 'Arena — Liso' },
+                { value: 'taupe', text: 'Taupe — Liso' },
+                { value: 'verde_salvia', text: 'Verde Salvia — Liso' },
+                { value: 'azul', text: 'Azul — Liso' },
+                { value: 'wengue_madera', text: 'Wengue — Acabado madera' },
+                { value: 'nogal', text: 'Nogal — Acabado madera' },
+                { value: 'roble', text: 'Roble — Acabado madera' },
+                { value: 'roble_provenzal', text: 'Roble Provenzal — Acabado madera' },
+                { value: 'teka_artico', text: 'Teka Ártico — Acabado madera' },
+                { value: 'teka', text: 'Teka — Acabado madera' },
+                { value: 'caramel', text: 'Caramel — Acabado madera' },
+                { value: 'espresso', text: 'Espresso — Acabado madera' },
+                { value: 'jerez', text: 'Jerez — Acabado madera' },
+                { value: 'cedro', text: 'Cedro — Acabado madera' },
+                { value: 'castaño', text: 'Castaño — Acabado madera' }
+            ]
+        };
+
+        const materialSelect = document.getElementById('material');
+        const colorSelect = document.getElementById('color');
+        
+        const disenoBajoSelect = document.getElementById('disenoBajo');
+        const contBajoPared2 = document.getElementById('contBajoPared2');
+        const contBajoPared3 = document.getElementById('contBajoPared3');
+
+        const disenoAltoSelect = document.getElementById('disenoAlto');
+        const contAltoPared2 = document.getElementById('contAltoPared2');
+        const contAltoPared3 = document.getElementById('contAltoPared3');
+
+        // Referencias Mesón
+        const mesonSelect = document.getElementById('meson');
+        const contPrecioMeson = document.getElementById('contPrecioMeson');
+
+        // Referencias Chut de Basura
+        const deseaChutSelect = document.getElementById('deseaChut');
+        const contPrecioChut = document.getElementById('contPrecioChut');
+
+        // Referencias Iluminación LED
+        const deseaLedSelect = document.getElementById('deseaLed');
+        const opcionesLedContainer = document.getElementById('opcionesLedContainer');
+        const ubicacionLedSelect = document.getElementById('ubicacionLed');
+
+        // Formulario completo para eventos de cálculo
+        const formCotizacion = document.getElementById('formCotizarCocina');
+        const precioTotalDisplay = document.getElementById('precioTotal');
+
+        // Actualizar selector de colores según material
+        materialSelect.addEventListener('change', () => {
+            const material = materialSelect.value;
+            colorSelect.innerHTML = '<option value="">Selecciona una opción</option>';
+
+            if (coloresPorMaterial[material]) {
+                coloresPorMaterial[material].forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c.value;
+                    opt.textContent = c.text;
+                    colorSelect.appendChild(opt);
+                });
+            }
+        });
+
+        // Control dinámico del precio del Mesón
+        mesonSelect.addEventListener('change', () => {
+            if (mesonSelect.value !== '' && mesonSelect.value !== 'sin_meson') {
+                contPrecioMeson.style.display = 'block';
+            } else {
+                contPrecioMeson.style.display = 'none';
+                document.getElementById('precioMetroMeson').value = '';
+            }
+            calcularTotal();
+        });
+
+        // Control dinámico del precio del Chut de Basura
+        deseaChutSelect.addEventListener('change', () => {
+            if (deseaChutSelect.value === 'si') {
+                contPrecioChut.style.display = 'block';
+            } else {
+                contPrecioChut.style.display = 'none';
+                document.getElementById('precioChut').value = '';
+            }
+            calcularTotal();
+        });
+
+        // Control dinámico de tramos del Mueble Inferior
+        disenoBajoSelect.addEventListener('change', () => {
+            const val = disenoBajoSelect.value;
+            if (val === 'lineal' || val === '') {
+                contBajoPared2.style.display = 'none';
+                contBajoPared3.style.display = 'none';
+            } else if (val === 'en_l') {
+                contBajoPared2.style.display = 'block';
+                contBajoPared3.style.display = 'none';
+            } else if (val === 'en_u') {
+                contBajoPared2.style.display = 'block';
+                contBajoPared3.style.display = 'block';
+            }
+            actualizarOpcionesUbicacionLed();
+            calcularTotal();
+        });
+
+        // Control dinámico de tramos de Gabinetes Superiores
+        disenoAltoSelect.addEventListener('change', () => {
+            const val = disenoAltoSelect.value;
+            if (val === 'lineal' || val === '') {
+                contAltoPared2.style.display = 'none';
+                contAltoPared3.style.display = 'none';
+            } else if (val === 'en_l') {
+                contAltoPared2.style.display = 'block';
+                contAltoPared3.style.display = 'none';
+            } else if (val === 'en_u') {
+                contAltoPared2.style.display = 'block';
+                contAltoPared3.style.display = 'block';
+            }
+            actualizarOpcionesUbicacionLed();
+            calcularTotal();
+        });
+
+        // Mostrar / Ocultar opciones de Tira LED
+        deseaLedSelect.addEventListener('change', () => {
+            if (deseaLedSelect.value === 'si') {
+                opcionesLedContainer.style.display = 'block';
+                actualizarOpcionesUbicacionLed();
+            } else {
+                opcionesLedContainer.style.display = 'none';
+            }
+            calcularTotal();
+        });
+
+        // Adaptar opciones de paredes para Tira LED
+        function actualizarOpcionesUbicacionLed() {
+            ubicacionLedSelect.innerHTML = '<option value="">Selecciona una opción</option>';
+
+            const bajo = disenoBajoSelect.value;
+            const alto = disenoAltoSelect.value;
+
+            let esEnU = (bajo === 'en_u' || alto === 'en_u');
+            let esEnL = (bajo === 'en_l' || alto === 'en_l');
+
+            if (esEnU) {
+                ubicacionLedSelect.innerHTML += `
+                    <option value="todas">En todas las paredes (Pared 1, 2 y 3)</option>
+                    <option value="solo_pared_1">Solo en Pared 1 (Principal)</option>
+                    <option value="solo_pared_2">Solo en Pared 2</option>
+                    <option value="solo_pared_3">Solo en Pared 3</option>
+                `;
+            } else if (esEnL) {
+                ubicacionLedSelect.innerHTML += `
+                    <option value="todas">En todas las paredes (Pared 1 y 2)</option>
+                    <option value="solo_pared_1">Solo en Pared 1 (Principal)</option>
+                    <option value="solo_pared_2">Solo en Pared 2</option>
+                `;
+            } else {
+                ubicacionLedSelect.innerHTML += `
+                    <option value="todas">En toda la longitud (1 sola pared)</option>
+                `;
+            }
+        }
+
+        // ==========================================
+        // LÓGICA MATEMÁTICA DE CÁLCULO DE COTIZACIÓN
+        // ==========================================
+        function calcularTotal() {
+            let total = 0;
+
+            // 1. CÁLCULO MUEBLE INFERIOR
+            const precioMetroInf = parseFloat(document.getElementById('precioMetroInferior').value) || 0;
+            const lBajo1 = (parseFloat(document.getElementById('largoBajoPared1').value) || 0) / 100;
+            const lBajo2 = contBajoPared2.style.display !== 'none' ? (parseFloat(document.getElementById('largoBajoPared2').value) || 0) / 100 : 0;
+            const lBajo3 = contBajoPared3.style.display !== 'none' ? (parseFloat(document.getElementById('largoBajoPared3').value) || 0) / 100 : 0;
+            const metrosBajoTotales = lBajo1 + lBajo2 + lBajo3;
+
+            if (metrosBajoTotales > 0 && precioMetroInf > 0) {
+                total += metrosBajoTotales * precioMetroInf;
+            }
+
+            // MESÓN INFERIOR
+            const tipoMeson = mesonSelect.value;
+            const precioMetroMeson = parseFloat(document.getElementById('precioMetroMeson').value) || 0;
+            if (tipoMeson !== '' && tipoMeson !== 'sin_meson' && metrosBajoTotales > 0 && precioMetroMeson > 0) {
+                total += metrosBajoTotales * precioMetroMeson;
+            }
+
+            // CHUT DE BASURA
+            if (deseaChutSelect.value === 'si') {
+                const precioChut = parseFloat(document.getElementById('precioChut').value) || 0;
+                if (precioChut > 0) {
+                    total += precioChut;
+                }
+            }
+
+            // 2. CÁLCULO GABINETES SUPERIORES
+            const precioMetroSup = parseFloat(document.getElementById('precioMetroSuperior').value) || 0;
+            const lAlto1 = (parseFloat(document.getElementById('largoAltoPared1').value) || 0) / 100;
+            const lAlto2 = contAltoPared2.style.display !== 'none' ? (parseFloat(document.getElementById('largoAltoPared2').value) || 0) / 100 : 0;
+            const lAlto3 = contAltoPared3.style.display !== 'none' ? (parseFloat(document.getElementById('largoAltoPared3').value) || 0) / 100 : 0;
+            const metrosAltoTotales = lAlto1 + lAlto2 + lAlto3;
+
+            if (metrosAltoTotales > 0 && precioMetroSup > 0) {
+                total += metrosAltoTotales * precioMetroSup;
+            }
+
+            // 3. HERRAJES (BISAGRAS Y MANIJAS)
+            const metrosMueblesTotales = metrosBajoTotales + metrosAltoTotales;
+            const cantidadPuertas = Math.ceil(metrosMueblesTotales * 3); // 3 puertas por metro
+            const cantidadBisagras = cantidadPuertas * 2; // 2 bisagras por puerta
+
+            const tipoBisagra = document.getElementById('tipoBisagras').value;
+            if (tipoBisagra === 'normal') {
+                total += cantidadBisagras * 4000;
+            } else if (tipoBisagra === 'cierre_lento') {
+                total += cantidadBisagras * 6000;
+            }
+
+            // Manijas Mueble Inferior
+            if (document.getElementById('manijaInferior').value === 'con_manija' && metrosBajoTotales > 0) {
+                const puertasBajo = Math.ceil(metrosBajoTotales * 3);
+                total += puertasBajo * 3000;
+            }
+
+            // Manijas Mueble Superior
+            if (document.getElementById('manijaSuperior').value === 'con_manija' && metrosAltoTotales > 0) {
+                const puertasAlto = Math.ceil(metrosAltoTotales * 3);
+                total += puertasAlto * 3000;
+            }
+
+            // Apertura Basculante Superior (Pistones)
+            if (document.getElementById('aperturaPuertasSuperiores').value === 'hacia_arriba' && metrosAltoTotales > 0) {
+                const puertasAlto = Math.ceil(metrosAltoTotales * 3);
+                total += puertasAlto * 5000; // 5.000 COP por puerta/kit
+            }
+
+            // 4. ILUMINACIÓN LED
+            if (deseaLedSelect.value === 'si') {
+                const colorLed = document.getElementById('colorLed').value;
+                const ubicacionLed = ubicacionLedSelect.value;
+                
+                let precioPorMetroLed = 0;
+                if (colorLed === 'blanco_calido' || colorLed === 'blanco_frio') {
+                    precioPorMetroLed = 80000;
+                } else if (colorLed === 'rgb') {
+                    precioPorMetroLed = 110000;
+                }
+
+                if (precioPorMetroLed > 0) {
+                    let metrosLed = 0;
+                    if (ubicacionLed === 'todas') {
+                        metrosLed = Math.max(metrosBajoTotales, metrosAltoTotales);
+                    } else if (ubicacionLed === 'solo_pared_1') {
+                        metrosLed = Math.max(lBajo1, lAlto1);
+                    } else if (ubicacionLed === 'solo_pared_2') {
+                        metrosLed = Math.max(lBajo2, lAlto2);
+                    } else if (ubicacionLed === 'solo_pared_3') {
+                        metrosLed = Math.max(lBajo3, lAlto3);
+                    }
+
+                    total += metrosLed * precioPorMetroLed;
+                }
+            }
+
+            // Formatear valor como moneda colombiana ($ COP)
+            precioTotalDisplay.textContent = new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0
+            }).format(total);
+        }
+
+        // Escuchar todos los cambios en los inputs del formulario
+        formCotizacion.addEventListener('input', calcularTotal);
+        formCotizacion.addEventListener('change', calcularTotal);
+    </script>
 </body>
 </html>

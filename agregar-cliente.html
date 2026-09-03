@@ -175,6 +175,51 @@
 
     </footer>
 
+    <script src="js/main.js"></script>
+
+    <script>
+        document.getElementById('clienteForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const form = e.target;
+            const boton = form.querySelector('button[type="submit"]');
+
+            const payload = {
+                nombre: document.getElementById('nombreCliente').value.trim(),
+                telefono: document.getElementById('telefono').value.trim(),
+                direccion: document.getElementById('direccion').value.trim()
+            };
+
+            boton.disabled = true;
+            boton.textContent = 'Guardando...';
+
+            try {
+                const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
+
+                const respuesta = await fetch(`${baseUrl}/api/clientes`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const datos = await respuesta.json();
+
+                if (respuesta.ok) {
+                    alert('✅ Cliente guardado correctamente.');
+                    window.location.href = 'clientes.html';
+                } else {
+                    alert(`❌ ${datos.message || 'No se pudo guardar el cliente.'}`);
+                }
+            } catch (error) {
+                console.error(error);
+                alert('🔴 Error al conectar con el servidor.');
+            } finally {
+                boton.disabled = false;
+                boton.textContent = 'Guardar Cliente';
+            }
+        });
+    </script>
+
 </body>
 
 </html>

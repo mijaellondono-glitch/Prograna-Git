@@ -105,6 +105,13 @@
             <button type="button" id="btnGuardarConfig">💾 Guardar cambios</button>
             <a href="inicio.html">◀️ Volver</a>
         </section>
+
+        <br><br>
+
+        <!-- CERRAR SESIÓN -->
+        <section style="text-align: center;">
+            <button type="button" id="btnCerrarSesion" style="background-color: #b00020; color: white;">🚪 Cerrar sesión</button>
+        </section>
     </main>
 
     <!-- PIE DE PÁGINA -->
@@ -199,6 +206,19 @@
                         }
                     } catch (err) {
                         alert('🔴 Error al conectar con el servidor');
+                    }
+                });
+            }
+
+            // 4. Evento para cerrar sesión
+            const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+            if (btnCerrarSesion) {
+                btnCerrarSesion.addEventListener('click', () => {
+                    const confirmar = confirm('¿Seguro que quieres cerrar sesión?');
+                    if (confirmar) {
+                        localStorage.removeItem('usuarioLogueado');
+                        localStorage.removeItem('usuarioEmail');
+                        window.location.href = 'index.html';
                     }
                 });
             }

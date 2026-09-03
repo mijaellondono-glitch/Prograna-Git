@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,77 +37,77 @@
 
     <main>
         <section>
-            <h2>Cotización de Closet</h2>
+            <h2>🗄️ Cotización de Closet</h2>
             <p>
-                Ingresa las dimensiones y características del closet que deseas cotizar. Proporciona datos precisos para obtener un presupuesto exacto.
+                Ingresa las dimensiones y características del closet, y tu precio por metro cuadrado, para calcular el presupuesto.
             </p>
         </section>
 
         <br><br>
 
-        <form action="/cotizar-closet" method="POST">
+        <form id="formCotizarCloset">
+
+            <div>
+                <label for="clienteInput">👤 Nombre del Cliente</label>
+                <input type="text" id="clienteInput" placeholder="Ej: Ana Martínez" required>
+            </div>
+
+            <br>
+
+            <div>
+                <label for="telefonoClienteInput">📞 Teléfono del Cliente</label>
+                <input type="tel" id="telefonoClienteInput" placeholder="Ej: 3001234567" required>
+            </div>
+
+            <br>
+
+            <div>
+                <label for="precioMetro">💰 Tu Precio por Metro Cuadrado de Frente ($ COP)</label>
+                <input type="number" id="precioMetro" placeholder="Ej: 900000" min="0" required>
+            </div>
+
+            <br>
 
             <div>
                 <label for="tipoCloset">🗄️ Tipo de closet</label>
-                <select id="tipoCloset" name="tipoCloset" required>
+                <select id="tipoCloset" required>
                     <option value="">Selecciona una opción</option>
                     <option value="empotrado">Empotrado</option>
                     <option value="vestidor">Vestidor (Walk-in)</option>
                     <option value="modular">Modular de pared</option>
                 </select>
             </div>
-               
+
             <br>
 
-            <div>   
+            <div>
                 <label for="alto">📏 Alto (en cm)</label>
-                <input 
-                    type="number" 
-                    id="alto" 
-                    name="alto" 
-                    placeholder="Ingresa el alto del closet"
-                    min="0"
-                    max="350"
-                    required>
+                <input type="number" id="alto" value="240" min="100" max="350" required>
             </div>
 
             <br>
 
             <div>
                 <label for="ancho">📏 Ancho (en cm)</label>
-                <input 
-                    type="number" 
-                    id="ancho" 
-                    name="ancho" 
-                    placeholder="Ingresa el ancho del closet"
-                    min="0"
-                    max="500"
-                    required>
+                <input type="number" id="ancho" value="200" min="50" max="500" required>
             </div>
 
             <br>
 
             <div>
                 <label for="profundidad">📦 Profundidad (en cm)</label>
-                <input 
-                    type="number" 
-                    id="profundidad" 
-                    name="profundidad" 
-                    placeholder="Ingresa la profundidad"
-                    min="0"
-                    max="100"
-                    required>
+                <input type="number" id="profundidad" value="60" min="30" max="100" required>
+                <p><i>La profundidad no afecta el precio (se usa solo como referencia técnica).</i></p>
             </div>
 
             <br>
 
             <div>
                 <label for="tipoPuertas">🚪 Tipo de puertas</label>
-                <select id="tipoPuertas" name="tipoPuertas" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="corredizas">Corredizas</option>
-                    <option value="abatibles">Abatibles</option>
-                    <option value="sin_puertas">Sin puertas (Abierto)</option>
+                <select id="tipoPuertas" required>
+                    <option value="0" data-nombre="Sin puertas (Abierto)">Sin puertas (Abierto)</option>
+                    <option value="180000" data-nombre="Corredizas">Corredizas (+$180.000)</option>
+                    <option value="120000" data-nombre="Abatibles">Abatibles (+$120.000)</option>
                 </select>
             </div>
 
@@ -115,64 +115,49 @@
 
             <div>
                 <label for="material">🪵 Material principal</label>
-                <select id="material" name="material" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="melamina">Melamina / MDF</option>
-                    <option value="madera_solida">Madera Sólida</option>
-                    <option value="triplay">Triplay de Pino</option>
+                <select id="material" required>
+                    <option value="1" data-nombre="Melamina / MDF">Melamina / MDF</option>
+                    <option value="1.35" data-nombre="Madera Sólida">Madera Sólida (+35%)</option>
+                    <option value="0.85" data-nombre="Triplay de Pino">Triplay de Pino (-15%)</option>
                 </select>
             </div>
 
             <br>
 
-<div>
-    <label for="color">🎨 Color (Melamina / Aglomerado)</label>
-    <select id="color" name="color" required>
-        <option value="">Selecciona una opción</option>
-        
-        <!-- Maderas Clásicas y Cálidas -->
-        <option value="roble_natural">Roble Natural</option>
-        <option value="cedro">Cedro</option>
-        <option value="caoba">Caoba</option>
-        <option value="haya">Haya</option>
-        <option value="rovere">Rovere</option>
-        
-        <!-- Maderas Oscuras y Modernas -->
-        <option value="wengue">Wengué / Negro Wengue</option>
-        <option value="nogal_habano">Nogal Habano</option>
-        <option value="espresso">Espresso</option>
-        <option value="fresno_negro">Fresno Negro</option>
-        
-        <!-- Tonos Rústicos y Texturizados -->
-        <option value="caramelo">Caramelo / Miel</option>
-        <option value="roble_provenzal">Roble Provenzal</option>
-        <option value="macadamia">Macadamia</option>
-        <option value="teca_limo">Teca Limo</option>
-        
-        <!-- Unicolores y Neutros -->
-        <option value="blanco_nevado">Blanco Nevado</option>
-        <option value="gris_ceniza">Gris Ceniza</option>
-        <option value="gris_grafito">Gris Grafito</option>
-        <option value="negro_mate">Negro Mate</option>
-        <option value="taupe">Taupe / Arena</option>
-        
-        <!-- Texturas Piedra y Fantasía -->
-        <option value="lino_textil">Lino Textil</option>
-        <option value="concreto_metropolitan">Concreto / Cemento</option>
-    </select>
-</div>
+            <div>
+                <label for="color">🎨 Color (Melamina / Aglomerado)</label>
+                <select id="color" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="roble_natural">Roble Natural</option>
+                    <option value="cedro">Cedro</option>
+                    <option value="wengue">Wengué / Negro Wengue</option>
+                    <option value="blanco_nevado">Blanco Nevado</option>
+                    <option value="gris_grafito">Gris Grafito</option>
+                    <option value="taupe">Taupe / Arena</option>
+                </select>
+            </div>
+
             <br><br>
 
             <section>
-                <button type="submit">💰 Cotizar</button>
+                <div style="text-align: center;">
+                    <h3>Total Estimado:</h3>
+                    <h2 id="precioTotal" style="color: #004085; font-size: 1.8rem;">$0 COP</h2>
+                </div>
             </section>
 
-        </form> 
+            <br>
+
+            <div style="text-align: center;">
+                <button type="submit" id="btnGenerar">📄 Descargar Cotización PDF</button>
+            </div>
+
+        </form>
 
         <br>
 
         <section>
-            <a href="nueva-cotizacion.html">◀️ Volver</a>
+            <a href="inicio.html">← Volver al Panel Principal</a>
         </section>
 
     </main>
@@ -180,6 +165,113 @@
     <footer>
         <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
     </footer>
-    
+
+    <!-- Cargar API_BASE_URL desde main.js -->
+    <script src="js/main.js"></script>
+
+    <script>
+        const clienteInput = document.getElementById('clienteInput');
+        const precioMetroInput = document.getElementById('precioMetro');
+        const tipoClosetSelect = document.getElementById('tipoCloset');
+        const altoInput = document.getElementById('alto');
+        const anchoInput = document.getElementById('ancho');
+        const profundidadInput = document.getElementById('profundidad');
+        const tipoPuertasSelect = document.getElementById('tipoPuertas');
+        const materialSelect = document.getElementById('material');
+        const colorSelect = document.getElementById('color');
+        const precioTotalEl = document.getElementById('precioTotal');
+
+        function calcularDatos() {
+            const precioMetro = parseFloat(precioMetroInput.value) || 0;
+            const altoM = (parseFloat(altoInput.value) || 0) / 100;
+            const anchoM = (parseFloat(anchoInput.value) || 0) / 100;
+            const areaM2 = altoM * anchoM;
+
+            const precioPuertas = parseFloat(tipoPuertasSelect.value) || 0;
+            const factorMaterial = parseFloat(materialSelect.value) || 1;
+
+            const total = (areaM2 * precioMetro * factorMaterial) + precioPuertas;
+
+            return { precioMetro, areaM2, precioPuertas, factorMaterial, total };
+        }
+
+        function actualizarPantalla() {
+            const datos = calcularDatos();
+            precioTotalEl.textContent = `$${Math.round(datos.total).toLocaleString('es-CO')} COP`;
+        }
+
+        [precioMetroInput, tipoClosetSelect, altoInput, anchoInput, profundidadInput, tipoPuertasSelect, materialSelect, colorSelect].forEach(el => {
+            el.addEventListener('change', actualizarPantalla);
+            el.addEventListener('input', actualizarPantalla);
+        });
+
+        document.getElementById('formCotizarCloset').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const datos = calcularDatos();
+            const cliente = clienteInput.value.trim();
+            const telefonoCliente = document.getElementById('telefonoClienteInput').value.trim();
+            const tipoCloset = tipoClosetSelect.options[tipoClosetSelect.selectedIndex].text;
+            const tipoPuertasTexto = tipoPuertasSelect.options[tipoPuertasSelect.selectedIndex].getAttribute('data-nombre');
+            const materialTexto = materialSelect.options[materialSelect.selectedIndex].getAttribute('data-nombre');
+            const color = colorSelect.options[colorSelect.selectedIndex].text;
+
+            const payload = {
+                cliente,
+                telefonoCliente,
+                nombreNegocio: localStorage.getItem('nombreNegocio') || '',
+                telefonoNegocio: localStorage.getItem('telefonoNegocio') || '',
+                correoNegocio: localStorage.getItem('correoNegocio') || '',
+                direccionNegocio: localStorage.getItem('direccionNegocio') || '',
+                tipoCloset,
+                alto: altoInput.value,
+                ancho: anchoInput.value,
+                profundidad: profundidadInput.value,
+                tipoPuertas: tipoPuertasTexto,
+                material: materialTexto,
+                color,
+                total: datos.total
+            };
+
+            try {
+                const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
+
+                const respuesta = await fetch(`${baseUrl}/api/auth/cotizar-closet-pdf`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!respuesta.ok) throw new Error('Error al solicitar el PDF al backend');
+
+                const blob = await respuesta.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Cotizacion_Closet_${cliente.replace(/\s+/g, '_')}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+
+                fetch(`${baseUrl}/api/cotizaciones`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        clienteNombre: cliente,
+                        clienteTelefono: telefonoCliente,
+                        tipoMueble: 'closet',
+                        detalle: `${tipoCloset} - ${materialTexto} - ${color}`,
+                        total: datos.total
+                    })
+                }).catch((err) => console.error('No se pudo guardar en el historial:', err));
+
+            } catch (error) {
+                console.error(error);
+                alert('No se pudo generar el archivo PDF. Verifica la conexión con el servidor.');
+            }
+        });
+    </script>
+
 </body>
 </html>

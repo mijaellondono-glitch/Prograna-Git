@@ -83,7 +83,11 @@ rgb(255, 255, 255)<!DOCTYPE html>
 
         <!-- LISTA DE COTIZACIONES -->
 
-        
+        <section id="listaHistorial">
+            <!-- Aquí se cargan dinámicamente las cotizaciones -->
+        </section>
+
+        <br><br>
 
 
         <!-- BOTÓN VOLVER -->
@@ -109,6 +113,59 @@ rgb(255, 255, 255)<!DOCTYPE html>
 
     </footer>
 
+
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const contenedor = document.getElementById('listaHistorial');
+            const buscador = document.getElementById('buscarCotizacion');
+            const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
+            let cotizaciones = [];
+
+            const colorEstado = { Pendiente: '#997404', Aprobada: '#0f5132', Rechazada: '#842029' };
+            const fondoEstado = { Pendiente: '#fff3cd', Aprobada: '#d1e7dd', Rechazada: '#f8d7da' };
+
+            function renderizar(lista) {
+                if (lista.length === 0) {
+                    contenedor.innerHTML = '<p style="text-align:center;">No hay cotizaciones registradas todavía.</p>';
+                    return;
+                }
+                contenedor.innerHTML = lista.map(c => `
+                    <div style="border:1px solid #ddd; border-radius:8px; padding:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <div>
+                            <strong>${c.cliente ? c.cliente.nombre : 'Cliente eliminado'}</strong>
+                            ${c.cliente ? ` — 📞 ${c.cliente.telefono}` : ''}<br>
+                            <span style="text-transform:capitalize;">${c.tipoMueble}</span> — ${c.detalle || ''}<br>
+                            <small>${new Date(c.fecha).toLocaleDateString('es-CO')}</small>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-weight:bold; color:#004085;">$${Number(c.total).toLocaleString('es-CO')} COP</div>
+                            <span style="display:inline-block; margin-top:4px; padding:3px 10px; border-radius:12px; font-size:0.8rem; background:${fondoEstado[c.estado] || '#eee'}; color:${colorEstado[c.estado] || '#333'};">${c.estado}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            try {
+                const res = await fetch(`${baseUrl}/api/cotizaciones`);
+                cotizaciones = res.ok ? await res.json() : [];
+            } catch (err) {
+                console.error('Error al cargar el historial:', err);
+            }
+            renderizar(cotizaciones);
+
+            if (buscador) {
+                buscador.addEventListener('input', () => {
+                    const texto = buscador.value.trim().toLowerCase();
+                    renderizar(cotizaciones.filter(c =>
+                        (c.cliente && c.cliente.nombre.toLowerCase().includes(texto)) ||
+                        c.tipoMueble.toLowerCase().includes(texto)
+                    ));
+                });
+            }
+        });
+    </script>
 
 </body>
 

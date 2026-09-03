@@ -32,7 +32,7 @@
   <main class="contenedor-form">
     <h2>Agregar Nuevo Material</h2>
     
-    <form action="#" method="POST" class="formulario">
+    <form action="#" method="POST" id="formAgregarMaterial" class="formulario">
       <div class="grupo-campo">
         <label for="nombre">Nombre del material</label>
         <input type="text" id="nombre" name="nombre" placeholder="Ej. Triplex 15mm, Tornillo 2 pulg..." required>
@@ -78,6 +78,57 @@
       </div>
     </form>
   </main>
+
+  <script src="js/main.js"></script>
+
+  <script>
+    document.querySelector('.btn-cancelar').addEventListener('click', () => {
+        window.location.href = 'materiales.html';
+    });
+
+    document.getElementById('formAgregarMaterial').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const boton = form.querySelector('.btn-guardar');
+
+        const payload = {
+            nombre: document.getElementById('nombre').value.trim(),
+            categoria: document.getElementById('categoria').value,
+            unidad: document.getElementById('unidad').value,
+            precio: document.getElementById('precio').value,
+            descripcion: document.getElementById('descripcion').value.trim()
+        };
+
+        boton.disabled = true;
+        boton.textContent = 'Guardando...';
+
+        try {
+            const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
+
+            const respuesta = await fetch(`${baseUrl}/api/materiales`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const datos = await respuesta.json();
+
+            if (respuesta.ok) {
+                alert('✅ Material agregado correctamente.');
+                form.reset();
+            } else {
+                alert(`❌ ${datos.message || 'No se pudo guardar el material.'}`);
+            }
+        } catch (error) {
+            console.error(error);
+            alert('🔴 Error al conectar con el servidor.');
+        } finally {
+            boton.disabled = false;
+            boton.textContent = 'Guardar Material';
+        }
+    });
+  </script>
 
 </body>
 </html>
