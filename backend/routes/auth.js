@@ -260,6 +260,118 @@ router.post('/cotizar-puerta-pdf', (req, res) => {
 
 
 // ==========================================
+// 📄 GENERACIÓN DE PDF: MÓDULO DE COCINAS
+// ==========================================
+router.post('/cotizar-cocina-pdf', (req, res) => {
+  const {
+    cliente,
+    telefonoCliente,
+    nombreNegocio,
+    telefonoNegocio,
+    correoNegocio,
+    direccionNegocio,
+    material,
+    color,
+    tipoBisagras,
+    disenoBajo,
+    paredesBajo,
+    manijaInferior,
+    meson,
+    deseaChut,
+    disenoAlto,
+    paredesAlto,
+    alturaGabinete,
+    aperturaPuertasSuperiores,
+    manijaSuperior,
+    deseaLed,
+    detalleLed,
+    total
+  } = req.body;
+
+  try {
+    const doc = new PDFDocument({ size: 'A4', margin: 40 });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=Cotizacion_Cocina_${cliente.replace(/\s+/g, '_')}.pdf`);
+
+    doc.pipe(res);
+
+    const tituloMostrado = nombreNegocio || 'QuotiXX Carpintería';
+    doc.fillColor('#0d6efd').rect(0, 0, 600, 95).fill();
+    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15);
+    doc.fontSize(9).font('Helvetica').text('Documento Oficial de Cotización', 40, 42);
+
+    let infoNegocio = [];
+    if (telefonoNegocio) infoNegocio.push(`Tel: ${telefonoNegocio}`);
+    if (correoNegocio) infoNegocio.push(`Email: ${correoNegocio}`);
+    if (direccionNegocio) infoNegocio.push(`Dir: ${direccionNegocio}`);
+    if (infoNegocio.length > 0) {
+      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: 515 });
+    }
+
+    doc.moveDown(3);
+    doc.fillColor('#212529').fontSize(11).font('Helvetica-Bold').text('CLIENTE:', 40, 115);
+    doc.font('Helvetica').text(telefonoCliente ? `${cliente}  (Tel: ${telefonoCliente})` : cliente, 95, 115);
+
+    doc.font('Helvetica-Bold').text('FECHA:', 400, 115);
+    doc.font('Helvetica').text(new Date().toLocaleDateString('es-CO'), 450, 115);
+
+    doc.font('Helvetica-Bold').text('MÓDULO:', 40, 135);
+    doc.font('Helvetica').text('Cotización de Cocina Integral', 100, 135);
+
+    doc.moveTo(40, 155).lineTo(555, 155).strokeColor('#dee2e6').lineWidth(1).stroke();
+
+    let startY = 170;
+    doc.fillColor('#0d6efd').rect(40, startY, 515, 25).fill();
+    doc.fillColor('#FFFFFF').fontSize(10).font('Helvetica-Bold');
+    doc.text('Concepto / Detalle', 50, startY + 8);
+    doc.text('Especificación', 250, startY + 8);
+    doc.text('Estado', 470, startY + 8);
+
+    const filas = [
+      ['Material / Color', `${material} - ${color}`, 'Incluido'],
+      ['Bisagras', tipoBisagras, 'Incluido'],
+      ['Mueble Inferior', disenoBajo, 'Incluido'],
+      ['Paredes (Inferior)', paredesBajo, 'Incluido'],
+      ['Manijas Inferior', manijaInferior, 'Incluido'],
+      ['Mesón', meson, 'Incluido'],
+      ['Chut de Basura', deseaChut, 'Incluido'],
+      ['Mueble Superior', disenoAlto, 'Incluido'],
+      ['Paredes (Superior)', paredesAlto, 'Incluido'],
+      ['Altura Gabinete', `${alturaGabinete} cm`, 'Incluido'],
+      ['Apertura Superior', aperturaPuertasSuperiores, 'Incluido'],
+      ['Manijas Superior', manijaSuperior, 'Incluido'],
+      ['Iluminación LED', deseaLed === 'Sí' ? detalleLed : 'No aplica', 'Incluido']
+    ];
+
+    let currentY = startY + 25;
+    doc.font('Helvetica').fontSize(9.5);
+    filas.forEach((fila, index) => {
+      if (index % 2 === 0) {
+        doc.fillColor('#f8f9fa').rect(40, currentY, 515, 22).fill();
+      }
+      doc.fillColor('#212529');
+      doc.text(fila[0], 50, currentY + 6, { width: 195 });
+      doc.text(fila[1], 250, currentY + 6, { width: 210 });
+      doc.text(fila[2], 470, currentY + 6);
+      currentY += 22;
+    });
+
+    currentY += 15;
+    doc.fillColor('#e7f1ff').rect(320, currentY, 235, 45).fill();
+    doc.rect(320, currentY, 235, 45).strokeColor('#b6d4fe').stroke();
+    doc.fillColor('#084298').fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
+    doc.fillColor('#0d6efd').fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
+
+    doc.fillColor('#6c757d').fontSize(9).font('Helvetica').text('Este documento fue generado automáticamente por QuotiXX. Válido por 15 días.', 40, 780, { align: 'center' });
+
+    doc.end();
+  } catch (error) {
+    res.status(500).json({ message: 'Error al generar el PDF de la cocina.', error: error.message });
+  }
+});
+
+// ==========================================
 // 📄 GENERACIÓN DE PDF: MÓDULO DE COMEDORES
 // ==========================================
 router.post('/cotizar-comedor-pdf', (req, res) => {

@@ -443,7 +443,7 @@
             <br><br>
 
             <div style="text-align: center;">
-                <button type="button" id="btnGenerar">📄 Descargar Cotización PDF</button>
+                <button type="submit" id="btnGenerar">📄 Descargar Cotización PDF</button>
             </div>
 
         </form> 
@@ -466,9 +466,6 @@
 
     <!-- Cargar API_BASE_URL desde main.js -->
     <script src="js/main.js"></script>
-
-    <!-- Lógica del botón "Descargar Cotización PDF" -->
-    <script src="js/pdf-cocina.js"></script>
 
     <script>
         // Catálogos de colores por tipo de madera
@@ -646,6 +643,8 @@
         // ==========================================
         // LÓGICA MATEMÁTICA DE CÁLCULO DE COTIZACIÓN
         // ==========================================
+        let totalActual = 0;
+
         function calcularTotal() {
             let total = 0;
 
@@ -745,6 +744,7 @@
             }
 
             // Formatear valor como moneda colombiana ($ COP)
+            totalActual = total;
             precioTotalDisplay.textContent = new Intl.NumberFormat('es-CO', {
                 style: 'currency',
                 currency: 'COP',
@@ -755,6 +755,107 @@
         // Escuchar todos los cambios en los inputs del formulario
         formCotizacion.addEventListener('input', calcularTotal);
         formCotizacion.addEventListener('change', calcularTotal);
+
+        // Función auxiliar: texto visible de un <select>
+        const selTexto = (id) => {
+            const el = document.getElementById(id);
+            if (!el || el.selectedIndex < 0) return '';
+            return el.options[el.selectedIndex].text;
+        };
+        const val = (id) => document.getElementById(id)?.value || '';
+
+        // Arma "P1: 250m | P2: 180m" mostrando solo las paredes con medida
+        const formatearParedes = (p1, p2, p3) => {
+            const paredes = [];
+            if (p1) paredes.push(`P1: ${p1}m`);
+            if (p2) paredes.push(`P2: ${p2}m`);
+            if (p3) paredes.push(`P3: ${p3}m`);
+            return paredes.length > 0 ? paredes.join(' | ') : 'No especificado';
+        };
+
+        formCotizacion.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            calcularTotal(); // Asegura que totalActual esté al día
+
+            const cliente = document.getElementById('clienteInput').value.trim();
+            const telefonoCliente = document.getElementById('telefonoClienteInput').value.trim();
+
+            if (!cliente) {
+                alert('Por favor, ingresa el nombre del cliente.');
+                return;
+            }
+            if (!telefonoCliente) {
+                alert('Por favor, ingresa el teléfono del cliente.');
+                return;
+            }
+
+            const mesonTexto = selTexto('meson');
+            const precioMetroMeson = val('precioMetroMeson');
+
+            const payload = {
+                cliente,
+                telefonoCliente,
+                nombreNegocio: localStorage.getItem('nombreNegocio') || '',
+                telefonoNegocio: localStorage.getItem('telefonoNegocio') || '',
+                correoNegocio: localStorage.getItem('correoNegocio') || '',
+                direccionNegocio: localStorage.getItem('direccionNegocio') || '',
+                material: selTexto('material'),
+                color: selTexto('color'),
+                tipoBisagras: selTexto('tipoBisagras'),
+                disenoBajo: selTexto('disenoBajo'),
+                paredesBajo: formatearParedes(val('largoBajoPared1'), val('largoBajoPared2'), val('largoBajoPared3')),
+                manijaInferior: selTexto('manijaInferior'),
+                meson: mesonTexto + (precioMetroMeson ? ` — $${Number(precioMetroMeson).toLocaleString('es-CO')} / m lineal` : ''),
+                deseaChut: selTexto('deseaChut'),
+                disenoAlto: selTexto('disenoAlto'),
+                paredesAlto: formatearParedes(val('largoAltoPared1'), val('largoAltoPared2'), val('largoAltoPared3')),
+                alturaGabinete: val('alturaGabinete'),
+                aperturaPuertasSuperiores: selTexto('aperturaPuertasSuperiores'),
+                manijaSuperior: selTexto('manijaSuperior'),
+                deseaLed: selTexto('deseaLed'),
+                detalleLed: selTexto('deseaLed') === 'Sí' ? `${selTexto('colorLed')} - ${selTexto('ubicacionLed')}` : 'No aplica',
+                total: totalActual
+            };
+
+            try {
+                const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
+
+                const respuesta = await fetch(`${baseUrl}/api/auth/cotizar-cocina-pdf`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!respuesta.ok) throw new Error('Error al solicitar el PDF al backend');
+
+                const blob = await respuesta.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Cotizacion_Cocina_${cliente.replace(/\s+/g, '_')}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+
+                fetch(`${baseUrl}/api/cotizaciones`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        clienteNombre: cliente,
+                        clienteTelefono: telefonoCliente,
+                        tipoMueble: 'cocina',
+                        detalle: `${payload.disenoBajo} - ${payload.material} - ${payload.color}`,
+                        total: totalActual
+                    })
+                }).catch((err) => console.error('No se pudo guardar en el historial:', err));
+
+            } catch (error) {
+                console.error(error);
+                alert('No se pudo generar el archivo PDF. Verifica la conexión con el servidor.');
+            }
+        });
     </script>
 </body>
 </html>
