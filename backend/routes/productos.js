@@ -35,13 +35,17 @@ const upload = multer({
 // 1. AGREGAR UN PRODUCTO AL CATÁLOGO (con foto)
 router.post('/', upload.single('imagenMueble'), async (req, res) => {
     try {
-        const { categoria, nombreMueble, descripcion, precio } = req.body;
+        const { propietario, categoria, nombreMueble, descripcion, precio } = req.body;
 
+        if (!propietario) {
+            return res.status(400).json({ message: 'Falta identificar el negocio (propietario).' });
+        }
         if (!req.file) {
             return res.status(400).json({ message: 'Debes subir una foto del mueble.' });
         }
 
         const nuevoProducto = new Producto({
+            propietario,
             categoria,
             nombre: nombreMueble,
             descripcion,
@@ -56,11 +60,14 @@ router.post('/', upload.single('imagenMueble'), async (req, res) => {
     }
 });
 
-// 2. LISTAR PRODUCTOS (opcionalmente filtrados por categoría)
-// Ejemplo: GET /api/productos?categoria=puertas
+// 2. LISTAR PRODUCTOS del negocio (?propietario=...), opcionalmente filtrados por categoría
 router.get('/', async (req, res) => {
     try {
-        const filtro = req.query.categoria ? { categoria: req.query.categoria } : {};
+        const { propietario, categoria } = req.query;
+        if (!propietario) {
+            return res.status(400).json({ message: 'Falta identificar el negocio (propietario).' });
+        }
+        const filtro = categoria ? { propietario, categoria } : { propietario };
         const productos = await Producto.find(filtro).sort({ fechaRegistro: -1 });
         res.json(productos);
     } catch (error) {
@@ -68,10 +75,14 @@ router.get('/', async (req, res) => {
     }
 });
 
-// 3. ELIMINAR UN PRODUCTO
+// 3. ELIMINAR UN PRODUCTO (solo si pertenece al negocio que lo pide)
 router.delete('/:id', async (req, res) => {
     try {
-        const producto = await Producto.findByIdAndDelete(req.params.id);
+        const { propietario } = req.query;
+        if (!propietario) {
+            return res.status(400).json({ message: 'Falta identificar el negocio (propietario).' });
+        }
+        const producto = await Producto.findOneAndDelete({ _id: req.params.id, propietario });
         if (!producto) {
             return res.status(404).json({ message: 'Producto no encontrado.' });
         }

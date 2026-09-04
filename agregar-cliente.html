@@ -184,6 +184,7 @@
             const boton = form.querySelector('button[type="submit"]');
 
             const payload = {
+                propietario: localStorage.getItem('usuarioEmail') || '',
                 nombre: document.getElementById('nombreCliente').value.trim(),
                 telefono: document.getElementById('telefono').value.trim(),
                 direccion: document.getElementById('direccion').value.trim()

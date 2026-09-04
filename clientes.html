@@ -148,7 +148,8 @@
                     btn.addEventListener('click', async () => {
                         if (!confirm('¿Eliminar este cliente? Su historial de cotizaciones no se borrará, pero quedará sin cliente asociado.')) return;
                         try {
-                            const res = await fetch(`${baseUrl}/api/clientes/${btn.dataset.id}`, { method: 'DELETE' });
+                            const propietario = localStorage.getItem('usuarioEmail') || '';
+                            const res = await fetch(`${baseUrl}/api/clientes/${btn.dataset.id}?propietario=${encodeURIComponent(propietario)}`, { method: 'DELETE' });
                             if (res.ok) {
                                 clientes = clientes.filter(c => c._id !== btn.dataset.id);
                                 renderizar(clientes);
@@ -163,7 +164,8 @@
             }
 
             try {
-                const res = await fetch(`${baseUrl}/api/clientes`);
+                const propietario = localStorage.getItem('usuarioEmail') || '';
+                const res = await fetch(`${baseUrl}/api/clientes?propietario=${encodeURIComponent(propietario)}`);
                 clientes = res.ok ? await res.json() : [];
             } catch (err) {
                 console.error('Error al cargar clientes:', err);

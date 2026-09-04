@@ -5,23 +5,27 @@ const Cliente = require('../models/Cliente');
 
 // 1. REGISTRAR UNA COTIZACIÓN EN EL HISTORIAL
 // Se llama automáticamente desde cada pantalla de "cotizar-X" después de generar el PDF.
-// Si el teléfono del cliente ya existe, reutiliza ese cliente; si no, lo crea.
+// Si el teléfono del cliente ya existe PARA ESE NEGOCIO, reutiliza ese cliente; si no, lo crea.
 router.post('/', async (req, res) => {
     try {
-        const { clienteNombre, clienteTelefono, tipoMueble, detalle, total } = req.body;
+        const { propietario, clienteNombre, clienteTelefono, tipoMueble, detalle, total } = req.body;
 
+        if (!propietario) {
+            return res.status(400).json({ message: 'Falta identificar el negocio (propietario).' });
+        }
         if (!clienteNombre || !clienteTelefono || !tipoMueble || total === undefined) {
             return res.status(400).json({ message: 'Faltan datos para registrar la cotización.' });
         }
 
-        // Busca el cliente por teléfono; si no existe, lo crea
+        // Busca el cliente por teléfono DENTRO de este negocio; si no existe, lo crea
         const cliente = await Cliente.findOneAndUpdate(
-            { telefono: clienteTelefono },
-            { nombre: clienteNombre, telefono: clienteTelefono },
+            { propietario, telefono: clienteTelefono },
+            { propietario, nombre: clienteNombre, telefono: clienteTelefono },
             { new: true, upsert: true, setDefaultsOnInsert: true }
         );
 
         const nuevaCotizacion = new Cotizacion({
+            propietario,
             cliente: cliente._id,
             tipoMueble,
             detalle: detalle || '',
@@ -36,10 +40,14 @@ router.post('/', async (req, res) => {
     }
 });
 
-// 2. LISTAR HISTORIAL (con el nombre y teléfono del cliente incluido)
+// 2. LISTAR HISTORIAL del negocio (?propietario=...), con el nombre y teléfono del cliente incluido
 router.get('/', async (req, res) => {
     try {
-        const cotizaciones = await Cotizacion.find()
+        const { propietario } = req.query;
+        if (!propietario) {
+            return res.status(400).json({ message: 'Falta identificar el negocio (propietario).' });
+        }
+        const cotizaciones = await Cotizacion.find({ propietario })
             .populate('cliente', 'nombre telefono')
             .sort({ fecha: -1 });
         res.json(cotizaciones);
@@ -62,10 +70,14 @@ router.put('/:id/estado', async (req, res) => {
     }
 });
 
-// 4. ELIMINAR UNA COTIZACIÓN DEL HISTORIAL
+// 4. ELIMINAR UNA COTIZACIÓN DEL HISTORIAL (solo si pertenece al negocio que lo pide)
 router.delete('/:id', async (req, res) => {
     try {
-        const cotizacion = await Cotizacion.findByIdAndDelete(req.params.id);
+        const { propietario } = req.query;
+        if (!propietario) {
+            return res.status(400).json({ message: 'Falta identificar el negocio (propietario).' });
+        }
+        const cotizacion = await Cotizacion.findOneAndDelete({ _id: req.params.id, propietario });
         if (!cotizacion) {
             return res.status(404).json({ message: 'Cotización no encontrada.' });
         }

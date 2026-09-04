@@ -1,4 +1,4 @@
-rgb(255, 255, 255)<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -152,7 +152,8 @@ rgb(255, 255, 255)<!DOCTYPE html>
                     btn.addEventListener('click', async () => {
                         if (!confirm('¿Eliminar esta cotización del historial? Esta acción no se puede deshacer.')) return;
                         try {
-                            const res = await fetch(`${baseUrl}/api/cotizaciones/${btn.dataset.id}`, { method: 'DELETE' });
+                            const propietario = localStorage.getItem('usuarioEmail') || '';
+                            const res = await fetch(`${baseUrl}/api/cotizaciones/${btn.dataset.id}?propietario=${encodeURIComponent(propietario)}`, { method: 'DELETE' });
                             if (res.ok) {
                                 cotizaciones = cotizaciones.filter(c => c._id !== btn.dataset.id);
                                 renderizar(cotizaciones);
@@ -167,7 +168,8 @@ rgb(255, 255, 255)<!DOCTYPE html>
             }
 
             try {
-                const res = await fetch(`${baseUrl}/api/cotizaciones`);
+                const propietario = localStorage.getItem('usuarioEmail') || '';
+                const res = await fetch(`${baseUrl}/api/cotizaciones?propietario=${encodeURIComponent(propietario)}`);
                 cotizaciones = res.ok ? await res.json() : [];
             } catch (err) {
                 console.error('Error al cargar el historial:', err);

@@ -93,6 +93,7 @@
         const boton = form.querySelector('.btn-guardar');
 
         const payload = {
+            propietario: localStorage.getItem('usuarioEmail') || '',
             nombre: document.getElementById('nombre').value.trim(),
             categoria: document.getElementById('categoria').value,
             unidad: document.getElementById('unidad').value,

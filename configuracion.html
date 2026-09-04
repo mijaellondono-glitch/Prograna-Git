@@ -220,6 +220,13 @@
                     if (confirmar) {
                         localStorage.removeItem('usuarioLogueado');
                         localStorage.removeItem('usuarioEmail');
+                        // Limpiar la configuración cacheada del negocio, para que
+                        // la siguiente cuenta que inicie sesión en este dispositivo
+                        // no vea (ni por un instante) los datos del negocio anterior
+                        localStorage.removeItem('nombreNegocio');
+                        localStorage.removeItem('telefonoNegocio');
+                        localStorage.removeItem('correoNegocio');
+                        localStorage.removeItem('direccionNegocio');
                         window.location.href = 'index.html';
                     }
                 });

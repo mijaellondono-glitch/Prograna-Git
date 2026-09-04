@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             btn.addEventListener('click', async () => {
                 if (!confirm('¿Eliminar este producto del catálogo?')) return;
                 try {
-                    const res = await fetch(`${baseUrl}/api/productos/${btn.dataset.id}`, { method: 'DELETE' });
+                    const propietario = localStorage.getItem('usuarioEmail') || '';
+                    const res = await fetch(`${baseUrl}/api/productos/${btn.dataset.id}?propietario=${encodeURIComponent(propietario)}`, { method: 'DELETE' });
                     if (res.ok) {
                         productos = productos.filter(p => p._id !== btn.dataset.id);
                         renderizar(productos);
@@ -56,7 +57,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function cargarProductos() {
         contenedor.innerHTML = '<p style="text-align:center;">Cargando...</p>';
         try {
-            const res = await fetch(`${baseUrl}/api/productos?categoria=${categoria}`);
+            const propietario = localStorage.getItem('usuarioEmail') || '';
+            const res = await fetch(`${baseUrl}/api/productos?categoria=${categoria}&propietario=${encodeURIComponent(propietario)}`);
             productos = res.ok ? await res.json() : [];
         } catch (err) {
             productos = [];

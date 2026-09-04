@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const ProductoSchema = new mongoose.Schema({
+    propietario: { type: String, required: true }, // email del negocio dueño de este producto
     categoria: {
         type: String,
         required: true,

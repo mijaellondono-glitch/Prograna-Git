@@ -130,7 +130,7 @@
 
         <!-- NAVEGACIÓN -->
         <section>
-            <a href="catalogo.html">◀️ Volver al Catálogo</a>
+            <a href="productos.html">◀️ Volver al Catálogo</a>
         </section>
 
     </main>
@@ -149,6 +149,7 @@
             const form = e.target;
             const boton = form.querySelector('button[type="submit"]');
             const formData = new FormData(form);
+            formData.append('propietario', localStorage.getItem('usuarioEmail') || '');
 
             boton.disabled = true;
             boton.textContent = 'Guardando...';

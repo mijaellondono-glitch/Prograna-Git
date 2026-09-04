@@ -238,6 +238,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
+                        propietario: localStorage.getItem('usuarioEmail') || '',
                         clienteNombre: cliente,
                         clienteTelefono: telefonoCliente,
                         tipoMueble: 'cama',
