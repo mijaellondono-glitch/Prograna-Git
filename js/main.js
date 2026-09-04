@@ -1,19 +1,33 @@
 const API_BASE_URL = 'https://quotixx-backend.onrender.com';
 
 // ==========================================
-// 0. SESIÓN PERSISTENTE
-// Si ya hay un usuario guardado en este dispositivo, no lo mandamos
-// otra vez al login: lo llevamos directo a inicio.html.
-// Solo aplica en index.html (la pantalla de login).
+// 0. PROTECCIÓN DE SESIÓN
+// A) Si ya hay sesión y estás en el login, te manda directo a inicio.html.
+// B) Si NO hay sesión y estás en una página interna (protegida),
+//    te manda de vuelta al login. Así nadie entra con solo el link.
 // ==========================================
-(function verificarSesionPersistente() {
-    const pagina = window.location.pathname.split('/').pop();
-    const esPaginaLogin = pagina === '' || pagina === 'index.html';
+(function protegerSesion() {
+    const pagina = decodeURIComponent(window.location.pathname.split('/').pop() || '').toLowerCase();
+    const usuarioLogueado = localStorage.getItem('usuarioLogueado');
 
-    if (esPaginaLogin) {
-        const usuarioLogueado = localStorage.getItem('usuarioLogueado');
-        if (usuarioLogueado) {
+    // Detecta páginas públicas por palabra clave, para no depender de
+    // escribir tildes/ñ exactas (eso puede fallar según la codificación del archivo)
+    const esPaginaPublica =
+        pagina === '' ||
+        pagina === 'index.html' ||
+        pagina === 'registro.html' ||
+        pagina.includes('contrase') || // nueva contraseña.html, Olvidaste_tu_contraseña.html
+        pagina.includes('confirmar_codigo');
+
+    if (esPaginaPublica) {
+        // A) Ya logueado y está en el login -> mandarlo directo adentro
+        if ((pagina === '' || pagina === 'index.html') && usuarioLogueado) {
             window.location.href = 'inicio.html';
+        }
+    } else {
+        // B) Página interna sin sesión activa -> devolverlo al login
+        if (!usuarioLogueado) {
+            window.location.href = 'index.html';
         }
     }
 })();
