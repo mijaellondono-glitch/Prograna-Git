@@ -24,9 +24,29 @@ app.use('/api/cotizaciones', require('./routes/cotizaciones'));
 
 const PORT = process.env.PORT || 5000;
 
+// Modelos que necesitan sincronizar sus índices (borra índices viejos que ya
+// no coinciden con el esquema actual, por ejemplo cuando se cambia unique: true
+// de un campo a un índice compuesto)
+const Cliente = require('./models/Cliente');
+const Producto = require('./models/Producto');
+const Material = require('./models/Material');
+const Cotizacion = require('./models/Cotizacion');
+
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
+  .then(async () => {
     console.log('✅ Conectado a MongoDB');
+
+    // Sincroniza los índices de cada modelo con lo que dice su esquema actual
+    try {
+      await Cliente.syncIndexes();
+      await Producto.syncIndexes();
+      await Material.syncIndexes();
+      await Cotizacion.syncIndexes();
+      console.log('✅ Índices sincronizados correctamente');
+    } catch (err) {
+      console.error('⚠️  No se pudieron sincronizar los índices:', err.message);
+    }
+
     app.listen(PORT, () => console.log(`🚀 Listo en http://localhost:${PORT}`));
   })
   .catch((err) => console.error('❌ Error BD:', err));
