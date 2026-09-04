@@ -117,20 +117,33 @@
     <script src="js/main.js"></script>
 
     <script>
+        // ==========================================
+        // PANTALLA: Historial de Cotizaciones
+        // Autor: Mijael Londoño Uribe
+        // Descripción: Consume la API /api/cotizaciones para mostrar
+        // el historial del negocio logueado, permite buscar por
+        // cliente/tipo de mueble, y eliminar una cotización.
+        // ==========================================
         document.addEventListener('DOMContentLoaded', async () => {
+            // Referencias a los elementos del DOM que se van a usar
             const contenedor = document.getElementById('listaHistorial');
             const buscador = document.getElementById('buscarCotizacion');
+            // API_BASE_URL viene declarado en js/main.js; si por alguna razón
+            // no cargó, se usa esta URL de respaldo
             const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
-            let cotizaciones = [];
+            let cotizaciones = []; // Guarda en memoria la lista completa, para poder filtrarla sin volver a pedirla al servidor
 
+            // Colores para la "etiqueta" de estado de cada cotización
             const colorEstado = { Pendiente: '#997404', Aprobada: '#0f5132', Rechazada: '#842029' };
             const fondoEstado = { Pendiente: '#fff3cd', Aprobada: '#d1e7dd', Rechazada: '#f8d7da' };
 
+            // Dibuja en pantalla la lista de cotizaciones recibida
             function renderizar(lista) {
                 if (lista.length === 0) {
                     contenedor.innerHTML = '<p style="text-align:center;">No hay cotizaciones registradas todavía.</p>';
                     return;
                 }
+                // Convierte cada cotización en una tarjeta HTML
                 contenedor.innerHTML = lista.map(c => `
                     <div style="border:1px solid #ddd; border-radius:8px; padding:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
                         <div>
@@ -148,13 +161,18 @@
                     </div>
                 `).join('');
 
+                // Conecta el botón "Eliminar" de cada tarjeta recién creada
                 contenedor.querySelectorAll('.btnEliminarCotizacion').forEach(btn => {
                     btn.addEventListener('click', async () => {
+                        // Confirmación antes de borrar, para evitar clics accidentales
                         if (!confirm('¿Eliminar esta cotización del historial? Esta acción no se puede deshacer.')) return;
                         try {
+                            // Se envía el propietario para que el backend confirme
+                            // que esta cotización sí le pertenece a este negocio
                             const propietario = localStorage.getItem('usuarioEmail') || '';
                             const res = await fetch(`${baseUrl}/api/cotizaciones/${btn.dataset.id}?propietario=${encodeURIComponent(propietario)}`, { method: 'DELETE' });
                             if (res.ok) {
+                                // Actualiza la lista en memoria y vuelve a dibujar, sin recargar la página
                                 cotizaciones = cotizaciones.filter(c => c._id !== btn.dataset.id);
                                 renderizar(cotizaciones);
                             } else {
@@ -167,6 +185,7 @@
                 });
             }
 
+            // Al cargar la página: pide al backend el historial de ESTE negocio
             try {
                 const propietario = localStorage.getItem('usuarioEmail') || '';
                 const res = await fetch(`${baseUrl}/api/cotizaciones?propietario=${encodeURIComponent(propietario)}`);
@@ -174,8 +193,10 @@
             } catch (err) {
                 console.error('Error al cargar el historial:', err);
             }
-            renderizar(cotizaciones);
+            renderizar(cotizaciones); // Primer dibujo de la lista completa
 
+            // Buscador en tiempo real: filtra por nombre de cliente o tipo de mueble
+            // sin volver a consultar el servidor (usa la lista que ya está en memoria)
             if (buscador) {
                 buscador.addEventListener('input', () => {
                     const texto = buscador.value.trim().toLowerCase();

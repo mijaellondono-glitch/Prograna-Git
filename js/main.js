@@ -1,3 +1,13 @@
+// ==========================================
+// ARCHIVO: js/main.js
+// Autor: Mijael Londoño Uribe
+// Descripción: Lógica central de autenticación y sesión de Quotixx.
+// Se carga en (casi) todas las pantallas. Contiene: registro,
+// login, recuperación de contraseña, y la protección de rutas
+// (evita que alguien entre a páginas internas sin haber iniciado sesión).
+// ==========================================
+
+// URL base del backend (API en Render). Todas las peticiones fetch la usan.
 const API_BASE_URL = 'https://quotixx-backend.onrender.com';
 
 // ==========================================
@@ -34,9 +44,11 @@ const API_BASE_URL = 'https://quotixx-backend.onrender.com';
 
 // ==========================================
 // 1. MANEJO DEL REGISTRO DE USUARIO
+// Envía nombre, email y contraseña al backend para crear la cuenta.
+// El operador "?." evita un error si el formulario no existe en esta página.
 // ==========================================
 document.getElementById('formRegistro')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Evita que el formulario recargue la página
 
     const nombre = document.getElementById('nombreInput').value;
     const email = document.getElementById('emailInput').value;
@@ -65,6 +77,8 @@ document.getElementById('formRegistro')?.addEventListener('submit', async (e) =>
 
 // ==========================================
 // 2. MANEJO DEL LOGIN CON NOMBRE DE USUARIO
+// Si las credenciales son correctas, guarda la sesión en localStorage
+// (usuarioLogueado y usuarioEmail) y redirige a inicio.html.
 // ==========================================
 document.getElementById('formLogin')?.addEventListener('submit', async (e) => {
     e.preventDefault();
