@@ -150,6 +150,7 @@
         <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
     </footer>
 
+    <script src="js/utilidades.js"></script>
     <script src="js/main.js"></script>
 
     <script>
@@ -216,23 +217,12 @@
             try {
                 const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
 
-                const respuesta = await fetch(`${baseUrl}/api/auth/cotizar-cama-pdf`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                await Quotixx.generarPdf({
+                    endpoint: '/api/auth/cotizar-cama-pdf',
+                    payload,
+                    nombreArchivo: `Cotizacion_Cama_${cliente.replace(/\s+/g, '_')}.pdf`,
+                    boton: e.submitter || e.target.querySelector('[type="submit"]')
                 });
-
-                if (!respuesta.ok) throw new Error('Error al solicitar el PDF al backend');
-
-                const blob = await respuesta.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `Cotizacion_Cama_${cliente.replace(/\s+/g, '_')}.pdf`;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
 
                 fetch(`${baseUrl}/api/cotizaciones`, {
                     method: 'POST',
@@ -249,7 +239,7 @@
 
             } catch (error) {
                 console.error(error);
-                alert('No se pudo generar el archivo PDF. Verifica la conexión con el servidor.');
+                alert(error && error.mensajeUsuario ? error.mensajeUsuario : 'No se pudo generar el archivo PDF. Verifica la conexión con el servidor.');
             }
         });
 

@@ -37,10 +37,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         contenedor.querySelectorAll('.btnEliminarProducto').forEach(btn => {
             btn.addEventListener('click', async () => {
-                if (!confirm('¿Eliminar este producto del catálogo?')) return;
+                if (!(await Quotixx.confirmar('¿Eliminar este producto del catálogo?', 'Eliminar'))) return;
                 try {
                     const propietario = localStorage.getItem('usuarioEmail') || '';
-                    const res = await fetch(`${baseUrl}/api/productos/${btn.dataset.id}?propietario=${encodeURIComponent(propietario)}`, { method: 'DELETE' });
+                    const res = await Quotixx.apiFetch(`${baseUrl}/api/productos/${btn.dataset.id}?propietario=${encodeURIComponent(propietario)}`, { method: 'DELETE' });
                     if (res.ok) {
                         productos = productos.filter(p => p._id !== btn.dataset.id);
                         renderizar(productos);
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         contenedor.innerHTML = '<p style="text-align:center;">Cargando...</p>';
         try {
             const propietario = localStorage.getItem('usuarioEmail') || '';
-            const res = await fetch(`${baseUrl}/api/productos?categoria=${categoria}&propietario=${encodeURIComponent(propietario)}`);
+            const res = await Quotixx.apiFetch(`${baseUrl}/api/productos?categoria=${categoria}&propietario=${encodeURIComponent(propietario)}`);
             productos = res.ok ? await res.json() : [];
         } catch (err) {
             productos = [];

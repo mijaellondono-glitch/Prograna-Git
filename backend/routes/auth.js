@@ -4,6 +4,10 @@ const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const PDFDocument = require('pdfkit');
 const User = require('../models/User');
+const Cotizacion = require('../models/Cotizacion');
+const Cliente = require('../models/Cliente');
+const Material = require('../models/Material');
+const Producto = require('../models/Producto');
 
 // Configuración del servicio de correo con Nodemailer
 const transporter = nodemailer.createTransport({
@@ -23,6 +27,19 @@ router.post('/register', async (req, res) => {
     if (user) {
       return res.status(400).json({ message: 'El correo electrónico ya está registrado.' });
     }
+
+    // Limpieza de datos huérfanos: si antes existió una cuenta con este correo y
+    // se borró (por ejemplo a mano en MongoDB), sus cotizaciones, clientes,
+    // materiales y productos siguen guardados con ese correo (campo "propietario").
+    // Se eliminan aquí para que la cuenta nueva empiece limpia y no herede el
+    // historial de otra persona. Solo se llega a este punto si el correo NO tiene
+    // un usuario activo (se verificó arriba), así que nunca se borran datos en uso.
+    await Promise.all([
+      Cotizacion.deleteMany({ propietario: email }),
+      Cliente.deleteMany({ propietario: email }),
+      Material.deleteMany({ propietario: email }),
+      Producto.deleteMany({ propietario: email })
+    ]);
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);

@@ -174,6 +174,7 @@
 
     </footer>
 
+    <script src="js/utilidades.js"></script>
     <script src="js/main.js"></script>
 
     <script>
@@ -196,7 +197,7 @@
             try {
                 const baseUrl = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'https://quotixx-backend.onrender.com';
 
-                const respuesta = await fetch(`${baseUrl}/api/clientes`, {
+                const respuesta = await Quotixx.apiFetch(`${baseUrl}/api/clientes`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)

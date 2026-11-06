@@ -119,6 +119,7 @@
         <p>Versión 1.0 &nbsp; © 2026 Quotixx</p>
     </footer>
 
+    <script src="js/utilidades.js"></script>
     <script src="js/main.js"></script>
 
     <script>
@@ -147,7 +148,7 @@
 
             // 2. Sincronizar desde MongoDB
             try {
-                const res = await fetch(`${API_BASE_URL}/api/auth/configuracion/${emailUsuario}`);
+                const res = await Quotixx.apiFetch(`${API_BASE_URL}/api/auth/configuracion/${emailUsuario}`);
                 if (res.ok) {
                     const data = await res.json();
                     if (inputNombre && data.nombreNegocio) {
@@ -191,7 +192,7 @@
                     };
 
                     try {
-                        const res = await fetch(`${API_BASE_URL}/api/auth/configuracion`, {
+                        const res = await Quotixx.apiFetch(`${API_BASE_URL}/api/auth/configuracion`, {
                             method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(payload)
@@ -215,8 +216,8 @@
             // 4. Evento para cerrar sesión
             const btnCerrarSesion = document.getElementById('btnCerrarSesion');
             if (btnCerrarSesion) {
-                btnCerrarSesion.addEventListener('click', () => {
-                    const confirmar = confirm('¿Seguro que quieres cerrar sesión?');
+                btnCerrarSesion.addEventListener('click', async () => {
+                    const confirmar = await Quotixx.confirmar('¿Seguro que quieres cerrar sesión?', 'Cerrar sesión');
                     if (confirmar) {
                         localStorage.removeItem('usuarioLogueado');
                         localStorage.removeItem('usuarioEmail');
