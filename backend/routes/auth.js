@@ -8,6 +8,7 @@ const Cotizacion = require('../models/Cotizacion');
 const Cliente = require('../models/Cliente');
 const Material = require('../models/Material');
 const Producto = require('../models/Producto');
+const { pintarLogoNegocio, esLogoValido, paletaPdf, esHex } = require('../utils/logo');
 
 // Configuración del servicio de correo con Nodemailer
 const transporter = nodemailer.createTransport({
@@ -194,10 +195,13 @@ router.post('/cotizar-puerta-pdf', (req, res) => {
     // 1. Encabezado principal ampliado para datos del negocio
     const tituloMostrado = nombreNegocio || 'QuotiXX Carpintería';
 
-    doc.fillColor('#0d6efd').rect(0, 0, 600, 95).fill();
+    const P = paletaPdf(req.body);
+    doc.fillColor(P.principal).rect(0, 0, 600, 95).fill();
+    doc.fillColor(P.acento).rect(0, 95, 600, 4).fill();
+    const hayLogo = pintarLogoNegocio(doc, req.body);
     
     // Nombre del Negocio
-    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15);
+    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15, { width: hayLogo ? 355 : 515, height: 24, ellipsis: true });
     
     // Subtítulo y datos de contacto del negocio (Derecha e Izquierda)
     doc.fontSize(9).font('Helvetica');
@@ -209,7 +213,7 @@ router.post('/cotizar-puerta-pdf', (req, res) => {
     if (direccionNegocio) infoNegocio.push(`Dir: ${direccionNegocio}`);
 
     if (infoNegocio.length > 0) {
-      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: 515 });
+      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: hayLogo ? 355 : 515 });
     }
 
     // 2. Bloque de Datos del Cliente y Fecha
@@ -230,7 +234,7 @@ router.post('/cotizar-puerta-pdf', (req, res) => {
     let startY = 170;
 
     // Encabezado Tabla
-    doc.fillColor('#0d6efd').rect(40, startY, 515, 25).fill();
+    doc.fillColor(P.principal).rect(40, startY, 515, 25).fill();
     doc.fillColor('#FFFFFF').fontSize(10).font('Helvetica-Bold');
     doc.text('Concepto / Detalle', 50, startY + 8);
     doc.text('Especificación', 250, startY + 8);
@@ -249,7 +253,7 @@ router.post('/cotizar-puerta-pdf', (req, res) => {
 
     filas.forEach((fila, index) => {
       if (index % 2 === 0) {
-        doc.fillColor('#f8f9fa').rect(40, currentY, 515, 22).fill();
+        doc.fillColor(P.fila).rect(40, currentY, 515, 22).fill();
       }
       doc.fillColor('#212529');
       doc.text(fila[0], 50, currentY + 6);
@@ -260,11 +264,11 @@ router.post('/cotizar-puerta-pdf', (req, res) => {
 
     // 4. Caja de Total
     currentY += 15;
-    doc.fillColor('#e7f1ff').rect(320, currentY, 235, 45).fill();
-    doc.rect(320, currentY, 235, 45).strokeColor('#b6d4fe').stroke();
+    doc.fillColor(P.claro).rect(320, currentY, 235, 45).fill();
+    doc.rect(320, currentY, 235, 45).strokeColor(P.borde).stroke();
     
-    doc.fillColor('#084298').fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
-    doc.fillColor('#0d6efd').fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
+    doc.fillColor(P.oscuro).fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
+    doc.fillColor(P.principal).fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
 
     // Pie de página
     doc.fillColor('#6c757d').fontSize(9).font('Helvetica').text('Este documento fue generado automáticamente por QuotiXX. Válido por 15 días.', 40, 780, { align: 'center' });
@@ -314,8 +318,11 @@ router.post('/cotizar-cocina-pdf', (req, res) => {
     doc.pipe(res);
 
     const tituloMostrado = nombreNegocio || 'QuotiXX Carpintería';
-    doc.fillColor('#0d6efd').rect(0, 0, 600, 95).fill();
-    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15);
+    const P = paletaPdf(req.body);
+    doc.fillColor(P.principal).rect(0, 0, 600, 95).fill();
+    doc.fillColor(P.acento).rect(0, 95, 600, 4).fill();
+    const hayLogo = pintarLogoNegocio(doc, req.body);
+    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15, { width: hayLogo ? 355 : 515, height: 24, ellipsis: true });
     doc.fontSize(9).font('Helvetica').text('Documento Oficial de Cotización', 40, 42);
 
     let infoNegocio = [];
@@ -323,7 +330,7 @@ router.post('/cotizar-cocina-pdf', (req, res) => {
     if (correoNegocio) infoNegocio.push(`Email: ${correoNegocio}`);
     if (direccionNegocio) infoNegocio.push(`Dir: ${direccionNegocio}`);
     if (infoNegocio.length > 0) {
-      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: 515 });
+      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: hayLogo ? 355 : 515 });
     }
 
     doc.moveDown(3);
@@ -339,7 +346,7 @@ router.post('/cotizar-cocina-pdf', (req, res) => {
     doc.moveTo(40, 155).lineTo(555, 155).strokeColor('#dee2e6').lineWidth(1).stroke();
 
     let startY = 170;
-    doc.fillColor('#0d6efd').rect(40, startY, 515, 25).fill();
+    doc.fillColor(P.principal).rect(40, startY, 515, 25).fill();
     doc.fillColor('#FFFFFF').fontSize(10).font('Helvetica-Bold');
     doc.text('Concepto / Detalle', 50, startY + 8);
     doc.text('Especificación', 250, startY + 8);
@@ -365,7 +372,7 @@ router.post('/cotizar-cocina-pdf', (req, res) => {
     doc.font('Helvetica').fontSize(9.5);
     filas.forEach((fila, index) => {
       if (index % 2 === 0) {
-        doc.fillColor('#f8f9fa').rect(40, currentY, 515, 22).fill();
+        doc.fillColor(P.fila).rect(40, currentY, 515, 22).fill();
       }
       doc.fillColor('#212529');
       doc.text(fila[0], 50, currentY + 6, { width: 195 });
@@ -375,10 +382,10 @@ router.post('/cotizar-cocina-pdf', (req, res) => {
     });
 
     currentY += 15;
-    doc.fillColor('#e7f1ff').rect(320, currentY, 235, 45).fill();
-    doc.rect(320, currentY, 235, 45).strokeColor('#b6d4fe').stroke();
-    doc.fillColor('#084298').fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
-    doc.fillColor('#0d6efd').fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
+    doc.fillColor(P.claro).rect(320, currentY, 235, 45).fill();
+    doc.rect(320, currentY, 235, 45).strokeColor(P.borde).stroke();
+    doc.fillColor(P.oscuro).fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
+    doc.fillColor(P.principal).fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
 
     doc.fillColor('#6c757d').fontSize(9).font('Helvetica').text('Este documento fue generado automáticamente por QuotiXX. Válido por 15 días.', 40, 780, { align: 'center' });
 
@@ -419,9 +426,12 @@ router.post('/cotizar-comedor-pdf', (req, res) => {
 
     // 1. Encabezado principal
     const tituloMostrado = nombreNegocio || 'QuotiXX Carpintería';
-    doc.fillColor('#0d6efd').rect(0, 0, 600, 95).fill();
+    const P = paletaPdf(req.body);
+    doc.fillColor(P.principal).rect(0, 0, 600, 95).fill();
+    doc.fillColor(P.acento).rect(0, 95, 600, 4).fill();
+    const hayLogo = pintarLogoNegocio(doc, req.body);
     
-    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15);
+    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15, { width: hayLogo ? 355 : 515, height: 24, ellipsis: true });
     doc.fontSize(9).font('Helvetica').text('Documento Oficial de Cotización', 40, 42);
     
     let infoNegocio = [];
@@ -430,7 +440,7 @@ router.post('/cotizar-comedor-pdf', (req, res) => {
     if (direccionNegocio) infoNegocio.push(`Dir: ${direccionNegocio}`);
 
     if (infoNegocio.length > 0) {
-      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: 515 });
+      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: hayLogo ? 355 : 515 });
     }
 
     // 2. Datos del cliente
@@ -449,7 +459,7 @@ router.post('/cotizar-comedor-pdf', (req, res) => {
     // 3. Tabla de Detalles
     let startY = 170;
 
-    doc.fillColor('#0d6efd').rect(40, startY, 515, 25).fill();
+    doc.fillColor(P.principal).rect(40, startY, 515, 25).fill();
     doc.fillColor('#FFFFFF').fontSize(10).font('Helvetica-Bold');
     doc.text('Concepto / Detalle', 50, startY + 8);
     doc.text('Especificación', 250, startY + 8);
@@ -469,7 +479,7 @@ router.post('/cotizar-comedor-pdf', (req, res) => {
 
     filas.forEach((fila, index) => {
       if (index % 2 === 0) {
-        doc.fillColor('#f8f9fa').rect(40, currentY, 515, 22).fill();
+        doc.fillColor(P.fila).rect(40, currentY, 515, 22).fill();
       }
       doc.fillColor('#212529');
       doc.text(fila[0], 50, currentY + 6);
@@ -480,11 +490,11 @@ router.post('/cotizar-comedor-pdf', (req, res) => {
 
     // 4. Total
     currentY += 15;
-    doc.fillColor('#e7f1ff').rect(320, currentY, 235, 45).fill();
-    doc.rect(320, currentY, 235, 45).strokeColor('#b6d4fe').stroke();
+    doc.fillColor(P.claro).rect(320, currentY, 235, 45).fill();
+    doc.rect(320, currentY, 235, 45).strokeColor(P.borde).stroke();
     
-    doc.fillColor('#084298').fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
-    doc.fillColor('#0d6efd').fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
+    doc.fillColor(P.oscuro).fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
+    doc.fillColor(P.principal).fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
 
     // Pie de página
     doc.fillColor('#6c757d').fontSize(9).font('Helvetica').text('Este documento fue generado automáticamente por QuotiXX. Válido por 15 días.', 40, 780, { align: 'center' });
@@ -525,8 +535,11 @@ router.post('/cotizar-closet-pdf', (req, res) => {
     doc.pipe(res);
 
     const tituloMostrado = nombreNegocio || 'QuotiXX Carpintería';
-    doc.fillColor('#0d6efd').rect(0, 0, 600, 95).fill();
-    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15);
+    const P = paletaPdf(req.body);
+    doc.fillColor(P.principal).rect(0, 0, 600, 95).fill();
+    doc.fillColor(P.acento).rect(0, 95, 600, 4).fill();
+    const hayLogo = pintarLogoNegocio(doc, req.body);
+    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15, { width: hayLogo ? 355 : 515, height: 24, ellipsis: true });
     doc.fontSize(9).font('Helvetica').text('Documento Oficial de Cotización', 40, 42);
 
     let infoNegocio = [];
@@ -534,7 +547,7 @@ router.post('/cotizar-closet-pdf', (req, res) => {
     if (correoNegocio) infoNegocio.push(`Email: ${correoNegocio}`);
     if (direccionNegocio) infoNegocio.push(`Dir: ${direccionNegocio}`);
     if (infoNegocio.length > 0) {
-      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: 515 });
+      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: hayLogo ? 355 : 515 });
     }
 
     doc.moveDown(3);
@@ -550,7 +563,7 @@ router.post('/cotizar-closet-pdf', (req, res) => {
     doc.moveTo(40, 155).lineTo(555, 155).strokeColor('#dee2e6').lineWidth(1).stroke();
 
     let startY = 170;
-    doc.fillColor('#0d6efd').rect(40, startY, 515, 25).fill();
+    doc.fillColor(P.principal).rect(40, startY, 515, 25).fill();
     doc.fillColor('#FFFFFF').fontSize(10).font('Helvetica-Bold');
     doc.text('Concepto / Detalle', 50, startY + 8);
     doc.text('Especificación', 250, startY + 8);
@@ -568,7 +581,7 @@ router.post('/cotizar-closet-pdf', (req, res) => {
     doc.font('Helvetica').fontSize(10);
     filas.forEach((fila, index) => {
       if (index % 2 === 0) {
-        doc.fillColor('#f8f9fa').rect(40, currentY, 515, 22).fill();
+        doc.fillColor(P.fila).rect(40, currentY, 515, 22).fill();
       }
       doc.fillColor('#212529');
       doc.text(fila[0], 50, currentY + 6);
@@ -578,10 +591,10 @@ router.post('/cotizar-closet-pdf', (req, res) => {
     });
 
     currentY += 15;
-    doc.fillColor('#e7f1ff').rect(320, currentY, 235, 45).fill();
-    doc.rect(320, currentY, 235, 45).strokeColor('#b6d4fe').stroke();
-    doc.fillColor('#084298').fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
-    doc.fillColor('#0d6efd').fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
+    doc.fillColor(P.claro).rect(320, currentY, 235, 45).fill();
+    doc.rect(320, currentY, 235, 45).strokeColor(P.borde).stroke();
+    doc.fillColor(P.oscuro).fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
+    doc.fillColor(P.principal).fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
 
     doc.fillColor('#6c757d').fontSize(9).font('Helvetica').text('Este documento fue generado automáticamente por QuotiXX. Válido por 15 días.', 40, 780, { align: 'center' });
 
@@ -620,8 +633,11 @@ router.post('/cotizar-cama-pdf', (req, res) => {
     doc.pipe(res);
 
     const tituloMostrado = nombreNegocio || 'QuotiXX Carpintería';
-    doc.fillColor('#0d6efd').rect(0, 0, 600, 95).fill();
-    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15);
+    const P = paletaPdf(req.body);
+    doc.fillColor(P.principal).rect(0, 0, 600, 95).fill();
+    doc.fillColor(P.acento).rect(0, 95, 600, 4).fill();
+    const hayLogo = pintarLogoNegocio(doc, req.body);
+    doc.fillColor('#FFFFFF').fontSize(20).font('Helvetica-Bold').text(tituloMostrado, 40, 15, { width: hayLogo ? 355 : 515, height: 24, ellipsis: true });
     doc.fontSize(9).font('Helvetica').text('Documento Oficial de Cotización', 40, 42);
 
     let infoNegocio = [];
@@ -629,7 +645,7 @@ router.post('/cotizar-cama-pdf', (req, res) => {
     if (correoNegocio) infoNegocio.push(`Email: ${correoNegocio}`);
     if (direccionNegocio) infoNegocio.push(`Dir: ${direccionNegocio}`);
     if (infoNegocio.length > 0) {
-      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: 515 });
+      doc.fontSize(8.5).text(infoNegocio.join('  |  '), 40, 60, { width: hayLogo ? 355 : 515 });
     }
 
     doc.moveDown(3);
@@ -645,7 +661,7 @@ router.post('/cotizar-cama-pdf', (req, res) => {
     doc.moveTo(40, 155).lineTo(555, 155).strokeColor('#dee2e6').lineWidth(1).stroke();
 
     let startY = 170;
-    doc.fillColor('#0d6efd').rect(40, startY, 515, 25).fill();
+    doc.fillColor(P.principal).rect(40, startY, 515, 25).fill();
     doc.fillColor('#FFFFFF').fontSize(10).font('Helvetica-Bold');
     doc.text('Concepto / Detalle', 50, startY + 8);
     doc.text('Especificación', 250, startY + 8);
@@ -664,7 +680,7 @@ router.post('/cotizar-cama-pdf', (req, res) => {
     doc.font('Helvetica').fontSize(10);
     filas.forEach((fila, index) => {
       if (index % 2 === 0) {
-        doc.fillColor('#f8f9fa').rect(40, currentY, 515, 22).fill();
+        doc.fillColor(P.fila).rect(40, currentY, 515, 22).fill();
       }
       doc.fillColor('#212529');
       doc.text(fila[0], 50, currentY + 6);
@@ -674,10 +690,10 @@ router.post('/cotizar-cama-pdf', (req, res) => {
     });
 
     currentY += 15;
-    doc.fillColor('#e7f1ff').rect(320, currentY, 235, 45).fill();
-    doc.rect(320, currentY, 235, 45).strokeColor('#b6d4fe').stroke();
-    doc.fillColor('#084298').fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
-    doc.fillColor('#0d6efd').fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
+    doc.fillColor(P.claro).rect(320, currentY, 235, 45).fill();
+    doc.rect(320, currentY, 235, 45).strokeColor(P.borde).stroke();
+    doc.fillColor(P.oscuro).fontSize(10).font('Helvetica-Bold').text('TOTAL ESTIMADO:', 335, currentY + 10);
+    doc.fillColor(P.principal).fontSize(16).text(`$${Math.round(total).toLocaleString('es-CO')} COP`, 335, currentY + 24);
 
     doc.fillColor('#6c757d').fontSize(9).font('Helvetica').text('Este documento fue generado automáticamente por QuotiXX. Válido por 15 días.', 40, 780, { align: 'center' });
 
@@ -697,7 +713,11 @@ router.get('/configuracion/:email', async (req, res) => {
       nombreNegocio: user.nombreNegocio,
       telefonoNegocio: user.telefonoNegocio,
       correoNegocio: user.correoNegocio,
-      direccionNegocio: user.direccionNegocio
+      direccionNegocio: user.direccionNegocio,
+      logoNegocio: user.logoNegocio || '',
+      logoFondoBlanco: !!user.logoFondoBlanco,
+      colorPdf: user.colorPdf || '',
+      colorAcento: user.colorAcento || ''
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -706,14 +726,27 @@ router.get('/configuracion/:email', async (req, res) => {
 
 // Guardar/Actualizar configuración del negocio
 router.put('/configuracion', async (req, res) => {
-  const { email, nombreNegocio, telefonoNegocio, correoNegocio, direccionNegocio } = req.body;
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ message: 'Falta el correo del usuario.' });
   try {
-    const user = await User.findOneAndUpdate(
-      { email },
-      { nombreNegocio, telefonoNegocio, correoNegocio, direccionNegocio },
-      { new: true }
-    );
-    res.json({ message: 'Guardado correctamente', user });
+    // Solo se actualizan los campos que llegan (así no se borra el logo por accidente)
+    const cambios = {};
+    ['nombreNegocio', 'telefonoNegocio', 'correoNegocio', 'direccionNegocio'].forEach((campo) => {
+      if (typeof req.body[campo] === 'string') cambios[campo] = req.body[campo];
+    });
+    if (req.body.logoNegocio !== undefined) {
+      if (!esLogoValido(req.body.logoNegocio)) {
+        return res.status(400).json({ message: 'El logo no es válido. Usa una imagen PNG de hasta 700 KB.' });
+      }
+      cambios.logoNegocio = req.body.logoNegocio;
+      cambios.logoFondoBlanco = req.body.logoNegocio ? req.body.logoFondoBlanco === true : false;
+    }
+    ['colorPdf', 'colorAcento'].forEach((campo) => {
+      if (req.body[campo] !== undefined) cambios[campo] = esHex(req.body[campo]) ? req.body[campo] : '';
+    });
+    const user = await User.findOneAndUpdate({ email }, { $set: cambios }, { new: true });
+    if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+    res.json({ message: 'Guardado correctamente' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

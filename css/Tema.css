@@ -1,0 +1,557 @@
+/* ==========================================
+   ARCHIVO: css/Tema.css
+   Descripción: Capa de color, animación y diseño de Quotixx.
+   Se carga al final en todas las pantallas, así que "viste" lo que ya existe.
+   Paleta: café, beige y hueso (madera). Para cambiar los colores de toda la
+   app edita solo las variables de :root.
+   ========================================== */
+
+:root {
+    --qx-cafe: #8b5a2b;          /* café principal (encabezado, botones) */
+    --qx-cafe-claro: #b07d4b;
+    --qx-cafe-oscuro: #5d3a1a;   /* borde inferior de botones, títulos */
+    --qx-beige: #f3e9d8;
+    --qx-hueso: #faf6ee;
+    --qx-arena: #e7d7bd;
+    --qx-acento: #d9a441;        /* dorado madera */
+    --qx-tinta: #3b2a1a;         /* texto */
+    --qx-tinta-suave: #7a6450;
+    --qx-linea: #e3d3b8;
+    --qx-sombra: 0 6px 18px rgba(93, 58, 26, 0.16);
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- Fondo general ---------- */
+body {
+    background: linear-gradient(160deg, #faf6ee 0%, #f3e9d8 55%, #ead9bd 100%) fixed;
+    color: var(--qx-tinta);
+}
+
+@media (max-width: 500px) {
+    body {
+        background: linear-gradient(160deg, #faf6ee 0%, #f3e9d8 55%, #ead9bd 100%) fixed;
+    }
+}
+
+/* ---------- Encabezado: café con veta de madera y círculos flotantes ---------- */
+header {
+    position: relative;
+    overflow: hidden;
+    background:
+        repeating-linear-gradient(95deg, rgba(255, 255, 255, 0.05) 0 2px, rgba(0, 0, 0, 0) 2px 14px),
+        linear-gradient(135deg, #a9743f 0%, #8b5a2b 60%, #7a4e24 100%);
+    border-bottom: 4px solid var(--qx-acento);
+    box-shadow: 0 8px 22px rgba(93, 58, 26, 0.32);
+    animation: qx-baja 0.55s ease both;
+}
+
+header::before,
+header::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 236, 200, 0.38), rgba(255, 236, 200, 0));
+}
+
+header::before {
+    width: 120px;
+    height: 120px;
+    top: -40px;
+    left: -30px;
+    animation: qx-deriva 7s ease-in-out infinite;
+}
+
+header::after {
+    width: 90px;
+    height: 90px;
+    right: -20px;
+    bottom: -35px;
+    animation: qx-deriva 9s ease-in-out infinite reverse;
+}
+
+header h1,
+header p {
+    position: relative;
+    z-index: 1;
+}
+
+header h1 {
+    text-shadow: 0 3px 8px rgba(40, 20, 0, 0.35);
+    letter-spacing: 0.5px;
+}
+
+header p {
+    opacity: 0.95;
+}
+
+/* ---------- Contenido principal ---------- */
+main {
+    background: rgba(255, 252, 246, 0.95);
+    box-shadow: 0 -8px 26px rgba(93, 58, 26, 0.08);
+}
+
+main > section > h2,
+main > h2 {
+    color: var(--qx-cafe-oscuro);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+main > section > h2::after,
+main > h2::after {
+    content: "";
+    display: block;
+    width: 54px;
+    height: 4px;
+    margin: 8px auto 0;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--qx-acento), var(--qx-cafe-claro));
+}
+
+main h3,
+main h4 {
+    color: var(--qx-cafe-oscuro);
+}
+
+main p {
+    color: var(--qx-tinta-suave);
+}
+
+/* Entrada suave de cada bloque */
+main > * {
+    animation: qx-sube 0.55s ease both;
+}
+main > *:nth-child(2) { animation-delay: 0.06s; }
+main > *:nth-child(3) { animation-delay: 0.12s; }
+main > *:nth-child(4) { animation-delay: 0.18s; }
+main > *:nth-child(5) { animation-delay: 0.24s; }
+main > *:nth-child(n+6) { animation-delay: 0.3s; }
+
+/* ---------- Menú principal ---------- */
+nav a {
+    position: relative;
+    background: #fffdf8;
+    border: 1px solid var(--qx-linea);
+    border-left: 6px solid var(--qx-cafe);
+    box-shadow: 0 4px 0 var(--qx-arena), var(--qx-sombra);
+    color: var(--qx-tinta);
+    text-align: left;
+    padding-left: 20px;
+    animation: qx-sube 0.55s ease both;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.2s ease;
+}
+
+nav a:nth-child(1) { border-left-color: #8b5a2b; animation-delay: 0.08s; }
+nav a:nth-child(2) { border-left-color: #c0793a; animation-delay: 0.14s; }
+nav a:nth-child(3) { border-left-color: #d9a441; animation-delay: 0.20s; }
+nav a:nth-child(4) { border-left-color: #7d8b4a; animation-delay: 0.26s; }
+nav a:nth-child(5) { border-left-color: #a0522d; animation-delay: 0.32s; }
+nav a:nth-child(6) { border-left-color: #5d3a1a; animation-delay: 0.38s; }
+
+nav a::after {
+    content: "›";
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 26px;
+    color: #c9b08c;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+nav a:hover {
+    background: #fff6e6;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 var(--qx-arena), 0 16px 26px rgba(93, 58, 26, 0.22);
+    text-decoration: none;
+}
+
+nav a:hover::after {
+    transform: translate(5px, -50%);
+    color: var(--qx-cafe);
+}
+
+nav a:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--qx-arena), 0 3px 8px rgba(93, 58, 26, 0.2);
+}
+
+/* ---------- Formularios ---------- */
+label {
+    color: var(--qx-cafe-oscuro);
+}
+
+input,
+select,
+textarea {
+    background-color: #fffdf9;
+    border: 1.5px solid #d9c6a5;
+    color: var(--qx-tinta);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--qx-cafe);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(176, 125, 75, 0.25);
+    outline: none;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto;
+    accent-color: var(--qx-cafe);
+}
+
+input[type="color"] {
+    width: 56px;
+    height: 40px;
+    padding: 2px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Un pequeño temblor cuando un campo tiene un error */
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
+    border-color: #c0392b;
+    animation: qx-tiembla 0.35s ease;
+}
+
+/* Cuadro del total en las cotizaciones */
+form section {
+    background: linear-gradient(135deg, #f7ecd7 0%, #fffaf0 100%);
+    border: 2px dashed #d9b97f;
+    border-radius: 18px;
+    padding: 14px 10px;
+}
+
+form section h2#precioTotal {
+    color: var(--qx-cafe-oscuro) !important;
+}
+
+/* ---------- Botones flotantes ---------- */
+button {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #b07d4b 0%, #8b5a2b 100%);
+    color: #fff;
+    border-radius: 14px;
+    /* el "borde" de abajo da la sensación de botón con volumen; la sombra grande, de que flota */
+    box-shadow: 0 6px 0 var(--qx-cafe-oscuro), 0 14px 20px rgba(93, 58, 26, 0.32);
+    text-shadow: 0 1px 2px rgba(40, 20, 0, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-20deg);
+    pointer-events: none;
+}
+
+button:hover {
+    background: linear-gradient(180deg, #bd8a55 0%, #96622f 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 9px 0 var(--qx-cafe-oscuro), 0 20px 26px rgba(93, 58, 26, 0.36);
+}
+
+button:hover::after {
+    left: 140%;
+    transition: left 0.7s ease;
+}
+
+/* Al oprimir, el botón se hunde como si lo empujaras */
+button:active {
+    transform: translateY(5px);
+    box-shadow: 0 1px 0 var(--qx-cafe-oscuro), 0 3px 6px rgba(93, 58, 26, 0.3);
+    transition-duration: 0.05s;
+}
+
+button:disabled {
+    filter: grayscale(0.35);
+    opacity: 0.8;
+    cursor: wait;
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 var(--qx-cafe-oscuro), 0 6px 10px rgba(93, 58, 26, 0.25);
+}
+
+/* Onda que sale del punto donde se toca el botón (la crea js/utilidades.js) */
+.qx-onda {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    transform: scale(0);
+    animation: qx-onda 0.6s ease-out forwards;
+    pointer-events: none;
+}
+
+/* Botones de peligro (rojo, con estilo en línea) */
+button[style*="b00020"] {
+    background: linear-gradient(180deg, #e0463a 0%, #b00020 100%) !important;
+    box-shadow: 0 6px 0 #7a0016, 0 14px 20px rgba(176, 0, 32, 0.3) !important;
+}
+
+/* Botón secundario (gris cálido) */
+.logo-secundario {
+    background: linear-gradient(180deg, #a1917c 0%, #85755f 100%);
+    box-shadow: 0 6px 0 #5f5342, 0 14px 20px rgba(60, 50, 40, 0.25);
+}
+
+/* ---------- Tarjetas de listas ---------- */
+article,
+.tarjeta-producto {
+    background: #fffdf8 !important;
+    border: 1px solid var(--qx-linea) !important;
+    border-left: 5px solid var(--qx-acento) !important;
+    box-shadow: var(--qx-sombra);
+    animation: qx-sube 0.5s ease both;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+article:hover,
+.tarjeta-producto:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(93, 58, 26, 0.2);
+}
+
+/* ---------- Enlaces y pie ---------- */
+a { color: var(--qx-cafe); }
+
+footer {
+    background: transparent;
+    color: var(--qx-tinta-suave);
+    border-top-color: var(--qx-linea);
+}
+
+/* ---------- Logo del negocio y colores del PDF (Configuración) ---------- */
+.logo-ayuda {
+    color: var(--qx-tinta-suave);
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 6px 0 12px;
+}
+
+.logo-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 84px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: var(--qx-cafe);          /* el color real lo pone Configuración con JS */
+    border-bottom: 5px solid var(--qx-acento);
+    color: #fff;
+    box-shadow: var(--qx-sombra);
+    margin-bottom: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.logo-preview-nombre {
+    font-weight: bold;
+    font-size: 17px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.logo-preview-marco {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 70px;
+    min-height: 56px;
+    font-size: 12px;
+    opacity: 0.95;
+}
+
+.logo-preview-marco img {
+    max-width: 150px;
+    max-height: 62px;
+    object-fit: contain;
+    display: block;
+}
+
+.logo-preview-marco.con-tarjeta {
+    background: #fff;
+    border-radius: 8px;
+    padding: 5px 8px;
+}
+
+.logo-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.logo-opciones,
+.color-pdf {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 14px;
+    background: #f8efdf;
+    border: 1px solid var(--qx-linea);
+}
+
+.color-pdf h4 { margin: 0; }
+.color-pdf .logo-ayuda { margin: 0; }
+
+.color-fila {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.muestra {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(60, 40, 20, 0.35);
+    background: var(--qx-cafe);
+    transition: background-color 0.3s ease;
+}
+
+.logo-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: normal;
+    color: var(--qx-tinta);
+    font-size: 15px;
+}
+
+.logo-rango {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-weight: normal;
+    color: var(--qx-tinta);
+    font-size: 14px;
+}
+
+.logo-rango input[type="range"] {
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    accent-color: var(--qx-cafe);
+}
+
+/* ---------- Animaciones ---------- */
+@keyframes qx-sube {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes qx-baja {
+    from { opacity: 0; transform: translateY(-18px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes qx-deriva {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(22px, 16px) scale(1.12); }
+}
+
+@keyframes qx-tiembla {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+@keyframes qx-onda {
+    to { transform: scale(4); opacity: 0; }
+}
+
+/* ==========================================
+   COMPUTADOR / TABLET
+   En pantallas anchas la página usa más espacio.
+   En el celular (y en el APK) todo queda como siempre.
+   ========================================== */
+@media (min-width: 700px) {
+    header,
+    main,
+    footer {
+        max-width: 760px;
+    }
+
+    header { border-radius: 0 0 40px 40px; }
+    main { padding: 34px 40px; }
+
+    /* Menús en cuadrícula de dos columnas */
+    nav {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    nav a { padding: 20px 22px; font-size: 17px; }
+
+    /* Listas (clientes, historial, catálogos) en dos columnas */
+    main section[id^="lista"] {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        align-items: start;
+    }
+}
+
+@media (min-width: 1000px) {
+    header,
+    main,
+    footer {
+        max-width: 1120px;
+    }
+
+    header h1 { font-size: 36px; }
+    header p { font-size: 17px; }
+    main { padding: 40px 56px; min-height: 70vh; }
+
+    nav { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    nav a { padding: 26px 26px; font-size: 18px; }
+
+    main section[id^="lista"] { grid-template-columns: repeat(3, 1fr); }
+
+    /* Los formularios no se estiran hasta los bordes: quedan centrados y cómodos de leer */
+    body:has(form) form,
+    main > section:not([id^="lista"]),
+    main > div,
+    main > h2 {
+        max-width: 760px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Los botones ya no ocupan todo el ancho */
+    body:has(form) button {
+        width: 100%;
+    }
+
+    footer { padding: 18px; }
+}
+
+/* Respeta a quien desactiva las animaciones en su teléfono */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

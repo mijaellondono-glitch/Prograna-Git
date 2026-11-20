@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/Tarjetas.css">
     <link rel="stylesheet" href="css/Login.css">
     <link rel="stylesheet" href="css/Adaptación celular.css">
+    <link rel="stylesheet" href="css/Tema.css">
 </head>
 
 <body>
@@ -205,6 +206,10 @@
                 telefonoNegocio: localStorage.getItem('telefonoNegocio') || '',
                 correoNegocio: localStorage.getItem('correoNegocio') || '',
                 direccionNegocio: localStorage.getItem('direccionNegocio') || '',
+                logoNegocio: localStorage.getItem('logoNegocio') || '',
+                logoFondoBlanco: localStorage.getItem('logoFondoBlanco') === '1',
+                colorPdf: localStorage.getItem('colorPdf') || '',
+                colorAcento: localStorage.getItem('colorAcento') || '',
                 tamanoTexto,
                 cabeceroTexto,
                 mesitasTexto,

@@ -27,6 +27,7 @@
 
     <!-- Adaptación Móvil -->
     <link rel="stylesheet" href="css/Adaptación celular.css">
+    <link rel="stylesheet" href="css/Tema.css">
 </head>
 
 <body>
@@ -40,7 +41,7 @@
 
         <section>
             <h2>🚪 Cotizador de Puertas</h2>
-            <p>Configura las medidas y opciones de la puerta para calcular el precio total</p>
+            <p>Elige el tipo de puerta, escribe el precio que vas a cobrar y se suma la chapa si la incluyes</p>
         </section>
 
         <form id="formCotizarPuerta">
@@ -68,10 +69,24 @@
             <div>
                 <label for="tipoPuerta">🛠️ Tipo de Puerta</label>
                 <select id="tipoPuerta" required>
-                    <option value="650000" data-nombre="Puerta Entamborada Normal">Puerta Entamborada Normal ($650.000)</option>
-                    <option value="880000" data-nombre="Puerta Corrediza con Riel">Puerta Corrediza con Riel ($880.000)</option>
-                    <option value="1150000" data-nombre="Puerta Maciza">Puerta Maciza ($1.150.000)</option>
+                    <option value="Puerta Entamborada Normal" data-nombre="Puerta Entamborada Normal">Puerta Entamborada Normal</option>
+                    <option value="Puerta Corrediza con Riel" data-nombre="Puerta Corrediza con Riel">Puerta Corrediza con Riel</option>
+                    <option value="Puerta Maciza" data-nombre="Puerta Maciza">Puerta Maciza</option>
                 </select>
+            </div>
+
+            <div>
+                <label for="precioPuerta">💰 Precio de la puerta (COP)</label>
+                <input
+                    type="number"
+                    id="precioPuerta"
+                    inputmode="numeric"
+                    min="1"
+                    step="any"
+                    placeholder="Ej: 850000"
+                    required
+                >
+                <small id="precioFormateado" style="color:#6c757d;">Escribe el valor que vas a cobrar por la puerta.</small>
             </div>
 
             <div>
@@ -122,7 +137,7 @@
             <section>
                 <div style="text-align: center;">
                     <h3>Total Estimado:</h3>
-                    <h2 id="precioTotal" style="color: #004085; font-size: 1.8rem;">$650.000 COP</h2>
+                    <h2 id="precioTotal" style="color: #004085; font-size: 1.8rem;">$0 COP</h2>
                 </div>
             </section>
 
@@ -154,6 +169,8 @@
 
     <script>
        const tipoPuerta = document.getElementById('tipoPuerta');
+        const precioPuerta = document.getElementById('precioPuerta');
+        const precioFormateadoEl = document.getElementById('precioFormateado');
         const anchoInput = document.getElementById('anchoInput');
         const altoInput = document.getElementById('altoInput');
         const incluyeChapa = document.getElementById('incluyeChapa');
@@ -162,29 +179,20 @@
         const colorInput = document.getElementById('color');
 
         function calcularDatos() {
-            const precioBase = parseFloat(tipoPuerta.value);
+            // El precio de la puerta lo escribe el carpintero (ya no hay precios automáticos)
+            const precioBase = Math.max(0, parseFloat(precioPuerta.value) || 0);
             const anchoMetros = parseFloat(anchoInput.value || 0) / 100;
             const altoMetros = parseFloat(altoInput.value || 0) / 100;
             const chapa = parseFloat(incluyeChapa.value);
 
             const areaM2 = anchoMetros * altoMetros;
-            const areaEstandard = 1.98; // 0.90m x 2.20m
-            let recargoExceso = 0;
-
-            if (areaM2 > areaEstandard) {
-                const m2Extra = areaM2 - areaEstandard;
-                const tarifaExtra = precioBase >= 1150000 ? 220000 : 150000;
-                recargoExceso = m2Extra * tarifaExtra;
-            }
-
-            const total = precioBase + recargoExceso + chapa;
+            const total = precioBase + chapa;
 
             return {
                 precioBase,
                 anchoMetros,
                 altoMetros,
                 areaM2,
-                recargoExceso,
                 chapa,
                 total
             };
@@ -193,9 +201,12 @@
         function actualizarPantalla() {
             const datos = calcularDatos();
             precioTotalEl.textContent = `$${Math.round(datos.total).toLocaleString('es-CO')} COP`;
+            precioFormateadoEl.textContent = datos.precioBase > 0
+                ? `Precio de la puerta: $${Math.round(datos.precioBase).toLocaleString('es-CO')} COP`
+                : 'Escribe el valor que vas a cobrar por la puerta.';
         }
 
-        [tipoPuerta, anchoInput, altoInput, incluyeChapa].forEach(element => {
+        [tipoPuerta, precioPuerta, anchoInput, altoInput, incluyeChapa].forEach(element => {
             element.addEventListener('change', actualizarPantalla);
             element.addEventListener('input', actualizarPantalla);
         });
@@ -218,6 +229,11 @@
                 correoNegocio: localStorage.getItem('correoNegocio') || '',
                 direccionNegocio: localStorage.getItem('direccionNegocio') || '',
                 tipoNombre,
+                precioPuerta: datos.precioBase,
+                logoNegocio: localStorage.getItem('logoNegocio') || '',
+                logoFondoBlanco: localStorage.getItem('logoFondoBlanco') === '1',
+                colorPdf: localStorage.getItem('colorPdf') || '',
+                colorAcento: localStorage.getItem('colorAcento') || '',
                 ancho: anchoInput.value,
                 alto: altoInput.value,
                 areaM2: datos.areaM2.toFixed(2),

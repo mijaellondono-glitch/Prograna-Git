@@ -29,7 +29,13 @@ const userSchema = new mongoose.Schema({
   telefonoNegocio: { type: String, default: '' },
   correoNegocio: { type: String, default: '' },
   direccionNegocio: { type: String, default: '' },
-  notificaciones: { type: String, default: 'activadas' }
+  notificaciones: { type: String, default: 'activadas' },
+  // Logo del negocio (PNG en base64) y si se dibuja sobre un recuadro blanco en el PDF
+  logoNegocio: { type: String, default: '' },
+  logoFondoBlanco: { type: Boolean, default: false },
+  // Colores del PDF sacados del logo ('' = café por defecto)
+  colorPdf: { type: String, default: '' },
+  colorAcento: { type: String, default: '' }
 
 }, { timestamps: true });
 
